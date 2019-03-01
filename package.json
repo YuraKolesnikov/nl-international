@@ -1,0 +1,16 @@
+{
+  "name": "nl-int",
+  "version": "1.0.0",
+  "main": "server/app.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --watch server",
+    "build": "node ./server/app.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.2",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.4.16"
+  }
+}
