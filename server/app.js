@@ -2,7 +2,7 @@
 const express = require('express')
 const hbs = require('express-handlebars')
 const path = require('path')
-
+const bodyParser = require('body-parser')
 /* Modules */
 const config = require('./config/config')
 const indexRouter = require('./routes/index')
@@ -20,7 +20,8 @@ app.engine('.hbs', hbs({
 }))
 
 app.set('view engine', '.hbs')
-
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
 
 app.use('/', indexRouter)
 app.use('/user', userRouter)
