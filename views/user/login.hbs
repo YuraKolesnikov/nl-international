@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header">
-          <h3>Login</h3>
+          <h3>{{ local.logIn }}</h3>
         </div>
         <div class="card-body">
           <form method="POST" action="/user/logged-in">
@@ -19,7 +19,7 @@
               >
             </fieldset>
             <fieldset class="form-group">
-              <label for="password">Password</label>
+              <label for="password">{{ local.password }}</label>
               <input 
                 id="password"
                 type="password"
@@ -28,7 +28,7 @@
                 required
               >
             </fieldset>
-            <button type="submit" class="btn btn-primary">Log In</button>
+            <button type="submit" class="btn btn-primary">{{ local.submit }}</button>
           </form>
         </div>
       </div>

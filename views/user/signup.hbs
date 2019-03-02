@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header">
-          <h3>Sign Up</h3>
+          <h3>{{ local.register }}</h3>
         </div>
         <div class="card-body">
           <form method="POST" action="/user/registered">
@@ -13,44 +13,48 @@
                 id="id" 
                 type="text"
                 name="id" 
-                class="form-control" 
+                class="form-control"
+                autocomplete="false"
                 placeholder="371-12345678" 
                 required
               >
             </fieldset>
             <fieldset class="form-group">
-              <label for="fullName">Full name</label>
+              <label for="fullName">{{ local.fullName }}</label>
               <input 
                 id="fullName" 
                 type="text"
                 name="fullName" 
-                class="form-control" 
-                placeholder="John Clooney"
+                class="form-control"
+                autocomplete="false" 
+                placeholder="George Clooney"
                 required
               >
             </fieldset>
             <fieldset class="form-group">
-              <label for="password">Password</label>
+              <label for="password">{{ local.password }}</label>
               <input 
                 id="password"
                 type="password"
                 name="password"
                 class="form-control"
+                autocomplete="false"
                 required
               >
-              <small class="text-muted form-text">Your password must be 6-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.</small>
+              <small class="text-muted form-text">{{ local.passwordInfo }}</small>
             </fieldset>
             <fieldset class="form-group">
-              <label for="password2">Confirm password</label>
+              <label for="password2">{{ local.confirmPassword }}</label>
               <input 
                 id="password2"
                 type ="password"
                 name="password2" 
                 class ="form-control"
+                autocomplete="false"
                 required
               >
             </fieldset>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">{{ local.submit }}</button>
           </form>
         </div>
       </div>

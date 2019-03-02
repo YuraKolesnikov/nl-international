@@ -1,0 +1,13 @@
+{
+  "first": "Pirmais",
+  "account": "Lietotājs",
+  "submit": "Apstiprināt",
+  "showOrders": "Mani pasūtījumi",
+  "createOrder": "Pievenot pasūtījumu",
+  "register": "Reģistrēties",
+  "logIn": "Ieiet",
+  "fullName": "Vārds, uzvārds",
+  "password": "Parole",
+  "confirmPassword": "Apstiprināt paroli",
+  "passwordInfo": "Jūsu parolei jābut 6-20 simbolu garai"
+}
