@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --watch server",
-    "build": "node ./server/app.js"
+    "build": "node ./server/app.js",
+    "deploy": "git push heroku master && git push"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
