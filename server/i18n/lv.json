@@ -1,5 +1,4 @@
 {
-  "first": "Pirmais",
   "account": "Lietotājs",
   "submit": "Apstiprināt",
   "showOrders": "Mani pasūtījumi",
@@ -9,5 +8,10 @@
   "fullName": "Vārds, uzvārds",
   "password": "Parole",
   "confirmPassword": "Apstiprināt paroli",
-  "passwordInfo": "Jūsu parolei jābut 6-20 simbolu garai"
+  "passwordInfo": "Jūsu parolei jābut 6-20 simbolu garai",
+  "order": {
+    "price": "Summa (rubļos)",
+    "city": "Pilsēta",
+    "number": "Pasūtījuma numurs"
+  }
 }

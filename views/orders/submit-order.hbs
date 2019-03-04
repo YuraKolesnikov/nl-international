@@ -1,5 +1,51 @@
-<div class="container">
-  <div class="row">
-    <h1 class="d-block m-auto">Submit order</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3>{{ local.createOrder }}</h3>
+        </div>
+        <div class="card-body">
+          <form method="POST" action="/orders/submit">
+            <fieldset class="form-group">
+              <label for="orderNumber">{{ local.order.number }}</label>
+              <input 
+                id="orderNumber" 
+                type="text"
+                name="number" 
+                class="form-control" 
+                placeholder="12345678" 
+                required
+              >
+            </fieldset>
+            <fieldset class="form-group">
+              <label for="orderPrice">{{ local.order.price }} </label>
+              <input 
+                id="orderPrice"
+                type="text" 
+                name="price"
+                class="form-control" 
+                required
+                >
+            </fieldset>
+            <fieldset class="form-group">
+              <label for="orderCity">{{ local.order.city }}</label>
+              {{!-- <input 
+                id="orderCity"
+                type="text"
+                name="orderCity"
+                class="form-control"
+                required
+              > --}}
+              <select name="city" id="orderCity" class="form-control">
+                <option value="Pskov">Псков</option>
+                <option value="Peterburg">Санкт-Петербург</option>
+              </select>
+            </fieldset>
+            <button type="submit" class="btn btn-primary">{{ local.submit }}</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
