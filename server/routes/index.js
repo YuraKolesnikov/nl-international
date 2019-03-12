@@ -1,6 +1,6 @@
 const router = require('express').Router()
-
-router.get('/', (req, res) => res.render('home'))
+const db = require('../db/db')
+router.get('/', (req, res) => res.redirect())
 
 router.get('/orders', (req, res) => res.render('orders/main'))
 
