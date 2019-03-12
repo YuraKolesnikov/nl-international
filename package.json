@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --watch server",
-    "server:build": "node ./server/app.js",
+    "server": "node ./server/app.js",
     "deploy": "git push heroku master && git push"
   },
   "dependencies": {
