@@ -1,4 +1,5 @@
 /* Dependencies */
+const dotenv = require('dotenv').config()
 const express = require('express')
 const hbs = require('express-handlebars')
 const bodyParser = require('body-parser')
