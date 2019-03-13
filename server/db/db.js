@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
-
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/nl-international'
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
 .then(() => console.log(mongoose.Collection.users))
 .catch(e => console.log('Error!', e))
