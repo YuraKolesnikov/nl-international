@@ -5,7 +5,7 @@ router.get('/login', (req, res) => res.render('user/login'))
 
 router.get('/signup', (req, res) => res.render('user/signup'))
 
-router.post('/registered', (req, res) => {
+router.post('/login', (req, res) => {
   const { managerID, fullName, password, password2 } = req.body
   const newUser = new User({
     managerID,
@@ -18,7 +18,7 @@ router.post('/registered', (req, res) => {
   .catch(e => res.status(400).send(e))
 })
 
-router.post('/logged-in', (req, res) => {
+router.post('/signup', (req, res) => {
   console.log(req.body)
 })
 

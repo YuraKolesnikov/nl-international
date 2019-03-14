@@ -1,3 +1,12 @@
+{{#each errors}}
+<div class="alert alert-danger my-3" style="max-width: 540px; margin: auto;">
+  {{text}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{else}}
+{{/each}}
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
@@ -6,16 +15,14 @@
           <h3>{{ local.createOrder }}</h3>
         </div>
         <div class="card-body">
-          <form method="POST" action="/orders/submit">
+          <form method="POST" action="/orders">
             <fieldset class="form-group">
               <label for="orderNumber">{{ local.order.number }}</label>
               <input 
                 id="orderNumber" 
                 type="text"
                 name="number" 
-                class="form-control" 
-                placeholder="12345678" 
-                required
+                class="form-control"
               >
             </fieldset>
             <fieldset class="form-group">
@@ -24,8 +31,7 @@
                 id="orderPrice"
                 type="text" 
                 name="price"
-                class="form-control" 
-                required
+                class="form-control"
                 >
             </fieldset>
             <fieldset class="form-group">
@@ -38,8 +44,8 @@
                 required
               > --}}
               <select name="city" id="orderCity" class="form-control">
-                <option value="Pskov">Псков</option>
-                <option value="Peterburg">Санкт-Петербург</option>
+                <option value="Псков">Псков</option>
+                <option value="Санкт-Петербург">Санкт-Петербург</option>
               </select>
             </fieldset>
             <button type="submit" class="btn btn-primary">{{ local.submit }}</button>

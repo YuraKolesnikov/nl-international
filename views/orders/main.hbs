@@ -1,5 +1,25 @@
-<div class="container">
-  <div class="row">
-    <h1 class="d-block m-auto">Orders</h1>
+<div class="container mt-5">
+  <h1 class="text-center">Orders</h1>
+  <div class="row mt-5">
+    {{#each orders}}
+    <div class="col-sm-6">
+      <div class="card card-body mb-2">
+        <h4># {{number}}</h4>
+        <p>Price: {{price}} &#8381;</p>
+        <p>City: {{city}}</p>
+        <div class="container">
+          <div class="row justify-content-between" style="max-width: 150px;">
+            <a class="btn btn-info" href="/orders/edit/{{id}}">Edit</a>
+            <form action="/orders/{{id}}?_method=DELETE" method="POST">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{else}}
+    <p>No orders added</p>
+    {{/each}}
   </div>
 </div>

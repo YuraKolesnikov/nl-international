@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const i18n = require('i18n-express')
 const path = require('path')
+const methodOverride = require('method-override')
 /* Modules */
 const config = require('./config/config')
 const indexRouter = require('./routes/index')
@@ -34,7 +35,7 @@ app.use(i18n({
   textsVarName: 'local',
   cookieLangName: 'ulang'
 }));
-
+app.use(methodOverride('_method'))
 app.use('/', indexRouter)
 app.use('/user', userRouter)
 
