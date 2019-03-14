@@ -10,7 +10,7 @@ const path = require('path')
 const config = require('./config/config')
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
-
+const mongoose = require('./db/db')
 /* Setting up application */
 const app = express()
 

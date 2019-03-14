@@ -14,8 +14,7 @@ router.post('/registered', (req, res) => {
   })
 
   newUser.save()
-  .then(user => user.generateAuthToken())
-  .then(token => res.header('x-auth', token).send(user))
+  .then(()=> res.send(user))
   .catch(e => res.status(400).send(e))
 })
 
