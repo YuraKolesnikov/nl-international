@@ -39,7 +39,7 @@ app.use(i18n({
 }));
 app.use(methodOverride('_method'))
 app.use(session({
-  secret: config.secret,
+  secret: 'Godfather123#@!',
   resave: true,
   saveUninitialized: true
 }))
