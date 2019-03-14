@@ -7,6 +7,8 @@ const cookieParser = require('cookie-parser')
 const i18n = require('i18n-express')
 const path = require('path')
 const methodOverride = require('method-override')
+const session = require('express-session')
+const flash = require('connect-flash')
 /* Modules */
 const config = require('./config/config')
 const indexRouter = require('./routes/index')
@@ -36,6 +38,19 @@ app.use(i18n({
   cookieLangName: 'ulang'
 }));
 app.use(methodOverride('_method'))
+app.use(session({
+  secret: config.secret,
+  resave: true,
+  saveUninitialized: true
+}))
+app.use(flash())
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.error_msg = req.flash('error_msg')
+  res.locals.error = req.flash('error')
+  res.locals.user = req.user || null
+  next()
+})
 app.use('/', indexRouter)
 app.use('/user', userRouter)
 

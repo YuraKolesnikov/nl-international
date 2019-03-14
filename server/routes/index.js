@@ -46,8 +46,11 @@ router.post('/orders', (req, res) => {
     })
 
     newOrder.save()
-      .then(order => res.send(order))
-      .catch(e => res.status(400).send(e))
+    .then(order => {
+      req.flash('success_msg', 'Order added')
+      res.redirect('/orders')
+    })
+    .catch(e => res.status(400).send(e))
   }
 })
 
@@ -55,12 +58,18 @@ router.put('/orders/:id', (req, res) => {
   const { number, price, city } = req.body
   const { id } = req.params
   Order.findOneAndUpdate({_id: id}, {$set: {number, price, city}})
-  .then(order => res.redirect('/orders'))
+  .then(order => {
+    req.flash('success_msg', 'Order updated')
+    res.redirect('/orders')
+  })
 })
 
 router.delete('/orders/:id', (req, res) => {
   const { id } = req.params
   Order.findByIdAndRemove({_id: id})
-  .then(order => res.redirect('/orders'))
+  .then(order => {
+    req.flash('success_msg', 'Order removed')
+    res.redirect('/orders')
+  })
 })
 module.exports = router

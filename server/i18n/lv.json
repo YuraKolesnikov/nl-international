@@ -14,5 +14,6 @@
     "price": "Summa (rubļos)",
     "city": "Pilsēta",
     "number": "Pasūtījuma numurs"
-  }
+  },
+  "testMessage": "Nodzests!"
 }

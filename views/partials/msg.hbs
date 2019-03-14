@@ -1,0 +1,17 @@
+{{#if success_msg}}
+  <div class="alert alert-success my-3" style="max-width: 540px; margin: auto;">
+    {{success_msg}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{{/if}}
+
+{{#if error_msg}}
+<div class="alert alert-danger my-3" style="max-width: 540px; margin: auto;">
+  {{error_msg}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{/if}}
