@@ -8,10 +8,13 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
+      {{#if user}}
       <li class="nav-item"><a href="/orders" class="nav-link">{{ local.showOrders }}</a></li>
       <li class="nav-item"><a href="/orders/add" class="nav-link">{{ local.createOrder }}</a></li>
+      {{else}}
       <li class="nav-item"><a class="nav-link" href="/user/login">{{ local.logIn }}</a></li>
       <li class="nav-item"><a class="nav-link" href="/user/signup">{{ local.register }}</a></li>
+      {{/if}}
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item"><a href="?clang=ru" id="ru" class="nav-link language-toggle">RU</a></li>

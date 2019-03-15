@@ -20,6 +20,9 @@ const User = new Schema({
     minlength: 6,
     trim: true
   },
+  user: {
+    type: String
+  },
   admin: {
     type: Boolean,
     default: false

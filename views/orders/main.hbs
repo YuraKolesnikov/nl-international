@@ -4,9 +4,9 @@
     {{#each orders}}
     <div class="col-sm-6">
       <div class="card card-body mb-2">
-        <h4># {{number}}</h4>
-        <p>Price: {{price}} &#8381;</p>
-        <p>City: {{city}}</p>
+        <h4># {{orderNumber}}</h4>
+        <p>Price: {{orderPrice}} &#8381;</p>
+        <p>City: {{orderCity}}</p>
         <div class="container">
           <div class="row justify-content-between" style="max-width: 150px;">
             <a class="btn btn-info" href="/orders/edit/{{id}}">Edit</a>

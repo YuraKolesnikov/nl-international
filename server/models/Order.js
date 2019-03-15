@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const Order = new Schema({
-  number: String,
-  price: String,
-  city: String
+  orderNumber: String,
+  orderPrice: String,
+  orderCity: String,
+  user: String
 })
 
 module.exports = mongoose.model('Order', Order)

@@ -9,16 +9,20 @@ const path = require('path')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash')
+const passport = require('passport')
 /* Modules */
 const config = require('./config/config')
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
 const mongoose = require('./db/db')
+const passportStrategy = require('./auth/passport')
+passportStrategy(passport)
 /* Setting up application */
 const app = express()
 
 /* Middleware */
 const publicPath = 'public'
+
 app.use(express.static(publicPath))
 app.engine('.hbs', hbs({
   defaultLayout: 'main',
@@ -43,6 +47,8 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(flash())
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg')
@@ -51,7 +57,8 @@ app.use((req, res, next) => {
   res.locals.user = req.user || null
   next()
 })
-app.use('/', indexRouter)
+app.get('/', (req, res) => res.render('home'))
+app.use('/orders', indexRouter)
 app.use('/user', userRouter)
 
 /* Port setup */

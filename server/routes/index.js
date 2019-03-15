@@ -1,75 +1,102 @@
-const router = require('express').Router()
+const express = require('express')
+const mongoose = require('mongoose')
+const router = express.Router()
+const { ensureAuthenticated } = require('../auth/ensureAuth')
+
 const Order = require('../models/Order')
 
-router.get('/', (req, res) => res.render('home'))
+router.get('/', ensureAuthenticated, (req, res) => {
+  Order.find({ user: req.user.id })
+    .sort({ date: 'desc' })
+    .then(orders => {
+      res.render('orders/main', {
+        orders
+      });
+    });
+});
 
-router.get('/orders', (req, res) => {
-  Order.find({})
-  .then(orders => {
-    res.render('orders/main', {orders})
-  })
-})
+router.get('/add', ensureAuthenticated, (req, res) => {
+  res.render('orders/add-order');
+});
 
-router.get('/orders/add', (req, res) => res.render('orders/add-order'))
-router.get('/orders/edit/:id', (req, res) => {
+router.get('/edit/:id', ensureAuthenticated, (req, res) => {
   Order.findOne({
     _id: req.params.id
   })
-  .then(order => {
-    res.render('orders/edit-order', {order})
-  })
-  
-})
-router.post('/orders', (req, res) => {
-  let errors = []
-  const { city, price, number } = req.body
+    .then(order => {
+      if (order.user != req.user.id) {
+        req.flash('error_msg', 'Not Authorized');
+        res.redirect('/orders');
+      } else {
+        res.render('orders/edit-order', {
+          order
+        });
+      }
+    });
+});
 
-  if(!price) {
-    errors.push({text: 'Please add a price!'})
+router.post('/', ensureAuthenticated, (req, res) => {
+  let errors = [];
+  console.log(req.body)
+  const { orderNumber, orderPrice, orderCity} = req.body
+  if (!orderNumber) {
+    errors.push({ text: 'Please add an order number' });
   }
-  if(!number) {
-    errors.push({text: 'Please add order number!'})
+  if (!orderPrice) {
+    errors.push({ text: 'Please add an order price' });
   }
-  
-  if(errors.length) {
+
+  if (!orderCity) {
+    errors.push({ text: 'Please add an order city' });
+  }
+
+  if (errors.length > 0) {
     res.render('orders/add-order', {
       errors,
-      number,
-      price,
-      city
-    })
+      orderNumber, orderPrice, orderCity
+    });
   } else {
     const newOrder = new Order({
-      number,
-      price,
-      city
+      orderNumber, orderPrice, orderCity,
+      user: req.user.id
     })
-
-    newOrder.save()
-    .then(order => {
-      req.flash('success_msg', 'Order added')
-      res.redirect('/orders')
-    })
-    .catch(e => res.status(400).send(e))
+    newOrder
+      .save()
+      .then(order => {
+        req.flash('success_msg', 'Order added');
+        res.redirect('/orders');
+      })
   }
-})
+});
 
-router.put('/orders/:id', (req, res) => {
-  const { number, price, city } = req.body
-  const { id } = req.params
-  Order.findOneAndUpdate({_id: id}, {$set: {number, price, city}})
+router.put('/:id', ensureAuthenticated, (req, res) => {
+  const {orderNumber, orderPrice, orderCity} = req.body
+  Order.findOneAndUpdate({_id: req.params.id}, {$set: {orderNumber, orderPrice, orderCity}})
   .then(order => {
-    req.flash('success_msg', 'Order updated')
-    res.redirect('/orders')
+    console.log(order)
+    req.flash('success_msg', `Order Nr. ${order.orderNumber} updated`);
+    res.redirect('/orders');
   })
-})
+  /* Order.findOne({
+    _id: req.params.id
+  })
+    .then(order => {
+      order.orderNumber = orderNumber;
+      order.orderPrice = orderPrice;
+      order.orderCity = orderCity
+      order.save()
+        .then(order => {
+          
+        })
+    }); */
+});
 
-router.delete('/orders/:id', (req, res) => {
-  const { id } = req.params
-  Order.findByIdAndRemove({_id: id})
-  .then(order => {
-    req.flash('success_msg', 'Order removed')
-    res.redirect('/orders')
-  })
-})
-module.exports = router
+router.delete('/:id', ensureAuthenticated, (req, res) => {
+  Order.remove({ _id: req.params.id })
+    .then(() => {
+      req.flash('success_msg', 'Video idea removed');
+      res.redirect('/orders');
+    });
+});
+
+module.exports = router;
