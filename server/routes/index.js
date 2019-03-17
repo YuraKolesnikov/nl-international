@@ -70,13 +70,19 @@ router.post('/', ensureAuthenticated, (req, res) => {
 });
 
 router.put('/:id', ensureAuthenticated, (req, res) => {
+  const { id } = req.params;
   const {orderNumber, orderPrice, orderCity} = req.body
-  Order.findOneAndUpdate({_id: req.params.id}, {$set: {orderNumber, orderPrice, orderCity}})
+  Order.findOneAndUpdate(
+    { _id: id},
+    { $set: { orderNumber, orderPrice, orderCity } },
+    { new: true }
+  )
   .then(order => {
-    console.log(order)
-    req.flash('success_msg', `Order Nr. ${order.orderNumber} updated`);
-    res.redirect('/orders');
+    console.log(order);
+    req.flash("success_msg", `Order Nr. ${order.orderNumber} updated`);
+    res.redirect("/orders");
   })
+  .catch(e => res.send(e));
   /* Order.findOne({
     _id: req.params.id
   })
