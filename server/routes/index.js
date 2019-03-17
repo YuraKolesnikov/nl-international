@@ -78,29 +78,16 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
     { new: true }
   )
   .then(order => {
-    console.log(order);
     req.flash("success_msg", `Order Nr. ${order.orderNumber} updated`);
     res.redirect("/orders");
   })
   .catch(e => res.send(e));
-  /* Order.findOne({
-    _id: req.params.id
-  })
-    .then(order => {
-      order.orderNumber = orderNumber;
-      order.orderPrice = orderPrice;
-      order.orderCity = orderCity
-      order.save()
-        .then(order => {
-          
-        })
-    }); */
 });
 
 router.delete('/:id', ensureAuthenticated, (req, res) => {
   Order.remove({ _id: req.params.id })
     .then(() => {
-      req.flash('success_msg', 'Video idea removed');
+      req.flash('success_msg', 'Order removed');
       res.redirect('/orders');
     });
 });

@@ -11,9 +11,13 @@
       {{#if user}}
       <li class="nav-item"><a href="/orders" class="nav-link">{{ local.showOrders }}</a></li>
       <li class="nav-item"><a href="/orders/add" class="nav-link">{{ local.createOrder }}</a></li>
+      <li class="nav-item"><a href="/user/logout" class="nav-link">{{ local.logOut }}</a></li>
       {{else}}
       <li class="nav-item"><a class="nav-link" href="/user/login">{{ local.logIn }}</a></li>
       <li class="nav-item"><a class="nav-link" href="/user/signup">{{ local.register }}</a></li>
+      {{/if}}
+      {{#if user.admin}}
+      <li class="nav-item"><a class="nav-link" href="/user/login">СЕКРЕТОЧКА</a></li>
       {{/if}}
     </ul>
     <ul class="navbar-nav ml-auto">

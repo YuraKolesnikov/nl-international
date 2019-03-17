@@ -41,34 +41,34 @@ router.post('/singup', (req, res) => {
     });
   } else {
     User.findOne({managerID})
-      .then(user => {
-        if (user) {
-          req.flash('error_msg', 'Email already regsitered');
-          res.redirect('/user/signup');
-        } else {
-          const newUser = new User({
-            managerID,
-            fullName,
-            password
-          });
+    .then(user => {
+      if (user) {
+        req.flash('error_msg', 'Email already regsitered');
+        res.redirect('/user/signup');
+      } else {
+        const newUser = new User({
+          managerID,
+          fullName,
+          password
+        });
 
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newUser.password, salt, (err, hash) => {
-              if (err) throw err;
-              newUser.password = hash;
-              newUser.save()
-                .then(user => {
-                  req.flash('success_msg', 'You are now registered and can log in');
-                  res.redirect('/user/login');
-                })
-                .catch(err => {
-                  console.log(err);
-                  return;
-                });
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            newUser.password = hash;
+            newUser.save()
+            .then(user => {
+              req.flash('success_msg', 'You are now registered and can log in');
+              res.redirect('/user/login');
+            })
+            .catch(err => {
+              console.log(err);
+              return;
             });
           });
-        }
-      });
+        });
+      }
+    });
   }
 });
 
