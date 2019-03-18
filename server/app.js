@@ -27,7 +27,10 @@ const publicPath = 'public'
 app.use(express.static(publicPath))
 app.engine('.hbs', hbs({
   defaultLayout: 'main',
-  extname: '.hbs'
+  extname: '.hbs',
+  helpers: {
+    inc: (i) => parseInt(i) + 1
+  }
 }))
 
 app.set('view engine', '.hbs')

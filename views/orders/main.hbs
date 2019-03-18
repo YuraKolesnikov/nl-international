@@ -1,8 +1,36 @@
 <div class="container mt-5">
   <h1 class="text-center">Orders</h1>
   <div class="row mt-5">
-    {{#each orders}}
-    <div class="col-sm-6">
+      <table class="table table-striped">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nr.</th>
+            <th scope="col">Price</th>
+            <th scope="col">City</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{#each orders}}
+          <tr>
+            <th scope="row">{{inc @index}}</th>
+            <td>{{orderNumber}}</td>
+            <td>{{orderPrice}}</td>
+            <td>{{orderCity}}</td>
+            <td>
+              <a class="btn btn-info" href="/orders/edit/{{id}}" style="display: inline !important;"><i class="fa fa-edit"></i></a>
+              <form action="/orders/{{id}}?_method=DELETE" method="POST" style="display: inline !important;">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-danger" style="display: inline !important;"><i class="fa fa-trash"></i></button>
+              </form>
+            </td>
+          </tr>
+        {{/each}}
+        </tbody>
+      </table>
+    {{!-- {{#each orders}}
+    <div class="col-sm-12">
       <div class="card card-body mb-2">
         <h4># {{orderNumber}}</h4>
         <p>Price: {{orderPrice}} &#8381;</p>
@@ -20,6 +48,6 @@
     </div>
     {{else}}
     <p>No orders added</p>
-    {{/each}}
+    {{/each}} --}}
   </div>
 </div>

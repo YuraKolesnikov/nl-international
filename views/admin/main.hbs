@@ -1,27 +1,39 @@
 <div class="container mt-5">
-  <h1 class="text-center">Orders</h1>
+  <h1 class="text-center">Заказы</h1>
   <div class="row mt-5">
-    {{#each orders}}
-    <div class="col-sm-6">
-      <div class="card card-body mb-2">
-        <h4>Name: {{userName}}</h4>
-        <h4>ID: {{managerID}}</h4>
-        <p># {{orderNumber}}</p>
-        <p>Price: {{orderPrice}} &#8381;</p>
-        <p>City: {{orderCity}}</p>
-        <div class="container">
-          <div class="row justify-content-between" style="max-width: 150px;">
-            <a class="btn btn-info" href="/orders/edit/{{id}}">Edit</a>
-            <form action="/orders/{{id}}?_method=DELETE" method="POST">
+    <table class="table table-striped">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">№</th>
+          <th scope="col">Стоимость</th>
+          <th scope="col">Город</th>
+          <th scope="col">Имя менеджера</th>
+          <th scope="col">ID менеджера</th>
+          <th scope="col">Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each orders}}
+        <tr>
+          <th scope="row">{{inc @index}}</th>
+          <td>{{orderNumber}}</td>
+          <td>{{orderPrice}}</td>
+          <td>{{orderCity}}</td>
+          <td>{{userName}}</td>
+          <td>{{managerID}}</td>
+          <td>
+            <a class="btn btn-info" href="/admin/editOrder/{{id}}" style="display: inline !important;"><i
+                class="fa fa-edit"></i></a>
+            <form action="/admin/deleteOrder/{{id}}?_method=DELETE" method="POST" style="display: inline !important;">
               <input type="hidden" name="_method" value="DELETE">
-              <button type="submit" class="btn btn-danger">Delete</button>
+              <button type="submit" class="btn btn-danger" style="display: inline !important;"><i
+                  class="fa fa-trash"></i></button>
             </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    {{else}}
-    <p>No orders added</p>
-    {{/each}}
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
 </div>

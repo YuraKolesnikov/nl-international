@@ -24,10 +24,34 @@ router.get('/showAllManagers', ensureAuthenticated, (req, res) => {
     })
 })
 
-router.get('/edit/:id', (req, res) => {
+router.get('/editUser/:id', (req, res) => {
   res.json({
     managerID: req.user.managerID,
     message: "This feature is coming soon!"
+  })
+})
+
+router.delete('/deleteUser/:id', (req, res) => {
+  res.json({
+    message: "Don't touch it, motherfucker!"
+  })
+})
+
+
+router.get('/editOrder/:id', ensureAuthenticated, (req, res) => {
+  Order.findOne({
+    _id: req.params.id
+  })
+  .then(order => {
+    res.render('orders/edit-order', {order})
+  })
+})
+
+router.delete('/deleteOrder/:id', ensureAuthenticated, (req, res) => {
+  Order.remove({ _id: req.params.id })
+  .then(() => {
+    req.flash('success_msg', 'Order removed')
+    res.redirect('/admin/showAll')
   })
 })
 
