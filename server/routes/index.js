@@ -10,32 +10,13 @@ router.get('/', ensureAuthenticated, (req, res) => {
     .then(orders => {
       res.render('orders/main', {
         orders
-      });
-    });
-});
-
-router.get('/showAll', ensureAuthenticated, (req, res) => {
-  Order.find({})
-  .then(orders => {
-    res.render('admin/main', {
-      orders
-    })
-  })
-})
-
-router.get('/showAllManagers', ensureAuthenticated, (req, res) => {
-  User.find({})
-    .then(users => {
-      res.render('admin/users', {
-        users
       })
     })
 })
 
-
 router.get('/add', ensureAuthenticated, (req, res) => {
-  res.render('orders/add-order');
-});
+  res.render('orders/add-order')
+})
 
 router.get('/edit/:id', ensureAuthenticated, (req, res) => {
   Order.findOne({
@@ -43,29 +24,29 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
   })
     .then(order => {
       if (order.user != req.user.id) {
-        req.flash('error_msg', 'Not Authorized');
-        res.redirect('/orders');
+        req.flash('error_msg', 'Not Authorized')
+        res.redirect('/orders')
       } else {
         res.render('orders/edit-order', {
           order
-        });
+        })
       }
-    });
-});
+    })
+})
 
 router.post('/', ensureAuthenticated, (req, res) => {
   let errors = [];
   console.log(req.user)
   const { orderNumber, orderPrice, orderCity} = req.body
   if (!orderNumber) {
-    errors.push({ text: 'Please add an order number' });
+    errors.push({ text: 'Please add an order number' })
   }
   if (!orderPrice) {
-    errors.push({ text: 'Please add an order price' });
+    errors.push({ text: 'Please add an order price' })
   }
 
   if (!orderCity) {
-    errors.push({ text: 'Please add an order city' });
+    errors.push({ text: 'Please add an order city' })
   }
 
   if (errors.length > 0) {
@@ -82,8 +63,8 @@ router.post('/', ensureAuthenticated, (req, res) => {
     newOrder
       .save()
       .then(order => {
-        req.flash('success_msg', 'Order added');
-        res.redirect('/orders');
+        req.flash('success_msg', 'Order added')
+        res.redirect('/orders')
       })
   }
 });
@@ -98,17 +79,17 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
   )
   .then(order => {
     req.flash("success_msg", `Order Nr. ${order.orderNumber} updated`);
-    res.redirect("/orders");
+    res.redirect("/orders")
   })
-  .catch(e => res.send(e));
+  .catch(e => res.send(e))
 });
 
 router.delete('/:id', ensureAuthenticated, (req, res) => {
   Order.remove({ _id: req.params.id })
     .then(() => {
-      req.flash('success_msg', 'Order removed');
-      res.redirect('/orders');
-    });
-});
+      req.flash('success_msg', 'Order removed')
+      res.redirect('/orders')
+    })
+})
 
-module.exports = router;
+module.exports = router

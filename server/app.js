@@ -14,6 +14,7 @@ const passport = require('passport')
 const config = require('./config/config')
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
+const adminRouter = require('./routes/admin')
 const mongoose = require('./db/db')
 const passportStrategy = require('./auth/passport')
 passportStrategy(passport)
@@ -57,9 +58,12 @@ app.use((req, res, next) => {
   res.locals.user = req.user || null
   next()
 })
+
+/* Router */
 app.get('/', (req, res) => res.render('home'))
 app.use('/orders', indexRouter)
 app.use('/user', userRouter)
+app.use('/admin', adminRouter)
 
 /* Port setup */
 app.listen(config.port, () => console.log(`App started on ${config.port}`))
