@@ -1,0 +1,24 @@
+<div class="container mt-5">
+  <h1 class="text-center">Orders</h1>
+  <div class="row mt-5">
+    {{#each users}}
+    <div class="col-sm-6">
+      <div class="card card-body mb-2">
+        <p>Name: {{fullName}}</p>
+        <p>ID: {{managerID}}</p>
+        <div class="container">
+          <div class="row justify-content-between" style="max-width: 150px;">
+            <a class="btn btn-info" href="/user/edit/{{id}}">Edit</a>
+            <form action="/user/{{id}}?_method=DELETE" method="POST">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{else}}
+    <p>No users added</p>
+    {{/each}}
+  </div>
+</div>

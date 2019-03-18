@@ -78,4 +78,11 @@ router.get('/logout', (req, res) => {
   res.redirect('/user/login');
 });
 
+router.get('/edit/:id', (req, res) => {
+  res.json({
+    managerID: req.user.managerID,
+    message: "This feature is coming soon!"
+  })
+})
+
 module.exports = router;

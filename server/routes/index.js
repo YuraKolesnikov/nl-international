@@ -4,16 +4,34 @@ const router = express.Router()
 const { ensureAuthenticated } = require('../auth/ensureAuth')
 
 const Order = require('../models/Order')
-
+const User = require('../models/User')
 router.get('/', ensureAuthenticated, (req, res) => {
-  Order.find({ user: req.user.id })
-    .sort({ date: 'desc' })
+  Order.find({ managerID: req.user.managerID })
     .then(orders => {
       res.render('orders/main', {
         orders
       });
     });
 });
+
+router.get('/showAll', ensureAuthenticated, (req, res) => {
+  Order.find({})
+  .then(orders => {
+    res.render('admin/main', {
+      orders
+    })
+  })
+})
+
+router.get('/showAllManagers', ensureAuthenticated, (req, res) => {
+  User.find({})
+    .then(users => {
+      res.render('admin/users', {
+        users
+      })
+    })
+})
+
 
 router.get('/add', ensureAuthenticated, (req, res) => {
   res.render('orders/add-order');
@@ -37,7 +55,7 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
 
 router.post('/', ensureAuthenticated, (req, res) => {
   let errors = [];
-  console.log(req.body)
+  console.log(req.user)
   const { orderNumber, orderPrice, orderCity} = req.body
   if (!orderNumber) {
     errors.push({ text: 'Please add an order number' });
@@ -58,7 +76,8 @@ router.post('/', ensureAuthenticated, (req, res) => {
   } else {
     const newOrder = new Order({
       orderNumber, orderPrice, orderCity,
-      user: req.user.id
+      userName: req.user.fullName,
+      managerID: req.user.managerID
     })
     newOrder
       .save()

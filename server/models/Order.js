@@ -4,7 +4,9 @@ const Order = new Schema({
   orderNumber: String,
   orderPrice: String,
   orderCity: String,
-  user: String
+  user: String,
+  userName: String,
+  managerID: String
 })
 
 module.exports = mongoose.model('Order', Order)
