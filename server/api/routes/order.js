@@ -17,20 +17,20 @@ class OrderRouter {
   setupRouter() {
     this.router.route('/orders')
     /* Show all orders of this manager */
-    .get()
+    .get(this.orderController.getAllOrders.bind(this.orderController))
 
     this.router.route('/add')
     /* Show add window */
-    .get()
+    .get(this.orderController.showAddOrderForm.bind(this.orderController))
     /* router.post('/', ensureAuthenticated, (req, res) => {} */
-    .post()
+    .post(this.orderController.addNewOrder.bind(this.orderController))
 
     this.router.route('/edit/:id')
-    .get()
+    .get(this.orderController.showEditOrderForm.bind(this.orderController))
     /* router.put('/:id', ensureAuthenticated, (req, res) => {} */
-    .put()
+    .put(this.orderController.editOrder.bind(this.orderController))
     /* router.delete('/:id', ensureAuthenticated, (req, res) => {} */
-    .delete()
+    .delete(this.orderController.deleteOrder.bind(this.orderController))
 
   }
 }

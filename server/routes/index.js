@@ -39,6 +39,8 @@ router.post('/', ensureAuthenticated, (req, res) => {
   let errors = [];
   console.log(req.user)
   const { orderNumber, orderPrice, orderCity} = req.body
+  /* Goes to error handling */
+  
   if (!orderNumber) {
     errors.push({ text: 'Please add an order number' })
   }
