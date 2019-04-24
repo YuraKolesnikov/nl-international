@@ -5,6 +5,7 @@ const { ensureAuthenticated } = require('../auth/ensureAuth')
 
 const Order = require('../models/Order')
 const User = require('../models/User')
+
 router.get('/', ensureAuthenticated, (req, res) => {
   Order.find({ managerID: req.user.managerID })
     .then(orders => {
