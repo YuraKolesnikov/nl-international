@@ -1,0 +1,1 @@
+module.exports = (string, splitter, jointer) => string.split(splitter).reverse().join(jointer)

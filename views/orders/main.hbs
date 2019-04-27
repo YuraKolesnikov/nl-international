@@ -1,11 +1,13 @@
 <div class="container mt-5">
   <h1 class="text-center">Orders</h1>
   <div class="row mt-5">
+      {{#if orders}}
       <table class="table table-striped">
         <thead class="thead-light">
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nr.</th>
+            <th scope="col">Date</th>
             <th scope="col">Price</th>
             <th scope="col">City</th>
             <th scope="col">Actions</th>
@@ -16,6 +18,7 @@
           <tr>
             <th scope="row">{{inc @index}}</th>
             <td>{{orderNumber}}</td>
+            <td>{{orderDate}}</td>
             <td>{{orderPrice}}</td>
             <td>{{orderCity}}</td>
             <td>
@@ -28,26 +31,9 @@
           </tr>
         {{/each}}
         </tbody>
-      </table>
-    {{!-- {{#each orders}}
-    <div class="col-sm-12">
-      <div class="card card-body mb-2">
-        <h4># {{orderNumber}}</h4>
-        <p>Price: {{orderPrice}} &#8381;</p>
-        <p>City: {{orderCity}}</p>
-        <div class="container">
-          <div class="row justify-content-between" style="max-width: 150px;">
-            <a class="btn btn-info" href="/orders/edit/{{id}}">Edit</a>
-            <form action="/orders/{{id}}?_method=DELETE" method="POST">
-              <input type="hidden" name="_method" value="DELETE">
-              <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    {{else}}
-    <p>No orders added</p>
-    {{/each}} --}}
+        </table>
+      {{else}}
+      <p>No orders added</p>
+      {{/if}}
   </div>
 </div>

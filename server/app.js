@@ -12,10 +12,11 @@ const flash = require('connect-flash')
 const passport = require('passport')
 /* Modules */
 const config = require('./config/config')
+const { apiRouter } = require('./routes/api.router')
 /* const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
 const adminRouter = require('./routes/admin') */
-const { apiRouter } = require('./api/routes/api.router')
+
 const mongoose = require('./db/db')
 const passportStrategy = require('./auth/passport')
 passportStrategy(passport)
@@ -65,7 +66,10 @@ app.use((req, res, next) => {
 
 /* Router */
 app.get('/', (req, res) => res.render('home'))
-app.use('/api', apiRouter)
+app.get('/api', (req, res, next) => {
+  res.json({msg: 'API'})
+})
+app.use('/', apiRouter)
 /* app.use('/orders', indexRouter)
 app.use('/user', userRouter)
 app.use('/admin', adminRouter) */

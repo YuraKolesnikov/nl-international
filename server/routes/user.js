@@ -1,25 +1,24 @@
 const express = require('express')
-const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
 const passport = require('passport')
-const router = express.Router()
-const User = require('../models/User')
+const userRouter = express.Router()
 
-router.get('/login', (req, res) => {
+const User = require('../db/schemas/User')
+const encrypt = require('../utils/encrypt')
+userRouter.get('/login', (req, res) => {
   res.render('user/login')
 })
 
-router.get('/signup', (req, res) => {
+userRouter.get('/signup', (req, res) => {
   res.render('user/signup')
 })
 
-router.get('/logout', (req, res) => {
+userRouter.get('/logout', (req, res) => {
   req.logout()
   req.flash('success_msg', 'You are logged out')
   res.redirect('/user/login')
 })
 
-router.post('/login', (req, res, next) => {
+userRouter.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/orders',
     failureRedirect: '/user/login',
@@ -27,15 +26,11 @@ router.post('/login', (req, res, next) => {
   })(req, res, next)
 })
 
-router.post('/singup', (req, res) => {
+userRouter.post('/singup', async (req, res) => {
   let errors = []
-  const {managerID, fullName, password, password2} = req.body
-  if (req.body.password != req.body.password2) {
+  const { managerID, fullName, password, password2 } = req.body
+  if (password != password2) {
     errors.push({ text: 'Passwords do not match' })
-  }
-
-  if (req.body.password.length < 4) {
-    errors.push({ text: 'Password must be at least 4 characters' })
   }
 
   if (errors.length > 0) {
@@ -45,39 +40,35 @@ router.post('/singup', (req, res) => {
       fullName,
       password
     });
-  } else {
-    User.findOne({managerID})
-    .then(user => {
-      if (user) {
-        req.flash('error_msg', 'Email already regsitered')
-        res.redirect('/user/signup')
-      } else {
-        const newUser = new User({
-          managerID,
-          fullName,
-          password
-        })
+    return;
+  }
 
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err
-            newUser.password = hash
-            newUser.save()
-            .then(user => {
-              req.flash('success_msg', 'You are now registered and can log in');
-              res.redirect('/user/login')
-            })
-            .catch(err => {
-              console.log(err)
-              return
-            })
-          })
-        })
-      }
-    })
+  const user = await User.findOne({ managerID })
+  if (user) {
+    req.flash('error_msg', 'ID is already registered!')
+    res.redirect('/user/signup')
+    return;
+  }
+
+  const newUser = new User({
+    managerID,
+    fullName,
+    password
+  })
+
+  const salt = await encrypt.genSalt(10);
+  const hash = await encrypt.genHash(newUser.password, salt);
+
+  newUser.password = hash
+  await newUser.save()
+
+  try {
+    req.flash('success_msg', 'You are now registered and can log in');
+    res.redirect('/user/login')
+  } catch (err) {
+    console.log(err)
+    return
   }
 })
 
-
-
-module.exports = router
+module.exports = userRouter
