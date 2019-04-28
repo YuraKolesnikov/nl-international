@@ -1,98 +1,37 @@
 const express = require('express')
-const mongoose = require('mongoose')
-const orderRouter = express.Router()
+
+const { orderController } = require('../controllers/order.controller')
 const { ensureAuthenticated } = require('../auth/ensureAuth')
 
-const Order = require('../db/schemas/Order')
-const User = require('../db/schemas/User')
-
-orderRouter.get('/', ensureAuthenticated, async(req, res) => {
-  try {
-    const orders = await Order.find({ managerID: req.user.managerID })
-    res.render('orders/main', { orders })
-  } catch (e) {
-    res.render('orders/main', { error: 'Internal error! Orders not found!'})
-  }
-})
-
-orderRouter.get('/add', ensureAuthenticated, (req, res) => {
-  res.render('orders/add-order')
-})
-
-orderRouter.get('/edit/:id', ensureAuthenticated, async (req, res) => {
-  const order = await Order.findOne({ _id: req.params.id })
-  if (order.managerID != req.user.managerID) {
-    req.flash('error_msg', 'Not Authorized')
-    res.redirect('/orders')
-  } else {
-    res.render('orders/edit-order', {
-      order
-    })
-  }
-})
-
-orderRouter.post('/', ensureAuthenticated, async (req, res) => {
-  let errors = [];
-  const { orderNumber, orderPrice, orderCity } = req.body
-  let orderDate = req.body.orderDate.split('-').reverse().join('.')
-
-  if (!orderNumber) {
-    errors.push({ text: 'Please add an order number' })
-  }
-  if (!orderPrice) {
-    errors.push({ text: 'Please add an order price' })
+class OrderRouter {
+  constructor(router, orderController) {
+    this.router = router
+    this.orderController = orderController
+    this.setupRouter()
   }
 
-  if (!orderCity) {
-    errors.push({ text: 'Please add an order city' })
+  get orderRouter() {
+    return this.router
   }
-  
-  if (errors.length > 0) {
-    res.render('orders/add-order', {
-      errors,
-      orderNumber, orderPrice, orderCity, orderDate
-    });
-  } 
 
+  setupRouter() {
+    this.router.route('/')
+    .get(ensureAuthenticated, this.orderController.showOrders.bind(this.orderController))
+    .post(ensureAuthenticated, this.orderController.createOrder.bind(this.orderController))
 
-  const newOrder = new Order({
-    orderNumber, orderPrice, orderCity, orderDate,
-    userName: req.user.fullName,
-    managerID: req.user.managerID
-  })
+    this.router.route('/add')
+    .get(ensureAuthenticated, this.orderController.redirectToCreateOrder.bind(this.orderController))
 
-  const user = await User.findOne({managerID: req.user.managerID})
+    this.router.route('/edit/:id')
+    .get(ensureAuthenticated, this.orderController.redirectToEditOrder.bind(this.orderController))
 
-  await user.orders.push(newOrder.orderNumber)
-  await user.save()
-
-  await newOrder.save()
-  req.flash('success_msg', 'Order added')
-  res.redirect('/orders')
-});
-
-orderRouter.put('/:id', ensureAuthenticated, async (req, res) => {
-  const { id } = req.params;
-  const { orderNumber, orderPrice, orderCity} = req.body
-  let orderDate = req.body.orderDate.split('-').reverse().join('.')
-  await Order.findOneAndUpdate(
-    { _id: id},
-    { $set: { orderNumber, orderPrice, orderCity, orderDate } },
-    { new: true }
-  )
-  req.flash("success_msg", `Order Nr. ${orderNumber} updated`);
-  res.redirect("/orders")
-});
-
-orderRouter.delete('/:id', ensureAuthenticated, async (req, res) => {
-  try {
-    await Order.remove({ _id: req.params.id })
-    req.flash('success_msg', 'Order removed')
-    res.redirect('/orders')
-  } catch (error) {
-    req.flash('error_msg', 'Internal error! Order was not deleted')
-    res.redirect('/orders')
+    this.router.route('/:id')
+    .put(ensureAuthenticated, this.orderController.editOrder.bind(this.orderController))
+    .delete(ensureAuthenticated, this.orderController.deleteOrder.bind(this.orderController))
   }
-})
+}
 
-module.exports = orderRouter
+module.exports = {
+  OrderRouter,
+  orderRouter: new OrderRouter(express.Router(), orderController).orderRouter
+}

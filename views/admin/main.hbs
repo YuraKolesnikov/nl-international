@@ -34,9 +34,9 @@
           <td>{{managerID}}</td>
           <td>{{userName}}</td>
           <td>
-            <a class="btn btn-info" href="/admin/editOrder/{{id}}" style="display: inline !important;"><i
+            <a class="btn btn-info" href="/orders/edit/{{id}}" style="display: inline !important;"><i
                 class="fa fa-edit"></i></a>
-            <form action="/admin/deleteOrder/{{id}}?_method=DELETE" method="POST" style="display: inline !important;">
+            <form action="/orders/{{id}}?_method=DELETE" method="POST" style="display: inline !important;">
               <input type="hidden" name="_method" value="DELETE">
               <button type="submit" class="btn btn-danger" style="display: inline !important;"><i
                   class="fa fa-trash"></i></button>
