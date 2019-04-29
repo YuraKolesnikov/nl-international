@@ -1,11 +1,13 @@
 const passport = require('passport')
 
-const Order = require('../../db/schemas/Order')
-const User = require('../../db/schemas/User')
 const encrypt = require('../../utils/encrypt')
 
+const { userModel } = require('../models/user.model')
+
 class UserController {
-  constructor() {}
+  constructor(userModel) {
+    this.userModel = userModel
+  }
 
   redirectToLoginForm(req, res, next) {
     res.render('user/login')
@@ -18,20 +20,22 @@ class UserController {
   async logout(req, res, next) {
     req.logout()
     req.flash('success_msg', 'You are logged out')
-    res.redirect('/user/login')
+    res.redirect('/users/login')
   }
 
   async login(req, res, next) {
     passport.authenticate('local', {
       successRedirect: '/orders',
-      failureRedirect: '/user/login',
+      failureRedirect: '/users/login',
       failureFlash: 'Invalid username or password.'
     })(req, res, next)
   }
 
   async signup(req, res, next) {
-    let errors = []
     const { managerID, fullName, password, password2 } = req.body
+    const data = { managerID, fullName, password, password2 }
+    const errors = []
+    /* TODO: to userModel */
     if (password != password2) {
       errors.push({ text: 'Passwords do not match' })
     }
@@ -45,6 +49,8 @@ class UserController {
       });
       return;
     }
+
+    /* TODO: Throw error in userModel */
     const user = await User.findOne({ managerID })
     if (user) {
       req.flash('error_msg', 'ID is already registered!')
@@ -58,17 +64,21 @@ class UserController {
       password
     })
   
+    /* TODO: to userModel */
     const salt = await encrypt.genSalt(10);
     const hash = await encrypt.genHash(newUser.password, salt);
   
     newUser.password = hash
     await newUser.save()
   
+
     try {
+      await this.userModel.signup(data)
       req.flash('success_msg', 'You are now registered and can log in');
       res.redirect('/user/login')
     } catch (err) {
-      console.log(err)
+      req.flash('error_msg', err.message)
+      res.redirect('/user/signup')
       return
     }
   }
@@ -76,5 +86,5 @@ class UserController {
 
 module.exports = {
   UserController,
-  userController: new UserController()
+  userController: new UserController(userModel)
 }

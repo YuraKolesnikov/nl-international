@@ -29,7 +29,7 @@ class ApiRouter {
 const routes = [
   { url: '/admin', router: adminRouter },
   { url: '/orders', router: orderRouter },
-  { url: '/user', router: userRouter },
+  { url: '/users', router: userRouter },
 ];
 module.exports = {
   ApiRouter,
