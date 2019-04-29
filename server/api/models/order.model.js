@@ -44,6 +44,19 @@ class OrderModel {
     
     return newOrder
   }
+
+  async editOrder(id, data) {
+    const { orderNumber, orderPrice, orderCity, orderDate } = data
+    return await Order.findOneAndUpdate(
+      { _id: id },
+      { $set: { orderNumber, orderPrice, orderCity, orderDate } },
+      { new: false }
+    )
+  }
+
+  async deleteOrder(id) {
+    return await Order.remove({ _id: id })
+  }
 }
 
 module.exports = {

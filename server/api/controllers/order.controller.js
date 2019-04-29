@@ -65,23 +65,24 @@ class OrderController {
   async editOrder(req, res, next) {
     const { id } = req.params;
     const { orderNumber, orderPrice, orderCity } = req.body
-    /* TODO: dateCoder */
     let orderDate = dateEncoder.encode(req.body.orderDate)
-    console.log(orderDate)
-    console.log(typeof orderDate)
-    console.log(!orderDate)
-    await Order.findOneAndUpdate(
-      { _id: id },
-      { $set: { orderNumber, orderPrice, orderCity, orderDate } },
-      { new: false }
-    )
+
+    const data = {
+      orderNumber,
+      orderPrice,
+      orderCity,
+      orderDate
+    }
+
+    await this.orderModel.editOrder(id, data)
     req.flash("success_msg", `Order Nr. ${orderNumber} updated`);
     res.redirect("/orders")
   }
 
   async deleteOrder(req, res, next) {
+    const { id } = req.params
     try {
-      await Order.remove({ _id: req.params.id })
+      await this.orderModel.deleteOrder(id)
       req.flash('success_msg', 'Order removed')
       res.redirect('/orders')
     } catch (error) {
