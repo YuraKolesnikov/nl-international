@@ -1,62 +1,61 @@
 const Order = require('../../db/schemas/Order')
 const User = require('../../db/schemas/User')
 
+const { orderModel } = require('../models/order.model')
+const dateEncoder = require('../../utils/dateEncoder')
+
 class OrderController {
-  constructor() {}
+  constructor(orderModel) { 
+    this.orderModel = orderModel
+   }
 
   async showOrders(req, res, next) {
+    const { managerID } = req.user
     try {
-      const orders = await Order.find({ managerID: req.user.managerID })
+      const orders = await this.orderModel.showOrders(managerID)
       res.render('orders/main', { orders })
     } catch (e) {
-      res.render('orders/main', { error: 'Internal error! Orders not found!'})
+      res.render('orders/main', { error: 'Internal error! Orders not found!' })
     }
   }
 
   async redirectToEditOrder(req, res, next) {
-    const {id} = req.params
-    const order = await Order.findById(id)
+    const { id } = req.params
+    const order = await this.orderModel.redirectToEditOrder(id)
+    
+    console.log(order)
+    /* TODO: dateCoder */
+    order.orderDate = dateEncoder.decode(order.orderDate)
+    console.log(order)
+
+    
 
     res.render('orders/edit-order', { order })
   }
 
   async createOrder(req, res, next) {
-    let errors = [];
     const { orderNumber, orderPrice, orderCity } = req.body
-    let orderDate = req.body.orderDate.split('-').reverse().join('.')
+    const { managerID, fullName } = req.user
+    /* TODO: dateCoder */
+    let orderDate = dateEncoder.encode(req.body.orderDate)
 
-    if (!orderNumber) {
-      errors.push({ text: 'Please add an order number' })
+    const data = {
+      orderNumber,
+      orderPrice,
+      orderCity,
+      orderDate,
+      managerID,
+      fullName
     }
-    if (!orderPrice) {
-      errors.push({ text: 'Please add an order price' })
+
+    try {
+      await this.orderModel.createOrder(data)
+      req.flash('success_msg', 'Order added')
+      res.redirect('/orders')
+    } catch (error) {
+      req.flash('error_msg', error.message)
+      res.redirect('/orders/add')
     }
-
-    if (!orderCity) {
-      errors.push({ text: 'Please add an order city' })
-    }
-    
-    if (errors.length > 0) {
-      res.render('orders/add-order', {
-        errors,
-        orderNumber, orderPrice, orderCity, orderDate
-      });
-    } 
-    const newOrder = new Order({
-      orderNumber, orderPrice, orderCity, orderDate,
-      userName: req.user.fullName,
-      managerID: req.user.managerID
-    })
-    console.log(newOrder)
-
-    const user = await User.findOne({managerID: req.user.managerID})
-
-    await user.orders.push(newOrder.orderNumber)
-    await user.save()
-
-    await newOrder.save()
-    req.flash('success_msg', 'Order added')
-    res.redirect('/orders')
   }
 
   async redirectToCreateOrder(req, res, next) {
@@ -65,13 +64,14 @@ class OrderController {
 
   async editOrder(req, res, next) {
     const { id } = req.params;
-    const { orderNumber, orderPrice, orderCity} = req.body
-    let orderDate = req.body.orderDate.split('-').reverse().join('.')
+    const { orderNumber, orderPrice, orderCity } = req.body
+    /* TODO: dateCoder */
+    let orderDate = dateEncoder.encode(req.body.orderDate)
     console.log(orderDate)
     console.log(typeof orderDate)
     console.log(!orderDate)
     await Order.findOneAndUpdate(
-      { _id: id},
+      { _id: id },
       { $set: { orderNumber, orderPrice, orderCity, orderDate } },
       { new: false }
     )
@@ -94,5 +94,5 @@ class OrderController {
 
 module.exports = {
   OrderController,
-  orderController: new OrderController()
+  orderController: new OrderController(orderModel)
 }

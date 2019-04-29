@@ -5,10 +5,8 @@ const User = require('../../db/schemas/User')
 const { mongoConnectionService } = require('../services/mongo.service')
 
 class AdminModel {
-  constructor(mongoConnectionService, Order, User) {
+  constructor(mongoConnectionService) {
     this.mongoConnectionService = mongoConnectionService
-    this.Order = Order
-    this.User = User
   }
 
   async showAll() {
@@ -20,9 +18,13 @@ class AdminModel {
     let users = await User.find({})
     const arrayForTable = []
     users.forEach(user => {
+      user.orders = []
       orders.forEach(order => {
         if (order.managerID === user.managerID) {
-          user.orders.push(order)
+          user.orders.push({
+            orderNumber: order.orderNumber,
+            orderDate: order.orderDate
+          })
         }
       })
       if (user.orders.length > 0) {
@@ -51,5 +53,5 @@ class AdminModel {
 
 module.exports = {
   AdminModel,
-  adminModel: new AdminModel(mongoConnectionService, Order, User)
+  adminModel: new AdminModel(mongoConnectionService)
 }

@@ -6,7 +6,7 @@ const Order = new Schema({
   orderCity: String,
   orderDate: String,
   user: String,
-  userName: String,
+  fullName: String,
   managerID: String
 })
 

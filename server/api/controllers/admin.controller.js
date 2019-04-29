@@ -1,5 +1,5 @@
 const { adminModel } = require('../models/admin.model')
-const reverseString = require('../../utils/reverseString')
+const dateEncoder = require('../../utils/dateEncoder')
 const Order = require('../../db/schemas/Order')
 const User = require('../../db/schemas/User')
 
@@ -19,6 +19,7 @@ class AdminController {
 
   async showAllPrintable(req, res, next) {
     const data = await this.adminModel.showAllPrintable()
+    console.log(data)
     try {
       res.render('admin/main-print', { data })
     } catch (error) {
@@ -53,7 +54,7 @@ class AdminController {
   }
 
   async filterByDate(req, res, next) {
-    const filterDate = reverseString(req.query.filterDate, '-', '.')
+    const filterDate = dateEncoder.encode(req.query.filterDate)
     const orders = await this.adminModel.filterByDate(filterDate)
     res.render('admin/main', { orders })
   }
