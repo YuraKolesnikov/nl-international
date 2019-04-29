@@ -1,8 +1,8 @@
 const passport = require('passport')
 
-const Order = require('../db/schemas/Order')
-const User = require('../db/schemas/User')
-const encrypt = require('../utils/encrypt')
+const Order = require('../../db/schemas/Order')
+const User = require('../../db/schemas/User')
+const encrypt = require('../../utils/encrypt')
 
 class UserController {
   constructor() {}

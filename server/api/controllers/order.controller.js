@@ -1,5 +1,5 @@
-const Order = require('../db/schemas/Order')
-const User = require('../db/schemas/User')
+const Order = require('../../db/schemas/Order')
+const User = require('../../db/schemas/User')
 
 class OrderController {
   constructor() {}

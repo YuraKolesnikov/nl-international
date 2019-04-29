@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { adminController } = require('../controllers/admin.controller')
-const { ensureAuthenticated } = require('../auth/ensureAuth')
+const { ensureAuthenticated } = require('../../auth/ensureAuth')
 
 class AdminRouter {
   constructor(router, adminController) {

@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { orderController } = require('../controllers/order.controller')
-const { ensureAuthenticated } = require('../auth/ensureAuth')
+const { ensureAuthenticated } = require('../../auth/ensureAuth')
 
 class OrderRouter {
   constructor(router, orderController) {

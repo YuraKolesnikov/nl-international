@@ -1,6 +1,6 @@
-const reverseString = require('../utils/reverseString')
-const Order = require('../db/schemas/Order')
-const User = require('../db/schemas/User')
+const reverseString = require('../../utils/reverseString')
+const Order = require('../../db/schemas/Order')
+const User = require('../../db/schemas/User')
 
 class AdminController {
   constructor() {}
