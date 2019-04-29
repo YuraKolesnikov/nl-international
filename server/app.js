@@ -17,7 +17,7 @@ const { apiRouter } = require('./api/routes/api.router')
 const userRouter = require('./routes/user')
 const adminRouter = require('./routes/admin') */
 
-const mongoose = require('./db/db')
+/* const mongoose = require('./db/db') */
 const passportStrategy = require('./auth/passport')
 passportStrategy(passport)
 /* Setting up application */

@@ -47,6 +47,7 @@ class OrderController {
       userName: req.user.fullName,
       managerID: req.user.managerID
     })
+    console.log(newOrder)
 
     const user = await User.findOne({managerID: req.user.managerID})
 
@@ -66,10 +67,13 @@ class OrderController {
     const { id } = req.params;
     const { orderNumber, orderPrice, orderCity} = req.body
     let orderDate = req.body.orderDate.split('-').reverse().join('.')
+    console.log(orderDate)
+    console.log(typeof orderDate)
+    console.log(!orderDate)
     await Order.findOneAndUpdate(
       { _id: id},
       { $set: { orderNumber, orderPrice, orderCity, orderDate } },
-      { new: true }
+      { new: false }
     )
     req.flash("success_msg", `Order Nr. ${orderNumber} updated`);
     res.redirect("/orders")

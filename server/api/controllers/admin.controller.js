@@ -1,74 +1,65 @@
+const { adminModel } = require('../models/admin.model')
 const reverseString = require('../../utils/reverseString')
 const Order = require('../../db/schemas/Order')
 const User = require('../../db/schemas/User')
 
 class AdminController {
-  constructor() {}
+  constructor(adminModel) {
+    this.adminModel = adminModel
+  }
 
   async showAll(req, res, next) {
-    const orders = await Order.find({})
-    res.render('admin/main', { orders })
+    const orders = await this.adminModel.showAll()
+    try {
+      res.render('admin/main', { orders })
+    } catch (error) {
+      res.json({ error })
+    }
   }
 
   async showAllPrintable(req, res, next) {
-    let orders = await Order.find({})
-    let users = await User.find({})
-    const arrayForTable = []
-    users.forEach(user => {
-      orders.forEach(order => {
-        if (order.managerID === user.managerID) {
-          user.orders.push(order)
-        }
-      })
-      if (user.orders.length > 0) {
-        arrayForTable.push(user)
-      }
-    })
-    res.render('admin/main-print', {
-      arrayForTable
-    })
+    const data = await this.adminModel.showAllPrintable()
+    try {
+      res.render('admin/main-print', { data })
+    } catch (error) {
+      res.json({ error })
+    }
   }
 
   async showAllManagers(req, res, next) {
-    const users = await User.find({})
+    const users = await this.adminModel.showAllManagers()
     res.render('admin/users', { users })
   }
 
   async editUser(req, res, next) {
-    /* const {id} = req.params
-    const user = await User.findById(id)
-    console.log(user) */
+    const { id } = req.params
+    const { managerID } = req.user
+    const user = await this.adminModel.editUser(id)
     res.json({
-      managerID: req.user.managerID,
+      "req.params.id": id,
+      "req.user.managerID": managerID,
+      user,
       message: "This feature is coming soon!"
     })
   }
 
   async deleteUser(req, res, next) {
+    const { id } = req.params
+    const user = await this.adminModel.deleteUser(id)
     res.json({
-      message: "Don't touch it, motherfucker!"
+      user,
+      message: "User deleted"
     })
   }
 
   async filterByDate(req, res, next) {
     const filterDate = reverseString(req.query.filterDate, '-', '.')
-    const orders = await Order.find({ orderDate: { $gte: filterDate } })
+    const orders = await this.adminModel.filterByDate(filterDate)
     res.render('admin/main', { orders })
-  }
-
-  async editOrder(req, res, next) {
-    const order = await Order.findOne({ _id: req.params.id })
-    res.render('orders/edit-order', { order })
-  }
-
-  async deleteOrder(req, res, next) {
-    await Order.remove({ _id: req.params.id })
-    req.flash('success_msg', 'Order removed')
-    res.redirect('/admin/showAll')
   }
 }
 
 module.exports = {
   AdminController,
-  adminController: new AdminController()
+  adminController: new AdminController(adminModel)
 }
