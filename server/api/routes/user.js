@@ -23,6 +23,9 @@ class UserRouter {
 
     this.router.route('/logout')
     .get(this.userController.logout.bind(this.userController))
+
+    this.router.route('/test')
+    .post(this.userController.test.bind(this.userController))
   }
 }
 

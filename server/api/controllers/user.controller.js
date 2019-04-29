@@ -32,55 +32,59 @@ class UserController {
   }
 
   async signup(req, res, next) {
-    const { managerID, fullName, password, password2 } = req.body
-    const data = { managerID, fullName, password, password2 }
-    const errors = []
-    /* TODO: to userModel */
-    if (password != password2) {
-      errors.push({ text: 'Passwords do not match' })
-    }
-  
-    if (errors.length > 0) {
-      res.render('user/signup', {
-        errors,
-        managerID,
-        fullName,
-        password
-      });
-      return;
-    }
+  let errors = []
+  const {managerID, fullName, password, password2} = req.body
+  if (req.body.password != req.body.password2) {
+    errors.push({ text: 'Passwords do not match' })
+  }
 
-    /* TODO: Throw error in userModel */
-    const user = await User.findOne({ managerID })
-    if (user) {
-      req.flash('error_msg', 'ID is already registered!')
-      res.redirect('/user/signup')
-      return;
-    }
-  
-    const newUser = new User({
+  if (req.body.password.length < 4) {
+    errors.push({ text: 'Password must be at least 4 characters' })
+  }
+
+  if (errors.length > 0) {
+    res.render('user/signup', {
+      errors,
       managerID,
       fullName,
       password
-    })
-  
-    /* TODO: to userModel */
-    const salt = await encrypt.genSalt(10);
-    const hash = await encrypt.genHash(newUser.password, salt);
-  
-    newUser.password = hash
-    await newUser.save()
-  
+    });
+  } else {
+    User.findOne({managerID})
+    .then(user => {
+      if (user) {
+        req.flash('error_msg', 'Email already regsitered')
+        res.redirect('/user/signup')
+      } else {
+        const newUser = new User({
+          managerID,
+          fullName,
+          password
+        })
 
-    try {
-      await this.userModel.signup(data)
-      req.flash('success_msg', 'You are now registered and can log in');
-      res.redirect('/user/login')
-    } catch (err) {
-      req.flash('error_msg', err.message)
-      res.redirect('/user/signup')
-      return
-    }
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err
+            newUser.password = hash
+            newUser.save()
+            .then(user => {
+              req.flash('success_msg', 'You are now registered and can log in');
+              res.redirect('/user/login')
+            })
+            .catch(err => {
+              console.log(err)
+              return
+            })
+          })
+        })
+      }
+    })
+  }
+  }
+
+  async test(req, res, next) {
+    const { name } = req.body
+    res.json({name})
   }
 }
 
