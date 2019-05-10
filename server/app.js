@@ -79,5 +79,5 @@ app.listen(config.port, () => console.log(`App started on ${config.port}`))
 
 const http = require("http")
 setInterval(function () {
-  http.get("http://dry-hamlet-15700.herokuapp.com")
+  http.get("http://nl-delivery.herokuapp.com")
 }, 300000) // every 5 minutes
