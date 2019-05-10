@@ -1,9 +1,9 @@
 const validator = {
-  validateOrder: function (order) {
+  validateForm: function (formData) {
     const result = []
-    Object.keys(order).forEach(key => {
+    Object.keys(formData).forEach(key => {
 
-      if (!order[key]) result.push({ text: `Missing ${this.editCamelCaseKey(key)}!` })
+      if (!formData[key]) result.push({ text: `Missing ${this.editCamelCaseKey(key)}!` })
 
     })
     return result

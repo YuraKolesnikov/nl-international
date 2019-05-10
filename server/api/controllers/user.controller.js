@@ -35,7 +35,7 @@ class UserController {
   async signup(req, res, next) {
     const { managerID, fullName, password, password2 } = req.body
 
-    const errors = validator.validateOrder({managerID, fullName, password})
+    const errors = validator.validateForm({managerID, fullName, password})
 
     if (password != password2) {
       errors.push({ text: 'Passwords do not match!' })

@@ -43,7 +43,7 @@ class OrderController {
       managerID,
       fullName
     }
-    const errors = validator.validateOrder(data)
+    const errors = validator.validateForm(data)
     if (errors.length > 0) {
       res.render('orders/add-order', { errors })
     } else {
@@ -81,7 +81,7 @@ class OrderController {
     }
     
 
-    const errors = validator.validateOrder(data)
+    const errors = validator.validateForm(data)
 
     if (errors.length > 0) {
       res.render('orders/edit-order', { errors, order })
@@ -91,7 +91,7 @@ class OrderController {
       orderNumberOld === orderNumber
       ? `Order Nr. ${orderNumberOld} updated.`
       : `Order Nr. ${orderNumberOld} updated. New number: ${orderNumber}`
-      
+
       req.flash("success_msg", message);
       res.redirect("/orders")
     }
