@@ -3,6 +3,7 @@ const passport = require('passport')
 const encrypt = require('../../utils/encrypt')
 
 const { userModel } = require('../models/user.model')
+const validator = require('../../utils/validator')
 
 class UserController {
   constructor(userModel) {
@@ -32,20 +33,9 @@ class UserController {
   }
 
   async signup(req, res, next) {
-    let errors = []
     const { managerID, fullName, password, password2 } = req.body
-    
-    if (!managerID) {
-      errors.push({ text: 'Missing Manager ID!' })
-    }
 
-    if (!fullName) {
-      errors.push({ text: 'Missing name!' })
-    }
-
-    if (!password) {
-      errors.push({ text: 'Missing password!' })
-    }
+    const errors = validator.validateOrder({managerID, fullName, password})
 
     if (password != password2) {
       errors.push({ text: 'Passwords do not match!' })
