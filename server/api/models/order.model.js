@@ -20,22 +20,6 @@ class OrderModel {
   async createOrder(data) {
     const { orderNumber, orderPrice, orderCity, orderDate, managerID, fullName } = data
 
-    if (!orderNumber) {
-      throw new Error('Please add an order number')
-    }
-
-    if (!orderPrice) {
-      throw new Error('Please add an order price')
-    }
-
-    if (!orderCity) {
-      throw new Error('Please add an order city')
-    }
-
-    if (!orderDate) {
-      throw new Error('Please add the date!')
-    }
-
     const newOrder = new Order(data)
     await newOrder.save()
     const user = await User.findOne({managerID})

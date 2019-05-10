@@ -24,9 +24,9 @@ class OrderRouter {
 
     this.router.route('/edit/:id')
     .get(ensureAuthenticated, this.orderController.redirectToEditOrder.bind(this.orderController))
-
-    this.router.route('/:id')
     .put(ensureAuthenticated, this.orderController.editOrder.bind(this.orderController))
+    
+    this.router.route('/delete/:id')
     .delete(ensureAuthenticated, this.orderController.deleteOrder.bind(this.orderController))
   }
 }

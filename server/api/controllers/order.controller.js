@@ -24,37 +24,53 @@ class OrderController {
     const order = await this.orderModel.redirectToEditOrder(id)
     
     console.log(order)
-    /* TODO: dateCoder */
     order.orderDate = dateEncoder.decode(order.orderDate)
     console.log(order)
-
-    
-
     res.render('orders/edit-order', { order })
   }
 
   async createOrder(req, res, next) {
+    const errors = []
     const { orderNumber, orderPrice, orderCity } = req.body
     const { managerID, fullName } = req.user
     /* TODO: dateCoder */
     let orderDate = dateEncoder.encode(req.body.orderDate)
-
-    const data = {
-      orderNumber,
-      orderPrice,
-      orderCity,
-      orderDate,
-      managerID,
-      fullName
+    if (!orderNumber) {
+      errors.push({ text: 'Please add an order number' })
     }
 
-    try {
-      await this.orderModel.createOrder(data)
-      req.flash('success_msg', 'Order added')
-      res.redirect('/orders')
-    } catch (error) {
-      req.flash('error_msg', error.message)
-      res.redirect('/orders/add')
+    if (!orderPrice) {
+      errors.push({ text: 'Please add an order price' })
+    }
+
+    if (!orderCity) {
+      errors.push({ text: 'Please add an order city' })
+    }
+
+    if (!orderDate) {
+      errors.push({ text: 'Please add an order date' })
+    }
+
+    if (errors.length > 0) {
+      res.render('orders/add-order', { errors })
+    } else {
+      const data = {
+        orderNumber,
+        orderPrice,
+        orderCity,
+        orderDate,
+        managerID,
+        fullName
+      }
+
+      try {
+        await this.orderModel.createOrder(data)
+        req.flash('success_msg', 'Order added')
+        res.redirect('/orders')
+      } catch (error) {
+        req.flash('error_msg', error.message)
+        res.redirect('/orders/add')
+      }
     }
   }
 
@@ -63,20 +79,46 @@ class OrderController {
   }
 
   async editOrder(req, res, next) {
+    const errors = []
     const { id } = req.params;
     const { orderNumber, orderPrice, orderCity } = req.body
+
+    /* TODO: Make universal getOrder method in model */
+    const order = await Order.findById(id)
+
+    const orderNumberOld = order.orderNumber
     let orderDate = dateEncoder.encode(req.body.orderDate)
 
-    const data = {
-      orderNumber,
-      orderPrice,
-      orderCity,
-      orderDate
+    if (!orderNumber) {
+      errors.push({ text: 'Please add an order number' })
     }
 
-    await this.orderModel.editOrder(id, data)
-    req.flash("success_msg", `Order Nr. ${orderNumber} updated`);
-    res.redirect("/orders")
+    if (!orderPrice) {
+      errors.push({ text: 'Please add an order price' })
+    }
+
+    if (!orderCity) {
+      errors.push({ text: 'Please add an order city' })
+    }
+
+    if (!orderDate) {
+      errors.push({ text: 'Please add an order date' })
+    }
+
+    if (errors.length > 0) {
+      res.render('orders/edit-order', { errors, order })
+    } else {
+      const data = {
+        orderNumber,
+        orderPrice,
+        orderCity,
+        orderDate
+      }
+
+      await this.orderModel.editOrder(id, data)
+      req.flash("success_msg", `Order Nr. ${orderNumberOld} updated. New number: ${orderNumber}`);
+      res.redirect("/orders")
+    }
   }
 
   async deleteOrder(req, res, next) {
