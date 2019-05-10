@@ -3,6 +3,7 @@ const User = require('../../db/schemas/User')
 
 const { orderModel } = require('../models/order.model')
 const dateEncoder = require('../../utils/dateEncoder')
+const validator = require('../../utils/validator')
 
 class OrderController {
   constructor(orderModel) { 
@@ -30,39 +31,22 @@ class OrderController {
   }
 
   async createOrder(req, res, next) {
-    const errors = []
     const { orderNumber, orderPrice, orderCity } = req.body
     const { managerID, fullName } = req.user
-    /* TODO: dateCoder */
+
     let orderDate = dateEncoder.encode(req.body.orderDate)
-    if (!orderNumber) {
-      errors.push({ text: 'Please add an order number' })
+    const data = {
+      orderNumber,
+      orderPrice,
+      orderCity,
+      orderDate,
+      managerID,
+      fullName
     }
-
-    if (!orderPrice) {
-      errors.push({ text: 'Please add an order price' })
-    }
-
-    if (!orderCity) {
-      errors.push({ text: 'Please add an order city' })
-    }
-
-    if (!orderDate) {
-      errors.push({ text: 'Please add an order date' })
-    }
-
+    const errors = validator.validateOrder(data)
     if (errors.length > 0) {
       res.render('orders/add-order', { errors })
     } else {
-      const data = {
-        orderNumber,
-        orderPrice,
-        orderCity,
-        orderDate,
-        managerID,
-        fullName
-      }
-
       try {
         await this.orderModel.createOrder(data)
         req.flash('success_msg', 'Order added')
@@ -79,44 +63,36 @@ class OrderController {
   }
 
   async editOrder(req, res, next) {
-    const errors = []
     const { id } = req.params;
     const { orderNumber, orderPrice, orderCity } = req.body
+    
+    let orderDate = dateEncoder.encode(req.body.orderDate)
 
     /* TODO: Make universal getOrder method in model */
     const order = await Order.findById(id)
-
     const orderNumberOld = order.orderNumber
-    let orderDate = dateEncoder.encode(req.body.orderDate)
 
-    if (!orderNumber) {
-      errors.push({ text: 'Please add an order number' })
-    }
 
-    if (!orderPrice) {
-      errors.push({ text: 'Please add an order price' })
+    const data = {
+      orderNumber,
+      orderPrice,
+      orderCity,
+      orderDate
     }
+    
 
-    if (!orderCity) {
-      errors.push({ text: 'Please add an order city' })
-    }
-
-    if (!orderDate) {
-      errors.push({ text: 'Please add an order date' })
-    }
+    const errors = validator.validateOrder(data)
 
     if (errors.length > 0) {
       res.render('orders/edit-order', { errors, order })
     } else {
-      const data = {
-        orderNumber,
-        orderPrice,
-        orderCity,
-        orderDate
-      }
-
       await this.orderModel.editOrder(id, data)
-      req.flash("success_msg", `Order Nr. ${orderNumberOld} updated. New number: ${orderNumber}`);
+      let message = 
+      orderNumberOld === orderNumber
+      ? `Order Nr. ${orderNumberOld} updated.`
+      : `Order Nr. ${orderNumberOld} updated. New number: ${orderNumber}`
+      
+      req.flash("success_msg", message);
       res.redirect("/orders")
     }
   }
