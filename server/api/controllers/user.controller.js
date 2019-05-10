@@ -34,8 +34,21 @@ class UserController {
   async signup(req, res, next) {
     let errors = []
     const { managerID, fullName, password, password2 } = req.body
+    
+    if (!managerID) {
+      errors.push({ text: 'Missing Manager ID!' })
+    }
+
+    if (!fullName) {
+      errors.push({ text: 'Missing name!' })
+    }
+
+    if (!password) {
+      errors.push({ text: 'Missing password!' })
+    }
+
     if (password != password2) {
-      errors.push({ text: 'Passwords do not match' })
+      errors.push({ text: 'Passwords do not match!' })
     }
   
     if (errors.length > 0) {
