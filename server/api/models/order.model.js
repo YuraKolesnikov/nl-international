@@ -13,6 +13,10 @@ class OrderModel {
     return await Order.find({ managerID })
   }
 
+  async getOrder(id) {
+    return await Order.findOne(id)
+  }
+
   async redirectToEditOrder(id) {
     return await Order.findById(id)
   }
