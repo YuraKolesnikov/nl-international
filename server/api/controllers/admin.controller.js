@@ -58,6 +58,12 @@ class AdminController {
     const orders = await this.adminModel.filterByDate(filterDate)
     res.render('admin/main', { orders })
   }
+
+  async filterByDatePrintable(req, res, next) {
+    const filterDate = dateEncoder.encode(req.query.filterDate)
+    const data = await this.adminModel.showAllPrintable(filterDate)
+    res.render('admin/main-print', { data })
+  }
 }
 
 module.exports = {

@@ -28,7 +28,6 @@ class UserController {
     passport.authenticate('local', {
       successRedirect: '/orders',
       failureRedirect: '/users/login',
-      failureFlash: 'Invalid username or password.'
     })(req, res, next)
   }
 

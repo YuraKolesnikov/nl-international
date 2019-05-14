@@ -26,6 +26,9 @@ class AdminRouter {
 
     this.router.route('/filterByDate')
     .get(ensureAuthenticated, this.adminController.filterByDate.bind(this.adminController))
+
+    this.router.route('/filterByDatePrintable')
+    .get(ensureAuthenticated, this.adminController.filterByDatePrintable.bind(this.adminController))
   }
 }
 
