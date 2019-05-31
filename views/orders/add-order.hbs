@@ -5,7 +5,6 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-{{else}}
 {{/each}}
 <div class="container mt-5">
   <div class="row justify-content-center">
@@ -22,6 +21,15 @@
                 id="orderNumber" 
                 type="text"
                 name="orderNumber" 
+                class="form-control"
+              >
+            </fieldset>
+            <fieldset class="form-group">
+              <label for="orderDate">{{ local.order.date }}</label>
+              <input 
+                id="orderDate" 
+                type="date" 
+                name="orderDate" 
                 class="form-control"
               >
             </fieldset>
@@ -44,6 +52,7 @@
                 required
               > --}}
               <select name="orderCity" id="orderCity" class="form-control">
+                <option value="" disabled selected>{{ local.order.city }}</option>
                 <option value="Псков">Псков</option>
                 <option value="Санкт-Петербург">Санкт-Петербург</option>
               </select>

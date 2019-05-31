@@ -26,6 +26,10 @@ const User = new Schema({
   admin: {
     type: Boolean,
     default: false
+  },
+  orders: {
+    type: Array,
+    default: []
   }
 })
 

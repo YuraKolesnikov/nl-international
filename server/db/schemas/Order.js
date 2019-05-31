@@ -4,8 +4,9 @@ const Order = new Schema({
   orderNumber: String,
   orderPrice: String,
   orderCity: String,
+  orderDate: String,
   user: String,
-  userName: String,
+  fullName: String,
   managerID: String
 })
 

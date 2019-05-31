@@ -1,3 +1,12 @@
+{{#each errors}}
+<div class="alert alert-danger my-3" style="max-width: 540px; margin: auto;">
+  {{text}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{else}}
+{{/each}}
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
@@ -6,7 +15,7 @@
           <h3>{{ local.register }}</h3>
         </div>
         <div class="card-body">
-          <form method="POST" action="/user/singup">
+          <form method="POST" action="/users/signup">
             <fieldset class="form-group">
               <label for="id">ID</label>
               <input 
@@ -15,8 +24,7 @@
                 name="managerID" 
                 class="form-control"
                 autocomplete="false"
-                placeholder="371-12345678" 
-                required
+                placeholder="371-12345678"
               >
             </fieldset>
             <fieldset class="form-group">
@@ -28,7 +36,6 @@
                 class="form-control"
                 autocomplete="false" 
                 placeholder="George Clooney"
-                required
               >
             </fieldset>
             <fieldset class="form-group">
@@ -39,7 +46,6 @@
                 name="password"
                 class="form-control"
                 autocomplete="false"
-                required
               >
               <small class="text-muted form-text">{{ local.passwordInfo }}</small>
             </fieldset>
@@ -51,7 +57,6 @@
                 name="password2" 
                 class ="form-control"
                 autocomplete="false"
-                required
               >
             </fieldset>
             <button type="submit" class="btn btn-primary">{{ local.submit }}</button>
