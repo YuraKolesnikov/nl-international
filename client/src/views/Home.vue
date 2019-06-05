@@ -1,6 +1,7 @@
 <template>
   <div class="about">
     <h1>This is a home page</h1>
+    <Greeting />
     <div class="container">
       <div class="row">
         <div class="col-sm-12" v-for="item in alertData" :key="item.type">
@@ -18,10 +19,12 @@
 </template>
 <script>
 import OrderService from '@/services/OrderService'
+import Greeting from '@/components/Greeting.vue'
 import Alert from '@/components/Alert.vue'
 export default {
   components: {
-    Alert
+    Alert,
+    Greeting
   },
   data() {
     return {
