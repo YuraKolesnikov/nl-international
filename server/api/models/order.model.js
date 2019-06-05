@@ -9,8 +9,8 @@ class OrderModel {
     this.mongoConnectionService = mongoConnectionService
   }
 
-  async showOrders(managerID) {
-    return await Order.find({ managerID })
+  async showOrders(/* managerID */) {
+    return await Order.find({ /* managerID */ })
   }
 
   async getOrder(id) {

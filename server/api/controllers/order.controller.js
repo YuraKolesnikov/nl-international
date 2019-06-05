@@ -11,12 +11,19 @@ class OrderController {
    }
 
   async showOrders(req, res, next) {
-    const { managerID } = req.user
-    try {
+    /* NOW IT'S RENDERING BUT SHOULD JUST SEND DATA! */
+    /* const { managerID } = req.user */
+    /* try {
       const orders = await this.orderModel.showOrders(managerID)
       res.render('orders/main', { orders })
     } catch (e) {
       res.render('orders/main', { error: 'Internal error! Orders not found!' })
+    } */
+    try {
+      const orders = await this.orderModel.showOrders()
+      res.status(200).send(orders)
+    } catch (error) {
+      res.status(400).send(error)
     }
   }
 
