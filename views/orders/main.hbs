@@ -7,10 +7,10 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nr.</th>
-            <th scope="col">Date</th>
-            <th scope="col">Price</th>
-            <th scope="col">City</th>
-            <th scope="col">Actions</th>
+            <th scope="col">{{local.order.date}}</th>
+            <th scope="col">{{local.order.price}}</th>
+            <th scope="col">{{local.order.city}}</th>
+            <th scope="col">{{local.order.actions}}</th>
           </tr>
         </thead>
         <tbody>
@@ -33,7 +33,7 @@
         </tbody>
         </table>
       {{else}}
-      <p>No orders added</p>
+      <p>{{local.noOrders}}</p>
       {{/if}}
   </div>
 </div>

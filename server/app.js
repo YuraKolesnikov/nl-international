@@ -10,6 +10,7 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash')
 const passport = require('passport')
+const morgan = require('morgan')
 /* Modules */
 const config = require('./config/config')
 const { apiRouter } = require('./api/routes/api.router')
@@ -25,7 +26,7 @@ const app = express()
 
 /* Middleware */
 const publicPath = 'public'
-
+app.use(morgan('dev'))
 app.use(express.static(publicPath))
 app.engine('.hbs', hbs({
   defaultLayout: 'main',

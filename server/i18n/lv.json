@@ -4,6 +4,7 @@
   "showOrders": "Mani pasūtījumi",
   "createOrder": "Pievenot pasūtījumu",
   "editOrder": "Izmainīt pasūtījumu",
+  "noOrder": "Pagaidam nav pasūtījumu",
   "register": "Reģistrēties",
   "logIn": "Ieiet",
   "logOut": "Iziet",
@@ -13,10 +14,11 @@
   "passwordInfo": "Jūsu parolei jābūt vismaz 6 simbolu garai un jāsatur tikai latīnu burtus un ciparu.",
   "order": {
     "price": "Summa (rubļos)",
+    "date": "Datums",
     "city": "Pilsēta",
-    "number": "Pasūtījuma numurs"
+    "number": "Pasūtījuma numurs",
+    "actions": "Darbības"
   },
-  "testMessage": "Nodzests!",
   "greeting": "Laipni lūdzam Kolesnikovs Delivery! Šīs lapas mērķis ir aizstāt Telegram kanālu un padarīt piegādes darbu ērtāku. Ja rodas jautājumi, droši vari vērsties",
   "here": "pie manis"
 }

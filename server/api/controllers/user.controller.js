@@ -2,6 +2,7 @@ const passport = require('passport')
 
 const encrypt = require('../../utils/encrypt')
 
+const User = require('../../db/schemas/User')
 const { userModel } = require('../models/user.model')
 const validator = require('../../utils/validator')
 
@@ -29,6 +30,7 @@ class UserController {
       successRedirect: '/orders',
       failureRedirect: '/users/login',
     })(req, res, next)
+    console.log('Logged in!')
   }
 
   async signup(req, res, next) {
@@ -53,7 +55,8 @@ class UserController {
     const user = await User.findOne({ managerID })
     if (user) {
       req.flash('error_msg', 'ID is already registered!')
-      res.redirect('/user/signup')
+      console.log('Success!')
+      res.redirect('/users/signup')
       return;
     }
   
@@ -70,17 +73,12 @@ class UserController {
     await newUser.save()
   
     try {
-      req.flash('success_msg', 'You are now registered and can log in');
-      res.redirect('/user/login')
+      req.flash('success_msg', 'You are now registered and can log in')
+      res.redirect('/users/login')
     } catch (err) {
       console.log(err)
       return
     }
-  }
-
-  async test(req, res, next) {
-    const { name } = req.body
-    res.json({name})
   }
 }
 
