@@ -35,10 +35,12 @@ class AdminController {
   async deleteUser(req, res, next) {
     const { id } = req.params
     const user = await this.adminModel.deleteUser(id)
-    res.json({
+    req.flash('success_msg', 'User deleted')
+    res.redirect('/admin/showAllManagers')
+    /* res.json({
       user,
       message: "User deleted"
-    })
+    }) */
   }
 
   async filterByDate(req, res, next) {
