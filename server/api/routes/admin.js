@@ -24,6 +24,9 @@ class AdminRouter {
     this.router.route('/showAllManagers')
     .get(ensureAuthenticated, this.adminController.showAllManagers.bind(this.adminController))
 
+    this.router.route('/deleteUser/:id')
+    .delete(ensureAuthenticated, this.adminController.deleteUser.bind(this.adminController))
+
     this.router.route('/filterByDate')
     .get(ensureAuthenticated, this.adminController.filterByDate.bind(this.adminController))
 

@@ -32,18 +32,6 @@ class AdminController {
     res.render('admin/users', { users })
   }
 
-  async editUser(req, res, next) {
-    const { id } = req.params
-    const { managerID } = req.user
-    const user = await this.adminModel.editUser(id)
-    res.json({
-      "req.params.id": id,
-      "req.user.managerID": managerID,
-      user,
-      message: "This feature is coming soon!"
-    })
-  }
-
   async deleteUser(req, res, next) {
     const { id } = req.params
     const user = await this.adminModel.deleteUser(id)

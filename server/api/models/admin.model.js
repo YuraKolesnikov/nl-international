@@ -50,7 +50,7 @@ class AdminModel {
   }
 
   async deleteUser(id) {
-    return await User.findById(id)
+    return await User.findByIdAndDelete(id)
   }
 
   async filterByDate(filterDate) {
