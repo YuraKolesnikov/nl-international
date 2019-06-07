@@ -7,26 +7,30 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'home'
+      path: '/home',
+      name: 'home',
+      component: Home
     },
     /* Login/Signup window */
     {
-      path: '/user',
-      name: 'profile'
+      path: '/users/auth',
+      name: 'auth',
+      component: () => import('./views/Authentication.vue')
     },
     {
       path: '/orders',
-      name: 'orders',
-      component: Home
+      name: 'orders'
     },
     {
       path: '/orders-printable',
-      name: 'orders-printable'
+      name: 'orders-printable',
+      component: () => import('./views/OrdersPrintable.vue')
     },
+    /* POST AXIOS request */
     {
-      path: '/order/add',
-      name: 'addOrder'
+      path: '/orders/add',
+      name: 'addOrder',
+      component: () => import('./views/AddOrder.vue')
     },
     {
       path: '/orders/edit/:id',
@@ -35,11 +39,14 @@ export default new Router({
     },
     {
       path: '/users',
-      name: 'users'
+      name: 'users',
+      component: () => import('./views/Users.vue')
     },
+    /* POST AXIOS request */
     {
-      path: '/users/edit/:id',
-      name: 'editUser'
+      path: '/users/edit',
+      name: 'editUser',
+      component: () => import('./views/EditUser.vue')
     }
   ]
 })
