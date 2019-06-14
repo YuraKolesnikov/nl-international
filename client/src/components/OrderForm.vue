@@ -1,9 +1,12 @@
 <template>
   <div class="card text-left">
     <div class="card-header">
+      <button class="btn btn-primary" @click="mode === 'create' ? mode = 'edit' : mode = 'create'">Change mode</button>
+      <!-- TODO: Pass the prop 'mode' -->
       <h3>{{mode === 'create' ? 'Create' : 'Edit'}} Order</h3>
     </div>
     <div class="card-body">
+      <!-- TODO: Port to axios -->
       <form method="POST" action="/orders">
         <fieldset class="form-group">
           <label for="orderNumber">Order Number</label>

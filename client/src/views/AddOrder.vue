@@ -2,16 +2,17 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-sm-12 offset-md-3">
-        <Form />
+        <!-- TODO: Make a prop for Form - mode - 'edit' || 'create' -->
+        <OrderForm />
       </div>
     </div>
   </div>
 </template>
 <script>
-import Form from '@/components/Form'
+import OrderForm from '@/components/OrderForm'
 export default {
   components: {
-    Form
+    OrderForm
   }
 }
 </script>
