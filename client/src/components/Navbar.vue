@@ -27,9 +27,9 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item" v-for="link in links" :key="link.id">
-          <a :href="link.path" class="nav-link">{{link.title}}</a>
-        </li>
+        <router-link class="nav-item" tag="li" v-for="link in links" :key="link.id" :to="link.path">
+          <a class="nav-link">{{link.title}}</a>
+        </router-link>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item"><a href="?clang=ru" id="ru" class="nav-link language-toggle">RU</a></li>
@@ -40,9 +40,10 @@
 </template>
 <script>
 export default {
+  props: ['test'],
   data() {
     return {
-      x: false,
+      x: this.$props.test,
       links: [
         { id: 1, path: '/', title: 'Home' },
         { id: 2, path: '/orders', title: 'Orders' },

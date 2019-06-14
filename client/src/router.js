@@ -7,7 +7,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/home',
+      path: '/',
       name: 'home',
       component: Home
     },
@@ -19,7 +19,8 @@ export default new Router({
     },
     {
       path: '/orders',
-      name: 'orders'
+      name: 'orders',
+      component: () => import('./views/Orders.vue')
     },
     {
       path: '/orders-printable',
@@ -47,6 +48,11 @@ export default new Router({
       path: '/users/edit',
       name: 'editUser',
       component: () => import('./views/EditUser.vue')
+    },
+    {
+      path: '/users/logout',
+      name: 'logout',
+      component: () => import('./views/Logout.vue')
     }
   ]
 })

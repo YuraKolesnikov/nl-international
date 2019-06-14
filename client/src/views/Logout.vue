@@ -1,3 +1,3 @@
 <template>
-  <h1>Edit User</h1>
+  <h1>Logged out!</h1>
 </template>
