@@ -4,9 +4,6 @@
     <div class="row">
       <Table :mode="mode" :tableData="tableDataOrders"/>
     </div>
-    <div class="row">
-      <Table :mode="secondMode" :tableData="tableDataUsers"/>
-    </div>
   </div>
 </template>
 <script>
@@ -18,12 +15,8 @@ export default {
   data() {
     return {
       mode: 'orders',
-      secondMode: 'users',
       tableDataOrders: [
         { id: 123, orderNumber: '15003969', orderDate: '15.08.1993', orderPrice: '3500', orderCity: 'Псков' }
-      ],
-      tableDataUsers: [
-        { id: 1234, fullName: 'Yura Kolesnikov', managerID: '371-20582968' }
       ]
     }
   },
