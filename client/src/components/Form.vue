@@ -1,7 +1,7 @@
 <template>
   <div class="card text-left">
     <div class="card-header">
-      <h3>Create Order</h3>
+      <h3>{{mode === 'create' ? 'Create' : 'Edit'}} Order</h3>
     </div>
     <div class="card-body">
       <form method="POST" action="/orders">
@@ -30,3 +30,12 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      mode: 'edit'
+    }
+  }
+}
+</script>
