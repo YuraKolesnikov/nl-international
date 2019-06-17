@@ -28,7 +28,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <router-link class="nav-item" tag="li" v-for="link in links" :key="link.id" :to="link.path">
-          <a class="nav-link">{{link.title}}</a>
+          <a class="nav-link">{{ $t(link.title)}}</a>
         </router-link>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -47,12 +47,12 @@ export default {
       x: this.$props.test,
       links: [
         { id: 1, path: '/', title: 'Home' },
-        { id: 2, path: '/orders', title: 'Orders' },
-        { id: 10, path: '/orders-printable', title: 'Orders printable' },
-        { id: 3, path: '/orders/add', title: 'Add new order' },
-        { id: 4, path: '/users/logout', title: 'Logout' },
-        { id: 5, path: '/users/auth', title: 'Login/Signup' },
-        { id: 6, path: '/users', title: 'Users' },
+        { id: 2, path: '/orders', title: 'allOrders' },
+        { id: 10, path: '/orders-printable', title: 'allOrdersPrintable' },
+        { id: 3, path: '/orders/add', title: 'createOrder' },
+        { id: 4, path: '/users/logout', title: 'logOut' },
+        { id: 5, path: '/users/auth', title: 'logIn' },
+        { id: 6, path: '/users', title: 'managers' },
         { id: 7, path: '/users/edit', title: 'Edit User' }
       ]
     }
