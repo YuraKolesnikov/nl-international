@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Navbar :test="test"/>
+    {{ $t('testMessage') }}
     <router-view/>
   </div>
 </template>

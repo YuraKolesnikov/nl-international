@@ -32,8 +32,9 @@
         </router-link>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a href="?clang=ru" id="ru" class="nav-link language-toggle">RU</a></li>
-        <li class="nav-item"><a href="?clang=lv" id="lv" class="nav-link language-toggle">LV</a></li>
+        {{currentLocale}}
+        <li class="nav-item"><a id="ru" class="nav-link language-toggle" @click="changeLocale">RU</a></li>
+        <li class="nav-item"><a id="lv" class="nav-link language-toggle" @click="changeLocale">LV</a></li>
       </ul>
     </div>
   </nav>
@@ -54,6 +55,16 @@ export default {
         { id: 6, path: '/users', title: 'Users' },
         { id: 7, path: '/users/edit', title: 'Edit User' }
       ]
+    }
+  },
+  methods: {
+    changeLocale({target}) {
+      this.$i18n.locale = target.id
+    }
+  },
+  computed: {
+    currentLocale() {
+      return this.$i18n.locale
     }
   }
 }
