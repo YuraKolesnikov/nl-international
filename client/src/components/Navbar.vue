@@ -47,6 +47,7 @@ export default {
       links: [
         { id: 1, path: '/', title: 'Home' },
         { id: 2, path: '/orders', title: 'Orders' },
+        { id: 10, path: '/orders-printable', title: 'Orders printable' },
         { id: 3, path: '/orders/add', title: 'Add new order' },
         { id: 4, path: '/users/logout', title: 'Logout' },
         { id: 5, path: '/users/auth', title: 'Login/Signup' },

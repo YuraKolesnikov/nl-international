@@ -12,7 +12,7 @@
       <tbody>
         <tr v-for="(item, index) in tableData" :key="index" class="text-left">
           <!-- TODO: Extract to class -->
-          <th style="vertical-align: middle;" scope="row">{{index + 1}}</th>
+          <th style="vertical-align: middle;" scope="row"><b>{{index + 1}}</b></th>
           <td style="vertical-align: middle;" v-for="(field, index) in tableKeys" :key="index">{{item[field]}}</td>
           <td>
             <button class="btn btn-info mr-1">
