@@ -4,12 +4,7 @@
     <div class="row">
       <form class="form-group" @sumbit.prevent="filterData">
         <label for="filterDate">Показать заказы начиная с ...</label>
-        {{filterDate}}
-        {{testDate}}
-        {{filterDateDecoded}}
-        {{test}}
         <input type="date" class="form-control" v-model="filterDate">
-        <input type="date" name="test" id="test" :value="test">
       </form>
     </div>
     <div class="row">
@@ -44,16 +39,8 @@ export default {
     },
     filteredTableDateOrders() {
       return this.tableDataOrders.filter(order => {
-        console.log(order.orderDate, this.filterDateDecoded)
-        console.log(order.orderDate >= this.filterDateDecoded)
         return order.orderDate >= this.filterDateDecoded ? true : false
       })
-    },
-    testDate() {
-      return dateEncoder.decodeForDisplay(this.filterDate)
-    },
-    test() {
-      return dateEncoder.encode('25.12.2001')
     }
   }
 }
