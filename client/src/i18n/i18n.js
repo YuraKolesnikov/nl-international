@@ -9,5 +9,5 @@ Vue.use(I18n)
 export const i18n = new I18n({
   locale: 'ru',
   fallbackLocale: 'ru',
-  messages: {ru, lv}
+  messages: { ru, lv }
 })

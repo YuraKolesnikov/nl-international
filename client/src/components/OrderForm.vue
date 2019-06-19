@@ -9,26 +9,26 @@
       <!-- TODO: Port to axios -->
       <form method="POST" action="/orders">
         <fieldset class="form-group">
-          <label for="orderNumber">Order Number</label>
+          <label for="orderNumber">{{ $t('order.number') }}</label>
           <input id="orderNumber" type="text" name="orderNumber" class="form-control">
         </fieldset>
         <fieldset class="form-group">
-          <label for="orderDate">Order Date</label>
+          <label for="orderDate">{{ $t('order.date') }}</label>
           <input id="orderDate" type="date" name="orderDate" class="form-control">
         </fieldset>
         <fieldset class="form-group">
-          <label for="orderPrice">Order Price</label>
+          <label for="orderPrice">{{ $t('order.price') }}</label>
           <input id="orderPrice" type="text" name="orderPrice" class="form-control">
         </fieldset>
         <fieldset class="form-group">
-          <label for="orderCity">Order City</label>
+          <label for="orderCity">{{ $t('order.city') }}</label>
           <select name="orderCity" id="orderCity" class="form-control">
-            <option value disabled selected>Choose city</option>
+            <option value disabled selected>{{ $t('order.city') }}</option>
             <option value="Псков">Псков</option>
             <option value="Санкт-Петербург">Санкт-Петербург</option>
           </select>
         </fieldset>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">{{ $t('submit') }}</button>
       </form>
     </div>
   </div>
