@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-6 m-auto">
         <div>
-          <p>Добро пожаловать на страницу Kolesnikovs Delivery! Цель данного сервиса - заменить телеграм-чат и сделать работу по доставкам более удобной. По всем техническим вопросам стучаться <a href="https://telegram.me/DolanGodfather">сюда</a></p>
+          <p>{{ $t('greeting')}} <a href="https://telegram.me/DolanGodfather">{{ $t('here') }}</a></p>
         </div>
       </div>
     </div>
