@@ -12,16 +12,6 @@ import AuthForm from '@/components/AuthForm'
 export default {
   components: {
     AuthForm
-  },
-  data() {
-    return {
-      mode: 'login'
-    }
-  },
-  methods: {
-    changeMode(mode) {
-      return this.mode = mode
-    }
   }
 }
 </script>

@@ -1,15 +1,16 @@
 <template>
   <div class="card">
-    <div class="row">
-      <button class="btn btn-info" @click="mode = 'logIn'">{{ $t('logIn')}}</button>
-      <button class="btn btn-info" @click="mode = 'register'">{{ $t('register') }}</button>
-    </div>
     <div class="card-header">
+      <div class="mb-2">
+        <button class="btn btn-custom" :class="{'active': mode === 'logIn'}" @click="mode = 'logIn'">{{ $t('logIn')}}</button>
+        <button class="btn btn-custom" :class="{'active': mode === 'register'}" @click="mode = 'register'">{{ $t('register') }}</button>
+      </div>
       <h3>{{ $t(mode) }}</h3>
+      
     </div>
     <div class="card-body">
       <!-- TODO: Change to axios method @submit.prevent="axios.signup" -->
-      <form method="POST" action="/users/signup">
+      <form @submit.prevent="logData">
         <!-- Out of the loop -->
         <fieldset class="form-group">
           <label for="managerID">ID</label>
@@ -23,39 +24,6 @@
             v-model="vModelFields.managerID"
           >
         </fieldset>
-        <!-- Loop -->
-        <!-- <fieldset class="form-group">
-          <label for="fullName">{{ $t('fullName') }}</label>
-          <input
-            id="fullName"
-            type="text"
-            name="fullName"
-            class="form-control"
-            autocomplete="false"
-            placeholder="George Clooney"
-          >
-        </fieldset>
-        <fieldset class="form-group">
-          <label for="password">{{ $t('password') }}</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            class="form-control"
-            autocomplete="false"
-          >
-          <small class="text-muted form-text">{{ $t('passwordInfo') }}</small>
-        </fieldset>
-        <fieldset class="form-group">
-          <label for="password2">{{ $t('confirmPassword') }}</label>
-          <input
-            id="password2"
-            type="password"
-            name="password2"
-            class="form-control"
-            autocomplete="false"
-          >
-        </fieldset>-->
         <fieldset
           class="form-group"
           v-for="field in mode === 'register' ? formData.register.formFields : formData.logIn.formFields"
@@ -75,12 +43,6 @@
             v-if="field.id === 'password' && mode == 'register'"
           >{{ $t('passwordInfo') }}</small>
         </fieldset>
-        <ul>
-          <li>{{vModelFields.managerID}}</li>
-          <li>{{vModelFields.fullName}}</li>
-          <li>{{vModelFields.password}}</li>
-          <li>{{vModelFields.confirmPassword}}</li>
-        </ul>
         <button type="submit" class="btn btn-primary">{{ $t('submit') }}</button>
       </form>
     </div>
@@ -118,12 +80,28 @@ export default {
     };
   },
   methods: {
-    logIn() {
-      console.log("Logged in!");
-    },
-    register() {
-      console.log("Registered!");
+    logData() {
+      this.mode === 'logIn' ? console.log('Logging in!') : console.log('Registering!')
+      console.log(this.vModelFields)
     }
   }
 };
 </script>
+<style lang="scss">
+.btn-custom {
+  border: 1px solid #4da3ff;
+  border-radius: 0;
+
+  &:nth-child(1) {
+    border-right-width: 0;
+  }
+
+  &:active, &:focus {
+    outline: none !important;
+  }
+
+  &.active {
+    background-color: #e5f2ff;
+  }
+}
+</style>
