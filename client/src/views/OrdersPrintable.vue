@@ -2,11 +2,15 @@
   <div class="container">
     <h1>Orders printable</h1>
     <div class="row">
-      <form class="form-group" @sumbit.prevent="filterData">
-        <label for="filterDate">Показать заказы начиная с ...</label>
-        <input type="date" class="form-control" v-model="filterDate">
-      </form>
+      <div class="col-sm-12 col-md-3 offset-md-1 text-left">
+        <form class="form-group" @sumbit.prevent="filterData">
+          <label for="filterDate">Показать заказы начиная с ...</label>
+          <input type="date" class="form-control" v-model="filterDate">
+        </form>
+      </div>
     </div>
+    {{filterDateDecoded}}
+    {{filteredTableDateOrders}}
     <div class="row">
       <div class="col-sm-12 col-md-10 offset-md-1">
         <table class="table">
@@ -19,7 +23,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr scope="row" v-for="(manager, index) in tableDataOrders" :key="index" class="text-left">
+            <tr scope="row" v-for="(manager, index) in filteredTableDateOrders" :key="index" class="text-left">
               <td><b>{{index + 1}}</b></td>
               <td>{{manager.managerID}}</td>
               <td>{{manager.fullName}}</td>
@@ -54,8 +58,8 @@ export default {
           managerID: '371-20582968', 
           fullName: 'Yura Kolesnikov', 
           orders: [
-            { orderNumber: '20582968', orderDate: '15.06.2019' },
-            { orderNumber: '12345678', orderDate: '16.06.2019' }
+            { orderNumber: '20582968', orderDate: '2019.06.15' },
+            { orderNumber: '12345678', orderDate: '2019.06.16' }
           ]
         }
       ]
@@ -65,9 +69,16 @@ export default {
     filterDateDecoded() {
       return dateEncoder.decode(this.filterDate)
     },
+    
     filteredTableDateOrders() {
-      return this.tableDataOrders.filter(order => {
-        return order.orderDate >= this.filterDateDecoded ? true : false
+      return this.tableDataOrders
+      .map(manager => {
+        const { managerID, fullName, orders } = manager
+        return {
+          managerID,
+          fullName,
+          orders: orders.filter(order => order.orderDate >= this.filterDateDecoded)
+        }
       })
     }
   }
