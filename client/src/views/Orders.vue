@@ -10,6 +10,7 @@
       </div>
     </div>
     <div class="row">
+      {{axiosTest}}
       <Table :mode="mode" :tableData="filteredTableDateOrders"/>
     </div>
   </div>
@@ -19,6 +20,7 @@
 import Table from '@/components/Table.vue'
 
 /* Services */
+import OrderService from '@/services/OrderService'
 import dateEncoder from '@/services/dateEncoder'
 export default {
   components: {
@@ -32,7 +34,8 @@ export default {
         { id: 123, orderNumber: '15003969', orderDate: '2019.06.15', orderPrice: '3500', orderCity: 'Псков' },
         { id: 123, orderNumber: '15023859', orderDate: '2019.06.15', orderPrice: '3500', orderCity: 'Псков' },
         { id: 123, orderNumber: '15002492', orderDate: '2019.05.15', orderPrice: '3500', orderCity: 'Псков' }
-      ]
+      ],
+      axiosTest: []
     }
   },
   computed: {
@@ -44,6 +47,9 @@ export default {
         return order.orderDate >= this.filterDateDecoded ? true : false
       })
     }
+  },
+  async created() {
+    this.tableDataOrders = await OrderService.showOrders()
   }
 }
 </script>

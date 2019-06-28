@@ -29,7 +29,8 @@ class AdminController {
 
   async showAllManagers(req, res, next) {
     const users = await this.adminModel.showAllManagers()
-    res.render('admin/users', { users })
+    res.send(users)
+    /* res.render('admin/users', { users }) */
   }
 
   async editUser(req, res, next) {

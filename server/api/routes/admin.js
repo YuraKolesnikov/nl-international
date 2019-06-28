@@ -16,19 +16,19 @@ class AdminRouter {
 
   setupRouter() {
     this.router.route('/showAll')
-    .get(ensureAuthenticated, this.adminController.showAll.bind(this.adminController))
+    .get(/* ensureAuthenticated,  */this.adminController.showAll.bind(this.adminController))
 
     this.router.route('/showAllPrintable')
-    .get(ensureAuthenticated, this.adminController.showAllPrintable.bind(this.adminController))
+    .get(/* ensureAuthenticated,  */this.adminController.showAllPrintable.bind(this.adminController))
 
     this.router.route('/showAllManagers')
-    .get(ensureAuthenticated, this.adminController.showAllManagers.bind(this.adminController))
+    .get(/* ensureAuthenticated,  */this.adminController.showAllManagers.bind(this.adminController))
 
     this.router.route('/filterByDate')
-    .get(ensureAuthenticated, this.adminController.filterByDate.bind(this.adminController))
+    .get(/* ensureAuthenticated,  */this.adminController.filterByDate.bind(this.adminController))
 
     this.router.route('/filterByDatePrintable')
-    .get(ensureAuthenticated, this.adminController.filterByDatePrintable.bind(this.adminController))
+    .get(/* ensureAuthenticated,  */this.adminController.filterByDatePrintable.bind(this.adminController))
   }
 }
 

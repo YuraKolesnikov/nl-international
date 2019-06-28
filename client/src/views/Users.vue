@@ -8,6 +8,7 @@
 </template>
 <script>
 import Table from '@/components/Table'
+import UserService from '@/services/UserService'
 export default {
   components: {
     Table
@@ -17,8 +18,12 @@ export default {
       tableData: [
         { id: 1234, fullName: 'Yura Kolesnikov', managerID: '371-20582968' }
       ],
+      users: [],
       mode: 'users',
     }
+  },
+  async created() {
+    this.tableData = await UserService.showManagers()
   }
 }
 </script>

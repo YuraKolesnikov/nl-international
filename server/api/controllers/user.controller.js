@@ -79,8 +79,8 @@ class UserController {
   }
 
   async test(req, res, next) {
-    const { name } = req.body
-    res.json({name})
+    const name = "Yura"
+    res.status(200).json({ name })
   }
 }
 

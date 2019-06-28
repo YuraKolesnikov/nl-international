@@ -2,7 +2,10 @@ import AXIOS from './axios'
 
 export default {
   async showManagers() {
-    try { AXIOS.get('/users') }
+    try { 
+      const response = await AXIOS().get('/admin/showAllManagers')
+      return response.data
+    }
     catch (error) { return error }
   },
 
