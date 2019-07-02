@@ -5,7 +5,7 @@
         <tr class="text-left">
           <th scope="col">#</th>
           <th scope="col" v-for="(header, index) in tableHeaders" :key="index">
-            {{header}}
+            {{ $t(`${header}`) }}
           </th>
         </tr>
       </thead>

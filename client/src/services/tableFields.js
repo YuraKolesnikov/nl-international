@@ -1,7 +1,7 @@
 export default {
   headers: {
-    users: ['Имя менеджера', 'ID менеджера', 'Действия'],
-    orders: ['Nr.', 'Date', 'Price', 'City', 'Actions']
+    users: ['manager.name', 'manager.id', 'actions'],
+    orders: ['Nr.', 'order.date', 'order.price', 'order.city', 'actions']
   },
   keys: {
     users: ['fullName', 'managerID'],

@@ -1,10 +1,8 @@
 <template>
   <div class="container">
-    <h1>Orders</h1>
+    <h1>{{ $t('showOrders') }}</h1>
     <div class="row">
       <div class="col-sm-12 col-md-3 offset-md-1 text-left">
-        {{filterDate}}
-        {{managerID}}
         <form class="form-group" @sumbit.prevent="filterData">
           <label for="filterDate">Показать заказы начиная с ...</label>
           <input type="date" class="form-control" v-model="filterDate">
@@ -12,7 +10,6 @@
       </div>
     </div>
     <div class="row">
-      {{filteredTableDateOrders.length}}
       <Table :mode="mode" :tableData="filteredTableDateOrders"/>
     </div>
   </div>
