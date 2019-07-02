@@ -23,6 +23,11 @@ export default new Router({
       component: () => import('./views/Orders.vue')
     },
     {
+      path: '/my-orders',
+      name: 'my-orders',
+      component: () => import('./views/MyOrders.vue')
+    },
+    {
       path: '/orders-printable',
       name: 'orders-printable',
       component: () => import('./views/OrdersPrintable.vue')
