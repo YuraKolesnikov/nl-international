@@ -17,7 +17,7 @@ export default {
     catch (error) { return error }
   },
   
-  async createOrder(payload) {
+  async addOrder(payload) {
     try { await AXIOS().post('/orders',  payload) } 
     catch (error) { return error}
   },

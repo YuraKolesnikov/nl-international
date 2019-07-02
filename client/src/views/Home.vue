@@ -8,6 +8,9 @@
           <Alert :data="item"/>
         </div>
       </div>
+      <div class="row">
+        <Table :mode="mode"/>
+      </div>
     </div>
   </div>
 </template>
@@ -15,10 +18,13 @@
 import OrderService from '@/services/OrderService'
 import Greeting from '@/components/Greeting.vue'
 import Alert from '@/components/Alert.vue'
+import Table from '@/components/Table.vue'
+
 export default {
   components: {
     Alert,
-    Greeting
+    Greeting,
+    Table
   },
   data() {
     return {

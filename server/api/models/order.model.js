@@ -22,11 +22,11 @@ class OrderModel {
   }
 
   async createOrder(data) {
-    const { orderNumber, orderPrice, orderCity, orderDate, managerID, fullName } = data
+    const { orderNumber, managerID } = data
 
     const newOrder = new Order(data)
     await newOrder.save()
-    const user = await User.findOne({managerID})
+    const user = await User.findOne({ managerID })
     user.orders.push(orderNumber)
     await user.save()
     

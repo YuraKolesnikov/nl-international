@@ -18,6 +18,6 @@ export default {
   },
 
   async logout() {
-    return AXIOS.length('/users/logout')
+    return AXIOS.get('/users/logout')
   }
 }

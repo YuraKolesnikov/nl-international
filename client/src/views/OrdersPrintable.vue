@@ -9,8 +9,6 @@
         </form>
       </div>
     </div>
-    {{filterDateDecoded}}
-    {{filteredTableDateOrders}}
     <div class="row">
       <div class="col-sm-12 col-md-10 offset-md-1">
         <table class="table">
@@ -47,21 +45,22 @@ import Table from '@/components/Table.vue'
 
 /* Services */
 import dateEncoder from '@/services/dateEncoder'
-
+import OrderService from '@/services/OrderService'
 export default {
   data() {
     return {
       mode: 'ordersPrintable',
       filterDate: '',
       tableDataOrders: [
-        { 
+        /* Mock data */
+        /* { 
           managerID: '371-20582968', 
           fullName: 'Yura Kolesnikov', 
           orders: [
             { orderNumber: '20582968', orderDate: '2019.06.15' },
             { orderNumber: '12345678', orderDate: '2019.06.16' }
           ]
-        }
+        } */
       ]
     }
   },
@@ -80,7 +79,11 @@ export default {
           orders: orders.filter(order => order.orderDate >= this.filterDateDecoded)
         }
       })
+      .filter(manager => manager.orders.length > 0)
     }
+  },
+  async created() {
+    this.tableDataOrders = await OrderService.showOrdersPrintable()
   }
 }
 </script>

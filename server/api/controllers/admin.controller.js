@@ -19,11 +19,16 @@ class AdminController {
 
   async showAllPrintable(req, res, next) {
     const data = await this.adminModel.showAllPrintable()
-    console.log(data)
-    try {
+    /* try {
       res.render('admin/main-print', { data })
     } catch (error) {
       res.json({ error })
+    } */
+    /* For AXIOS */
+    try {
+      res.status(200).send(data)
+    } catch (error) {
+      res.status(400).send(error)
     }
   }
 
