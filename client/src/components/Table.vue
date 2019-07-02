@@ -14,7 +14,9 @@
           <td scope="row"><b>{{index + 1}}</b></td>
           <td v-for="(field, index) in tableKeys" :key="index">{{item[field]}}</td>
           <td>
-            <button class="btn btn-info mr-1">
+            <button 
+              class="btn btn-info mr-1"
+              @click="redirectToEditOrder(item._id)">
               <i class="fa fa-edit"></i>
             </button>
             <button 
@@ -53,6 +55,9 @@ export default {
     async deleteOrder(id) {
       console.log(id)
       await OrderService.deleteOrder(id)
+    },
+    redirectToEditOrder(id) {
+      this.$router.push({path: `/orders/edit/${id}`})
     }
   }
 }

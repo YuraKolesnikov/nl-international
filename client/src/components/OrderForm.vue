@@ -1,13 +1,13 @@
 <template>
   <div class="card text-left">
     <div class="card-header">
-      <button class="btn btn-primary" @click="mode === 'create' ? mode = 'edit' : mode = 'create'">Change mode</button>
+      <!-- <button class="btn btn-primary" @click="mode === 'create' ? mode = 'edit' : mode = 'create'">Change mode</button> -->
       <!-- TODO: Pass the prop 'mode' -->
       <h3>{{mode === 'create' ? 'Create' : 'Edit'}} Order</h3>
     </div>
     <div class="card-body">
       <!-- TODO: Port to axios -->
-      <form @submit.prevent="addOrder">
+      <form @submit.prevent="orderCallback">
         <fieldset class="form-group">
           <label for="orderNumber">{{ $t('order.number') }}</label>
           <input 
@@ -56,28 +56,11 @@
 import OrderService from '@/services/OrderService'
 
 export default {
+  props: ['mode', 'orderCallback', 'order', 'fields'],
   data() {
     return {
-      mode: 'edit',
-      fields: {
-        orderNumber: '',
-        orderDate: '',
-        orderPrice: '',
-        orderCity: ''
-      },
       managerID: 'a',
       fullName: 'Yura Kolesnikov'
-    }
-  },
-  methods: {
-    async addOrder() {
-      const { orderNumber, orderDate, orderPrice, orderCity } = this.fields
-      await OrderService.addOrder({
-        orderNumber, orderDate, orderPrice, orderCity,
-        managerID: this.managerID,
-        fullName: this.fullName
-      })
-      console.log('Success!')
     }
   }
 }

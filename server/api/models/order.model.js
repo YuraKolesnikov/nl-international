@@ -35,6 +35,9 @@ class OrderModel {
 
   async editOrder(id, data) {
     const { orderNumber, orderPrice, orderCity, orderDate } = data
+    console.log('Backend: ')
+    console.log(`ID: ${id}`)
+    console.log('Payload: ', data)
     return await Order.findOneAndUpdate(
       { _id: id },
       { $set: { orderNumber, orderPrice, orderCity, orderDate } },

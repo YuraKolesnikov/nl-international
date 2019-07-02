@@ -23,7 +23,12 @@ export default {
   },
 
   async editOrder(id, payload) {
-    try { await AXIOS().post(`/orders/edit/${id}`, payload) }
+    try { 
+      console.log('AXIOS: ')
+      console.log(`ID: ${id}`)
+      console.log('Payload: ', payload)
+      await AXIOS().put(`/orders/edit/${id}`, payload)
+    }
     catch (error) { return error }
   },
 
