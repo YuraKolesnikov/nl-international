@@ -112,11 +112,13 @@ class OrderController {
     const { id } = req.params
     try {
       await this.orderModel.deleteOrder(id)
-      req.flash('success_msg', 'Order removed')
-      res.redirect('/orders')
+      res.status(200).send()
+      /* req.flash('success_msg', 'Order removed')
+      res.redirect('/orders') */
     } catch (error) {
-      req.flash('error_msg', 'Internal error! Order was not deleted')
-      res.redirect('/orders')
+      res.status(400).send()
+      /* req.flash('error_msg', 'Internal error! Order was not deleted')
+      res.redirect('/orders') */
     }
   }
 }

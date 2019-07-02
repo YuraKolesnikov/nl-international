@@ -11,14 +11,15 @@
       </thead>
       <tbody>
         <tr v-for="(item, index) in tableData" :key="index" class="text-left">
-          <!-- TODO: Extract to class -->
-          <th style="vertical-align: middle;" scope="row"><b>{{index + 1}}</b></th>
-          <td style="vertical-align: middle;" v-for="(field, index) in tableKeys" :key="index">{{item[field]}}</td>
+          <td scope="row"><b>{{index + 1}}</b></td>
+          <td v-for="(field, index) in tableKeys" :key="index">{{item[field]}}</td>
           <td>
             <button class="btn btn-info mr-1">
               <i class="fa fa-edit"></i>
             </button>
-            <button class="btn btn-danger ml-1">
+            <button 
+              class="btn btn-danger ml-1"
+              @click="deleteOrder(item._id)">
               <i class="fa fa-trash"></i>
             </button>
           </td>
@@ -30,13 +31,34 @@
 </template>
 <script>
 import tableFields from '@/services/tableFields'
+import OrderService from '@/services/OrderService'
+
 export default {
   props: ['mode', 'tableData'],
   data() {
     return {
-      tableHeaders: tableFields.headers[this.$props.mode],
-      tableKeys: tableFields.keys[this.$props.mode]
+      /* tableHeaders: tableFields.headers[this.$props.mode],
+      tableKeys: tableFields.keys[this.$props.mode] */
+    }
+  },
+  computed: {
+    tableHeaders() {
+      return tableFields.headers[this.$props.mode]
+    },
+    tableKeys() {
+      return tableFields.keys[this.$props.mode]
+    }
+  },
+  methods: {
+    async deleteOrder(id) {
+      console.log(id)
+      await OrderService.deleteOrder(id)
     }
   }
 }
 </script>
+<style lang="scss" scoped>
+th, td {
+  vertical-align: middle;
+}
+</style>

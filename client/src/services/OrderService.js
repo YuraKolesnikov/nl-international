@@ -23,12 +23,12 @@ export default {
   },
 
   async editOrder(id, payload) {
-    try { await AXIOS.post(`/orders/edit/${id}`, payload) }
+    try { await AXIOS().post(`/orders/edit/${id}`, payload) }
     catch (error) { return error }
   },
 
   async deleteOrder(id) {
-    try { await AXIOS.delete(`/orders/delete/${id}`) } 
+    try { await AXIOS().delete(`/orders/delete/${id}`) } 
     catch (error) { return error }
   }
 }
