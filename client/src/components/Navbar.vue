@@ -34,8 +34,7 @@ export default {
         { id: 4, path: '/users/logout', title: 'logOut' },
         { id: 5, path: '/users/auth', title: 'logIn' },
         { id: 6, path: '/users', title: 'managers' },
-        { id: 7, path: '/users/edit', title: 'Edit User' },
-        { id: 11, path: '/gavno', title: 'GAVNO' }
+        { id: 7, path: '/users/edit', title: 'Edit User' }
       ]
     }
   },
