@@ -13,9 +13,8 @@ const mutations = {
 }
 
 const actions = {
-  async getUsers({commit, state}) {
-		const users = await userService.showManagers()
-		state.managers = [...users]
+  async getUsers(state) {
+		state.managers = await userService.showManagers()
 	}
 }
 

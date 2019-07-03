@@ -24,6 +24,7 @@ export default {
   },
   async created() {
     this.tableData = await UserService.showManagers()
+    console.log(this.$store)
   }
 }
 </script>
