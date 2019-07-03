@@ -10,6 +10,7 @@ class AdminController {
 
   async showAll(req, res, next) {
     const orders = await this.adminModel.showAll()
+
     try {
       res.render('admin/main', { orders })
     } catch (error) {
@@ -19,7 +20,6 @@ class AdminController {
 
   async showAllPrintable(req, res, next) {
     const data = await this.adminModel.showAllPrintable()
-    console.log(data)
     try {
       res.render('admin/main-print', { data })
     } catch (error) {

@@ -8,12 +8,13 @@ const validator = require('../../utils/validator')
 class OrderController {
   constructor(orderModel) { 
     this.orderModel = orderModel
-   }
+  }
 
   async showOrders(req, res, next) {
     const { managerID } = req.user
     try {
       const orders = await this.orderModel.showOrders(managerID)
+      console.log(orders)
       res.render('orders/main', { orders })
     } catch (e) {
       res.render('orders/main', { error: 'Internal error! Orders not found!' })
