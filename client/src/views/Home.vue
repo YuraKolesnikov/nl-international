@@ -9,7 +9,11 @@
         </div>
       </div>
       <div class="row">
-        <Table :mode="mode"/>
+        {{mode}}
+        {{result}}
+        <button @click="changeMode('a')">A</button>
+        <button @click="changeMode('b')">B</button>
+        <button @click="fireCallback">Fire callback</button>
       </div>
     </div>
   </div>
@@ -29,14 +33,12 @@ export default {
   data() {
     return {
       orders: [],
+      result: '',
       alertData: [
         { type: 'success', message: 'User registered!' },
         { type: 'danger', message: 'Login is taken!' }
       ]
     }
-  },
-  mounted() {
-    
   },
   methods: {
     async showOrders() {
@@ -45,6 +47,23 @@ export default {
     },
     editOrder(id) {
       this.$router.push({name: 'editOrder'})
+    },
+    changeMode(newMode) {
+      this.$store.commit('setMode', newMode)
+    },
+    fireCallback() {
+      return this.mode === 'a' ? this.a() : this.b()
+    },
+    a() {
+      this.result = 'AAA'
+    },
+    b() {
+      this.result = 'BBB'
+    }
+  },
+  computed: {
+    mode() {
+      return this.$store.getters.getMode
     }
   }
 }

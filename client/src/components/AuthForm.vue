@@ -2,15 +2,22 @@
   <div class="card">
     <div class="card-header">
       <div class="mb-2">
-        <button class="btn btn-custom" :class="{'active': mode === 'logIn'}" @click="mode = 'logIn'">{{ $t('logIn')}}</button>
-        <button class="btn btn-custom" :class="{'active': mode === 'register'}" @click="mode = 'register'">{{ $t('register') }}</button>
+        <button 
+          class="btn btn-custom" 
+          :class="{'active': mode === 'logIn'}" 
+          @click="setMode('logIn')">{{ $t('logIn')}}</button>
+        <button 
+          class="btn btn-custom" 
+          :class="{'active': mode === 'register'}" 
+          @click="setMode('register')">{{ $t('register') }}</button>
       </div>
       <h3>{{ $t(mode) }}</h3>
       
     </div>
     <div class="card-body">
       <!-- TODO: Change to axios method @submit.prevent="axios.signup" -->
-      <form @submit.prevent="logIn">
+      {{mode}}
+      <form @submit.prevent="fireAuthRoutine">
         <!-- Out of the loop -->
         <!-- <fieldset class="form-group">
           <label for="managerID">ID</label>
@@ -79,7 +86,6 @@ import { setTimeout } from 'timers';
 export default {
   data() {
     return {
-      mode: "logIn",
       token: '',
       formData: {
         logIn: {
@@ -107,6 +113,30 @@ export default {
     };
   },
   methods: {
+    setMode(newMode) {
+      this.$store.commit('setMode', newMode)
+    },
+    fireAuthRoutine() {
+      return this.mode === 'logIn' ? this.login() : this.signup()
+      console.log(this.mode)
+    },
+    login() {
+      console.log('Login routine fired')
+      const payload = {
+        mail: this.vModelFields.mail,
+        password: this.vModelFields.password
+      }
+      console.log('Payload', payload)
+
+    },
+    signup() {
+      console.log('Signup routine fired')
+      const payload = {
+        mail: this.vModelFields.mail,
+        password: this.vModelFields.password
+      }
+      console.log('Payload', payload)
+    },
     async logIn() {
       console.log('logIn routine fired')
       const payload = {
@@ -158,6 +188,11 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    }
+  },
+  computed: {
+    mode() {
+      return this.$store.getters.getMode
     }
   }
 };
