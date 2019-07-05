@@ -9,15 +9,33 @@ export default {
     catch (error) { return error }
   },
 
-  async login(payload) {
-    return AXIOS.post('/users/login', payload)
+  async logIn(payload) {
+    console.log('Payload received')
+    try {
+      const response = await AXIOS().post('/users/login', payload)
+      return response.data
+    } catch (error) {
+      return error
+    }
   },
 
   async register(payload) {
-    return AXIOS.post('/users/register', payload)
+    return await AXIOS().post('/users/register', {payload})
   },
 
   async logout() {
-    return AXIOS.get('/users/logout')
+    return await AXIOS().get('/users/logout')
+  },
+
+  async postTest(payload, token) {
+    return await AXIOS().post(
+			'/users/postTest',
+			payload,
+			{
+				headers: {
+					Authorization: `bearer ${token}`
+				}
+			}
+		)
   }
 }

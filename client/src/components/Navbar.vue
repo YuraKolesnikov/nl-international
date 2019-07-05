@@ -27,14 +27,14 @@ export default {
     return {
       x: this.$props.test,
       links: [
-        { id: 1, path: '/', title: 'Home' },
+        { id: 1, path: '/', title: 'home' },
         { id: 2, path: '/orders', title: 'allOrders' },
         { id: 10, path: '/orders-printable', title: 'allOrdersPrintable' },
         { id: 3, path: '/orders/add', title: 'createOrder' },
         { id: 4, path: '/users/logout', title: 'logOut' },
         { id: 5, path: '/users/auth', title: 'logIn' },
         { id: 6, path: '/users', title: 'managers' },
-        { id: 7, path: '/users/edit', title: 'Исправить менеджера' },
+        { id: 7, path: '/users/edit', title: 'editUser' },
         { id: 8, path: '/my-orders', title: 'showOrders' }
       ]
     }

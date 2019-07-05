@@ -1,20 +1,12 @@
-const passport = require('passport')
-
-const encrypt = require('../../utils/encrypt')
 const validator = require('../../utils/validator')
+
+const jwt = require('jsonwebtoken')
+
 const { userModel } = require('../models/user.model')
 
 class UserController {
 	constructor(userModel) {
 		this.userModel = userModel
-	}
-
-	redirectToLoginForm(req, res, next) {
-		res.render('user/login')
-	}
-
-	redirectToSignupForm(req, res, next) {
-		res.render('user/signup')
 	}
 
 	async logout(req, res, next) {
@@ -24,18 +16,27 @@ class UserController {
 	}
 
 	async login(req, res, next) {
-		passport.authenticate('local', {
+		const { mail, password } = req.body
+		try {
+			const response = await this.userModel.login({ mail, password })
+			console.log('userController response', response)
+			res.status(200).send(response)
+		} catch (error) {
+			res.status(400).send(error)
+		}
+		/* return await this.userModel.login({ mail, password }) */
+		/* passport.authenticate('local', {
 			successRedirect: '/orders',
 			failureRedirect: '/users/login'
-		})(req, res, next)
+		})(req, res, next) */
 	}
 
-	async signup(req, res, next) {
-		const { managerID, fullName, password, password2 } = req.body
+	async register(req, res, next) {
+		const { mail, password } = req.body
+		return await this.userModel.register({ mail, password })
+		/* const errors = validator.validateForm({ managerID, fullName, password }) */
 
-		const errors = validator.validateForm({ managerID, fullName, password })
-
-		if (password != password2) {
+		/* if (password != password2) {
 			errors.push({ text: 'Passwords do not match!' })
 		}
 
@@ -74,12 +75,14 @@ class UserController {
 		} catch (err) {
 			console.log(err)
 			return
-		}
+		} */
 	}
 
-	async test(req, res, next) {
-		const name = 'Yura'
-		res.status(200).json({ name })
+	async postTest(req, res, next) {
+		const { id, mail, password } = req.body
+
+		console.log({ id, mail, password })
+		res.status(200).send({ id, mail, password })
 	}
 }
 
@@ -87,3 +90,4 @@ module.exports = {
 	UserController,
 	userController: new UserController(userModel)
 }
+

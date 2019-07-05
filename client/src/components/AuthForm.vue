@@ -10,9 +10,9 @@
     </div>
     <div class="card-body">
       <!-- TODO: Change to axios method @submit.prevent="axios.signup" -->
-      <form @submit.prevent="logData">
+      <form @submit.prevent="logIn">
         <!-- Out of the loop -->
-        <fieldset class="form-group">
+        <!-- <fieldset class="form-group">
           <label for="managerID">ID</label>
           <input
             id="managerID"
@@ -23,8 +23,32 @@
             placeholder="371-12345678"
             v-model="vModelFields.managerID"
           >
+        </fieldset> -->
+        <fieldset class="form-group">
+          <label for="mail">Mail</label>
+          <input
+            id="mail"
+            type="text"
+            name="mail"
+            class="form-control"
+            autocomplete="false"
+            placeholder="john.doe@gmail.com"
+            v-model="vModelFields.mail"
+          >
         </fieldset>
-        <fieldset
+        <fieldset class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="text"
+            name="password"
+            class="form-control"
+            autocomplete="false"
+            placeholder="12345678"
+            v-model="vModelFields.password"
+          >
+        </fieldset>
+        <!-- <fieldset
           class="form-group"
           v-for="field in mode === 'register' ? formData.register.formFields : formData.logIn.formFields"
           :key="field.id"
@@ -42,47 +66,98 @@
             class="text-muted form-text"
             v-if="field.id === 'password' && mode == 'register'"
           >{{ $t('passwordInfo') }}</small>
-        </fieldset>
+        </fieldset> -->
         <button type="submit" class="btn btn-primary">{{ $t('submit') }}</button>
       </form>
+      <button @click="postTest">Post Test</button>
     </div>
   </div>
 </template>
 <script>
+import UserService from '@/services/UserService'
+import { setTimeout } from 'timers';
 export default {
   data() {
     return {
       mode: "logIn",
+      token: '',
       formData: {
         logIn: {
-          method: () => {
-            this.logIn();
-          },
-          formFields: [{ type: "password", id: "password" }]
+          formFields: [
+            { type: 'text', id: 'mail' },
+            { type: 'password', id: 'password' }
+          ]
         },
         register: {
-          method: () => {
-            this.register();
-          },
           formFields: [
-            { type: "text", id: "fullName", placeholder: "George Clooney" },
+            /* { type: "text", id: "fullName", placeholder: "George Clooney" }, */
+            { type: 'text', id: 'mail' },
             { type: "password", id: "password" },
-            { type: "password", id: "confirmPassword" }
+            /* { type: "password", id: "confirmPassword" } */
           ]
         }
       },
       vModelFields: {
-        managerID: "",
-        fullName: "",
-        password: "",
-        confirmPassword: ""
+        managerID: '',
+        fullName: '',
+        mail: '',
+        password: '',
+        confirmPassword: ''
       }
     };
   },
   methods: {
-    logData() {
-      this.mode === 'logIn' ? console.log('Logging in!') : console.log('Registering!')
-      console.log(this.vModelFields)
+    async logIn() {
+      console.log('logIn routine fired')
+      const payload = {
+        mail: this.vModelFields.mail,
+        password: this.vModelFields.password
+      }
+      console.log('Payload', payload)
+
+      try {
+        const response = await UserService.logIn(payload)
+        this.$store.commit('setToken', response.token)
+        this.token = this.$store.getters.getToken
+      } catch (error) {
+        
+      }
+      /* try {
+        const response = await UserService.logIn(payload)
+
+        this.user = response.data
+        this.$store.commit('setToken', this.user.token)
+        this.token = this.$store.getters.getToken
+      } catch (error) {
+        this.user = error
+      } */
+    },
+    async register() {
+      const payload = {
+        mail: this.vModelFields.mail,
+        password: this.vModelFields.password
+      }
+
+      try {
+        const response = await UserService.register(payload)
+        console.log(response)
+      } catch (error) {
+        
+      }
+    },
+    async postTest() {
+      console.log('Started postTest')
+      const payload = {
+        id: 1,
+        mail: 'cezar278@inbox.lv',
+        password: '12345'
+      }
+      try {
+        const response = await UserService.postTest(payload, this.token)
+        console.log(response)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 };

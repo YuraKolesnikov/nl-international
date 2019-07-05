@@ -23,8 +23,12 @@ export default {
     }
   },
   async created() {
-    this.tableData = await UserService.showManagers()
-    console.log(this.$store)
+    const response = await UserService.showManagers()
+    console.log(response[0])
+    this.tableData.push({
+      fullName: response[0].mail,
+      managerID: response[0].password
+    })
   }
 }
 </script>
