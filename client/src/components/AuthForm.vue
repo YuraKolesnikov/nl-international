@@ -142,6 +142,28 @@ export default {
     },
     signup() {
       this.$store.commit('clearErrors')
+
+      const payload = {
+        mail: this.vModelFields.mail,
+        password: this.vModelFields.password
+      }
+
+      const submitData = {
+        mail: this.vModelFields.mail,
+        password: this.vModelFields.password,
+        password2: this.vModelFields.password2
+      }
+      
+      Object.keys(submitData).forEach(key => {
+        if (submitData[key] == '') {
+          const newError = {
+            type: 'danger',
+            message: `${key} field is empty!`
+          }
+          this.$store.commit('addError', newError)
+        }
+      })
+
       if (this.vModelFields.password != this.vModelFields.password2) {
         const newError = {
           type: 'danger',
@@ -149,10 +171,7 @@ export default {
         }
         this.$store.commit('addError', newError)
       }
-      const payload = {
-        mail: this.vModelFields.mail,
-        password: this.vModelFields.password
-      }
+
       console.log('Payload', payload)
     },
     async logIn() {
