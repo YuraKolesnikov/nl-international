@@ -2,16 +2,20 @@ import userService from '@/services/UserService'
 
 const state = {
 	managers: [],
+	errors: [],
 	token: ''
 }
 
 const getters = {
 	showManagers: state => state.managers,
-	getToken: state => state.token
+	getToken: state => state.token,
+	getErrors: state => state.errors
 }
 
 const mutations = {
-  setToken: (state, token) => state.token = token
+	setToken: (state, token) => state.token = token,
+	addError: (state, error) => state.errors.push(error),
+	clearErrors: state => state.errors = []
 }
 
 const actions = {

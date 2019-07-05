@@ -55,6 +55,18 @@
             v-model="vModelFields.password"
           >
         </fieldset>
+        <fieldset class="form-group">
+          <label for="password">Repeat password</label>
+          <input
+            id="password2"
+            type="text"
+            name="password"
+            class="form-control"
+            autocomplete="false"
+            placeholder="12345678"
+            v-model="vModelFields.password2"
+          >
+        </fieldset>
         <!-- <fieldset
           class="form-group"
           v-for="field in mode === 'register' ? formData.register.formFields : formData.logIn.formFields"
@@ -108,7 +120,7 @@ export default {
         fullName: '',
         mail: '',
         password: '',
-        confirmPassword: ''
+        password2: ''
       }
     };
   },
@@ -118,7 +130,6 @@ export default {
     },
     fireAuthRoutine() {
       return this.mode === 'logIn' ? this.login() : this.signup()
-      console.log(this.mode)
     },
     login() {
       console.log('Login routine fired')
@@ -130,7 +141,14 @@ export default {
 
     },
     signup() {
-      console.log('Signup routine fired')
+      this.$store.commit('clearErrors')
+      if (this.vModelFields.password != this.vModelFields.password2) {
+        const newError = {
+          type: 'danger',
+          message: 'Passwords don\'t match!'
+        }
+        this.$store.commit('addError', newError)
+      }
       const payload = {
         mail: this.vModelFields.mail,
         password: this.vModelFields.password
@@ -163,6 +181,13 @@ export default {
       } */
     },
     async register() {
+      if (this.vModelFields.password != this.vModelFields.password2) {
+        const newError = {
+          type: 'danger',
+          message: 'Passwords don\'t match!'
+        }
+        return this.$store.commit('addError', newError)
+      }
       const payload = {
         mail: this.vModelFields.mail,
         password: this.vModelFields.password
