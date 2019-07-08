@@ -16,7 +16,7 @@
           <td>
             <button 
               class="btn btn-info mr-1"
-              @click="redirectToEditOrder(item._id)">
+              @click="redirectToEditItem(item._id)">
               <i class="fa fa-edit"></i>
             </button>
             <button 
@@ -47,18 +47,23 @@ export default {
     tableHeaders() {
       return tableFields.headers[this.$props.mode]
     },
+
     tableKeys() {
       return tableFields.keys[this.$props.mode]
     }
   },
   methods: {
     async deleteOrder(id) {
-      console.log(id)
       await OrderService.deleteOrder(id)
     },
-    redirectToEditOrder(id) {
-      this.$router.push({path: `/orders/edit/${id}`})
+
+    redirectToEditItem(id) {
+      let path = this.$props.mode === 'orders' ? `/orders/edit/${id}` : `users/edit/${id}`
+      return this.$router.push({path})
     }
+  },
+  async created() {
+    console.log(this.$props)
   }
 }
 </script>

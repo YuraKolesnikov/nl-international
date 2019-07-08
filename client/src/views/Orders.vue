@@ -42,7 +42,8 @@ export default {
       return dateEncoder.decode(this.filterDate)
     },
     filteredTableDateOrders() {
-      return this.tableDataOrders.filter(order => order.orderDate >= this.filterDateDecoded ? true : false)
+      return this.tableDataOrders
+      .filter(order => order.orderDate >= this.filterDateDecoded ? true : false)
     }
   },
   async created() {

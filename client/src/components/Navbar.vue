@@ -24,25 +24,23 @@
         <router-link
           class="nav-item"
           tag="li"
-          v-for="link in newLinks"
+          v-for="link in filteredLinks"
           :key=" link.id"
           :to="link.path">
-          <a class="nav-link">{{ $t(link.title) }}</a>
+          <a class="nav-link">
+            {{ $t(link.title) }}
+          </a>
         </router-link>
-        <router-link class="nav-item" tag="li" to="/" @click.native="logOut">
-          <a class="nav-link">{{ $t('logOut') }}</a>
-        </router-link>
-      </ul>
-      <!-- <ul class="navbar-nav">
         <router-link 
           class="nav-item" 
           tag="li" 
-          v-for="link in links" 
-          :key="link.id" :to="link.path"
-          v-on="link.title === 'logOut' ? { click: logOut } : {}">
-          <a class="nav-link">{{ $t(link.title)}}</a>
+          to="/" 
+          @click.native="logOut">
+          <a class="nav-link">
+            {{ $t('logOut') }}
+          </a>
         </router-link>
-      </ul> -->
+      </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item"><a id="ru" class="nav-link language-toggle" @click="changeLocale">RU</a></li>
         <li class="nav-item"><a id="lv" class="nav-link language-toggle" @click="changeLocale">LV</a></li>
@@ -56,20 +54,11 @@ export default {
   data() {
     return {
       x: this.$props.test,
-      newLinks: [
-        { id: 1, path: '/my-orders', title: 'showOrders' },
-        { id: 2, path: '/orders/add', title: 'createOrder' }
-      ],
       links: [
-        { id: 1, path: '/', title: 'home' },
-        { id: 2, path: '/orders', title: 'allOrders' },
-        { id: 10, path: '/orders-printable', title: 'allOrdersPrintable' },
-        { id: 3, path: '/orders/add', title: 'createOrder' },
-        { id: 4, path: '/users/logout', title: 'logOut' },
-        { id: 5, path: '/users/auth', title: 'logIn' },
-        { id: 6, path: '/users', title: 'managers' },
-        { id: 7, path: '/users/edit', title: 'editUser' },
-        { id: 8, path: '/my-orders', title: 'showOrders' }
+        { id: 1, path: '/my-orders', title: 'showOrders', adminOnly: false },
+        { id: 2, path: '/orders/add', title: 'createOrder', adminOnly: false },
+        { id: 3, path: '/orders-printable', title: 'allOrdersPrintable', adminOnly: true },
+        { id: 4, path: '/users', title: 'managers', adminOnly: true }
       ]
     }
   },
@@ -80,7 +69,11 @@ export default {
 
     logOut() {
       this.$store.commit('logOut')
-      console.log(this.$store.getters.isLoggedIn)
+      this.$store.commit('addError', {
+        type: 'success',
+        message:'Logged out!'
+      })
+      this.$router.push({ path: '/' })
     }
   },
   computed: {
@@ -90,6 +83,16 @@ export default {
 
     isLoggedIn() {
       return this.$store.getters.isLoggedIn
+    },
+
+    isUserAdmin() {
+      return this.$store.getters.getUser.admin
+    },
+
+    filteredLinks() {
+      return this.isUserAdmin
+      ? this.links
+      : this.links.filter(link => link.adminOnly === false)
     }
   }
 }

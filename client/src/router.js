@@ -50,7 +50,7 @@ export default new Router({
     },
     /* POST AXIOS request */
     {
-      path: '/users/edit',
+      path: '/users/edit/:id',
       name: 'editUser',
       component: () => import('./views/EditUser.vue')
     },

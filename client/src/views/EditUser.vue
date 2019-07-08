@@ -1,9 +1,8 @@
 <template>
   <div class="container">
-    <h1>Edit User</h1>
+    <h1>Editing user {{id}}</h1>
     <div class="row">
       <div class="col-md-6 col-sm-12 offset-md-3">
-        <!-- TODO: Make a prop for Form - mode - 'edit' || 'create' -->
         <UserForm :user="user"/>
       </div>
     </div>
@@ -17,9 +16,10 @@ export default {
   },
   data() {
     return {
+      id: this.$route.params.id,
       user: {
         fullName: 'Yura Kolesnikov',
-        managerID: '371-20582968'
+        managerID: 'a'
       }
     }
   }

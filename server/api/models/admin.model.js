@@ -38,7 +38,7 @@ class AdminModel {
 	}
 
 	async showAllManagers() {
-		return await User.find({}).select('mail')
+		return await User.find({}).select('admin fullName managerID orders')
 	}
 
 	async editUser(id) {

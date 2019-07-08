@@ -1,13 +1,14 @@
 <template>
   <div class="about">
     <h1>This is a home page</h1>
+    <Alert v-for="(alert, index) in alertMessages" :key="index" :data="alert" />
     <Greeting />
     <div class="container">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-sm-12" v-for="item in alertData" :key="item.type">
           <Alert :data="item"/>
         </div>
-      </div>
+      </div> -->
       <div class="row">
         {{mode}}
         {{result}}
@@ -64,6 +65,10 @@ export default {
   computed: {
     mode() {
       return this.$store.getters.getMode
+    },
+
+    alertMessages() {
+      return this.$store.getters.getErrors
     }
   }
 }

@@ -12,7 +12,6 @@
           @click="setMode('register')">{{ $t('register') }}</button>
       </div>
       <h3>{{ $t(mode) }}</h3>
-      <h3>{{isLoggedIn}}</h3>
     </div>
     <div class="card-body">
       <form @submit.prevent="fireAuthRoutine">
@@ -50,17 +49,12 @@
         </fieldset>
         <button type="submit" class="btn btn-primary">{{ $t('submit') }}</button>
       </form>
-      {{response}}
     </div>
   </div>
 </template>
 <script>
 import UserService from '@/services/UserService'
-import Alert from '@/components/Alert'
 export default {
-  components: {
-    Alert
-  },
   data() {
     return {
       token: '',
@@ -89,6 +83,7 @@ export default {
       }
     };
   },
+  
   methods: {
     setMode(newMode) {
       this.$store.commit('setMode', newMode)
@@ -97,6 +92,7 @@ export default {
     fireAuthRoutine() {
       return this.mode === 'logIn' ? this.logIn() : this.register()
     },
+
     async logIn() {
       const payload = {
         managerID: this.vModelFields.managerID,
@@ -106,20 +102,13 @@ export default {
       try {
         const response = await UserService.logIn(payload)
         this.$store.commit('logIn')
-        this.$router.push({ path: '/orders' })
+        this.$store.commit('setUser', response.user)
+        this.$router.push({ path: '/my-orders' })
       } catch (error) {
         
       }
-      /* try {
-        const response = await UserService.logIn(payload)
-
-        this.user = response.data
-        this.$store.commit('setToken', this.user.token)
-        this.token = this.$store.getters.getToken
-      } catch (error) {
-        this.user = error
-      } */
     },
+
     async register() {
       if (this.vModelFields.password != this.vModelFields.password2) {
         const newError = {
@@ -137,24 +126,28 @@ export default {
 
       this.response = await UserService.register(payload)
       if (this.response.status === 400) {
-        this.dataForAlert.push({
+        return this.$store.commit('addError', {
           type: 'danger',
           message: this.response.statusText
         })
       }
+      this.$store.commit('addError', {
+        type: 'success',
+        message: 'Successfully registered!'
+      })
+      this.$router.push({ path: '/my-orders' })
     }
   },
+
   computed: {
     mode() {
       return this.$store.getters.getMode
     },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn
-    },
-    alertData() {
-      return this.dataForAlert
     }
   },
+
   async created() {
     await this.$store.commit('clearErrors')
   }

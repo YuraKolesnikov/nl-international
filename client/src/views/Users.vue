@@ -24,11 +24,7 @@ export default {
   },
   async created() {
     const response = await UserService.showManagers()
-    console.log(response[0])
-    this.tableData.push({
-      fullName: response[0].mail,
-      managerID: response[0].password
-    })
+    this.tableData = response
   }
 }
 </script>

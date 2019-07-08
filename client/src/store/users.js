@@ -3,6 +3,7 @@ import userService from '@/services/UserService'
 const state = {
 	managers: [],
 	errors: [],
+	user: {},
 	token: '',
 	mode: 'logIn',
 	isLoggedIn: false
@@ -13,7 +14,8 @@ const getters = {
 	showManagers: state => state.managers,
 	getToken: state => state.token,
 	getErrors: state => state.errors,
-	isLoggedIn: state => state.isLoggedIn
+	isLoggedIn: state => state.isLoggedIn,
+	getUser: state => state.user
 }
 
 const mutations = {
@@ -22,7 +24,8 @@ const mutations = {
 	addError: (state, error) => state.errors.push(error),
 	clearErrors: state => state.errors = [],
 	logIn: state => state.isLoggedIn = true,
-	logOut: state => state.isLoggedIn = false
+	logOut: state => state.isLoggedIn = false,
+	setUser: (state, user) => state.user = user
 }
 
 const actions = {
