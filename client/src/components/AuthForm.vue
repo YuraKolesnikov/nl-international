@@ -12,62 +12,24 @@
           @click="setMode('register')">{{ $t('register') }}</button>
       </div>
       <h3>{{ $t(mode) }}</h3>
-      
+      <h3>{{isLoggedIn}}</h3>
     </div>
     <div class="card-body">
-      <!-- TODO: Change to axios method @submit.prevent="axios.signup" -->
-      {{mode}}
       <form @submit.prevent="fireAuthRoutine">
         <!-- Out of the loop -->
-        <!-- <fieldset class="form-group">
+        <fieldset class="form-group">
           <label for="managerID">ID</label>
           <input
             id="managerID"
             type="text"
             name="managerID"
             class="form-control"
-            autocomplete="false"
+            required
             placeholder="371-12345678"
             v-model="vModelFields.managerID"
           >
-        </fieldset> -->
-        <fieldset class="form-group">
-          <label for="mail">Mail</label>
-          <input
-            id="mail"
-            type="text"
-            name="mail"
-            class="form-control"
-            autocomplete="false"
-            placeholder="john.doe@gmail.com"
-            v-model="vModelFields.mail"
-          >
         </fieldset>
-        <fieldset class="form-group">
-          <label for="password">Password</label>
-          <input
-            id="password"
-            type="text"
-            name="password"
-            class="form-control"
-            autocomplete="false"
-            placeholder="12345678"
-            v-model="vModelFields.password"
-          >
-        </fieldset>
-        <fieldset class="form-group">
-          <label for="password">Repeat password</label>
-          <input
-            id="password2"
-            type="text"
-            name="password"
-            class="form-control"
-            autocomplete="false"
-            placeholder="12345678"
-            v-model="vModelFields.password2"
-          >
-        </fieldset>
-        <!-- <fieldset
+        <fieldset
           class="form-group"
           v-for="field in mode === 'register' ? formData.register.formFields : formData.logIn.formFields"
           :key="field.id"
@@ -75,7 +37,7 @@
           <label :for="field.id">{{ $t(field.id) }}</label>
           <input
             class="form-control"
-            autocomplete="false"
+            required
             :type="field.type"
             :name="field.id"
             :placeholder="field.placeholder"
@@ -85,33 +47,36 @@
             class="text-muted form-text"
             v-if="field.id === 'password' && mode == 'register'"
           >{{ $t('passwordInfo') }}</small>
-        </fieldset> -->
+        </fieldset>
         <button type="submit" class="btn btn-primary">{{ $t('submit') }}</button>
       </form>
-      <button @click="postTest">Post Test</button>
+      {{response}}
     </div>
   </div>
 </template>
 <script>
 import UserService from '@/services/UserService'
-import { setTimeout } from 'timers';
+import Alert from '@/components/Alert'
 export default {
+  components: {
+    Alert
+  },
   data() {
     return {
       token: '',
+      response: {},
+      dataForAlert: [],
       formData: {
         logIn: {
           formFields: [
-            { type: 'text', id: 'mail' },
             { type: 'password', id: 'password' }
           ]
         },
         register: {
           formFields: [
-            /* { type: "text", id: "fullName", placeholder: "George Clooney" }, */
-            { type: 'text', id: 'mail' },
+            { type: "text", id: "fullName", placeholder: "George Clooney" },
             { type: "password", id: "password" },
-            /* { type: "password", id: "confirmPassword" } */
+            { type: "password", id: "password2" }
           ]
         }
       },
@@ -128,64 +93,20 @@ export default {
     setMode(newMode) {
       this.$store.commit('setMode', newMode)
     },
+
     fireAuthRoutine() {
-      return this.mode === 'logIn' ? this.login() : this.signup()
-    },
-    login() {
-      console.log('Login routine fired')
-      const payload = {
-        mail: this.vModelFields.mail,
-        password: this.vModelFields.password
-      }
-      console.log('Payload', payload)
-
-    },
-    signup() {
-      this.$store.commit('clearErrors')
-
-      const payload = {
-        mail: this.vModelFields.mail,
-        password: this.vModelFields.password
-      }
-
-      const submitData = {
-        mail: this.vModelFields.mail,
-        password: this.vModelFields.password,
-        password2: this.vModelFields.password2
-      }
-      
-      Object.keys(submitData).forEach(key => {
-        if (submitData[key] == '') {
-          const newError = {
-            type: 'danger',
-            message: `${key} field is empty!`
-          }
-          this.$store.commit('addError', newError)
-        }
-      })
-
-      if (this.vModelFields.password != this.vModelFields.password2) {
-        const newError = {
-          type: 'danger',
-          message: 'Passwords don\'t match!'
-        }
-        this.$store.commit('addError', newError)
-      }
-
-      console.log('Payload', payload)
+      return this.mode === 'logIn' ? this.logIn() : this.register()
     },
     async logIn() {
-      console.log('logIn routine fired')
       const payload = {
-        mail: this.vModelFields.mail,
+        managerID: this.vModelFields.managerID,
         password: this.vModelFields.password
       }
-      console.log('Payload', payload)
 
       try {
         const response = await UserService.logIn(payload)
-        this.$store.commit('setToken', response.token)
-        this.token = this.$store.getters.getToken
+        this.$store.commit('logIn')
+        this.$router.push({ path: '/orders' })
       } catch (error) {
         
       }
@@ -207,41 +128,39 @@ export default {
         }
         return this.$store.commit('addError', newError)
       }
+
       const payload = {
-        mail: this.vModelFields.mail,
+        managerID: this.vModelFields.managerID,
+        fullName: this.vModelFields.fullName,
         password: this.vModelFields.password
       }
 
-      try {
-        const response = await UserService.register(payload)
-        console.log(response)
-      } catch (error) {
-        
-      }
-    },
-    async postTest() {
-      console.log('Started postTest')
-      const payload = {
-        id: 1,
-        mail: 'cezar278@inbox.lv',
-        password: '12345'
-      }
-      try {
-        const response = await UserService.postTest(payload, this.token)
-        console.log(response)
-      } catch (error) {
-        console.log(error)
+      this.response = await UserService.register(payload)
+      if (this.response.status === 400) {
+        this.dataForAlert.push({
+          type: 'danger',
+          message: this.response.statusText
+        })
       }
     }
   },
   computed: {
     mode() {
       return this.$store.getters.getMode
+    },
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn
+    },
+    alertData() {
+      return this.dataForAlert
     }
+  },
+  async created() {
+    await this.$store.commit('clearErrors')
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .btn-custom {
   border: 1px solid #4da3ff;
   border-radius: 0;

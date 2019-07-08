@@ -8,11 +8,41 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <router-link class="nav-item" tag="li" v-for="link in links" :key="link.id" :to="link.path">
-          <a class="nav-link">{{ $t(link.title)}}</a>
+      <ul 
+        class="navbar-nav"
+        v-if="isLoggedIn == false">
+        <router-link
+          class="nav-item"
+          tag="li"
+          to="/users/auth">
+          {{ $t('account') }}
         </router-link>
       </ul>
+      <ul 
+        class="navbar-nav"
+        v-else>
+        <router-link
+          class="nav-item"
+          tag="li"
+          v-for="link in newLinks"
+          :key=" link.id"
+          :to="link.path">
+          <a class="nav-link">{{ $t(link.title) }}</a>
+        </router-link>
+        <router-link class="nav-item" tag="li" to="/" @click.native="logOut">
+          <a class="nav-link">{{ $t('logOut') }}</a>
+        </router-link>
+      </ul>
+      <!-- <ul class="navbar-nav">
+        <router-link 
+          class="nav-item" 
+          tag="li" 
+          v-for="link in links" 
+          :key="link.id" :to="link.path"
+          v-on="link.title === 'logOut' ? { click: logOut } : {}">
+          <a class="nav-link">{{ $t(link.title)}}</a>
+        </router-link>
+      </ul> -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item"><a id="ru" class="nav-link language-toggle" @click="changeLocale">RU</a></li>
         <li class="nav-item"><a id="lv" class="nav-link language-toggle" @click="changeLocale">LV</a></li>
@@ -26,6 +56,10 @@ export default {
   data() {
     return {
       x: this.$props.test,
+      newLinks: [
+        { id: 1, path: '/my-orders', title: 'showOrders' },
+        { id: 2, path: '/orders/add', title: 'createOrder' }
+      ],
       links: [
         { id: 1, path: '/', title: 'home' },
         { id: 2, path: '/orders', title: 'allOrders' },
@@ -42,11 +76,20 @@ export default {
   methods: {
     changeLocale({target}) {
       this.$i18n.locale = target.id
+    },
+
+    logOut() {
+      this.$store.commit('logOut')
+      console.log(this.$store.getters.isLoggedIn)
     }
   },
   computed: {
     currentLocale() {
       return this.$i18n.locale
+    },
+
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn
     }
   }
 }

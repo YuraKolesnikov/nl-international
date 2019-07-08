@@ -1,8 +1,6 @@
 <template>
   <div class="card text-left">
     <div class="card-header">
-      <!-- <button class="btn btn-primary" @click="mode === 'create' ? mode = 'edit' : mode = 'create'">Change mode</button> -->
-      <!-- TODO: Pass the prop 'mode' -->
       <h3> {{$t(mode === 'create' ? 'createOrder' : 'editOrder')}}</h3>
     </div>
     <div class="card-body">
@@ -15,6 +13,7 @@
             type="text" 
             name="orderNumber" 
             class="form-control"
+            required
             v-model="fields.orderNumber">
         </fieldset>
         <fieldset class="form-group">
@@ -24,6 +23,7 @@
             type="date" 
             name="orderDate" 
             class="form-control"
+            required
             v-model="fields.orderDate">
         </fieldset>
         <fieldset class="form-group">
@@ -33,6 +33,7 @@
             type="text" 
             name="orderPrice" 
             class="form-control"
+            required
             v-model="fields.orderPrice">
         </fieldset>
         <fieldset class="form-group">
@@ -40,7 +41,8 @@
           <select 
             name="orderCity" 
             id="orderCity" 
-            class="form-control" 
+            class="form-control"
+            required 
             v-model="fields.orderCity">
             <option value disabled selected>{{ $t('order.city') }}</option>
             <option value="Псков">Псков</option>

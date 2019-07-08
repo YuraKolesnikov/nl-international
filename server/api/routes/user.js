@@ -23,9 +23,6 @@ class UserRouter {
 
     this.router.route('/logout')
     .get(this.userController.logout.bind(this.userController))
-
-    this.router.route('/postTest')
-    .post(ensureAuth, this.userController.postTest.bind(this.userController))
   }
 }
 

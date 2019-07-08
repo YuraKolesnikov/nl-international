@@ -2,19 +2,15 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const User = new Schema({
-  mail: String,
-  password: String
-  /* fullName: {
+  fullName: {
     type: String,
     required: true,
-    trim: true,
-    minlength: 5
+    trim: true
   },
   managerID: {
     type: String,
     required: true,
-    trim: true,
-    unique: true
+    trim: true
   },
   password: {
     type: String,
@@ -32,7 +28,7 @@ const User = new Schema({
   orders: {
     type: Array,
     default: []
-  } */
+  }
 })
 
 module.exports = mongoose.model('User', User)

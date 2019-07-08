@@ -1,22 +1,14 @@
-const state = {
-  mode: 'a'
-}
+const state = {}
 
-const getters = {
-  getMode: state => state.mode
-}
+const getters = {}
 
-const mutations = {
-  setMode: (state, newMode) => state.mode = newMode
-}
+const mutations = {}
 
-const actions = {
-
-}
+const actions = {}
 
 export default {
-  state,
-  getters,
-  mutations,
-  actions
+	state,
+	getters,
+	mutations,
+	actions
 }
