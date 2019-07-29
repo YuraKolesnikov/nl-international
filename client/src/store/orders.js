@@ -1,3 +1,5 @@
+import OrderService from '@/services/OrderService'
+
 const state = {}
 
 const getters = {}

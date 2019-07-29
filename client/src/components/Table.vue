@@ -55,6 +55,7 @@ export default {
   methods: {
     async deleteOrder(id) {
       await OrderService.deleteOrder(id)
+      this.$router.push({ path: '/my-orders' })
     },
 
     redirectToEditItem(id) {

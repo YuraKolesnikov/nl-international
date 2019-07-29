@@ -4,6 +4,7 @@ export default {
   async showOrders() {
     try { 
       const response = await AXIOS().get('/orders')
+      console.log(response.data)
       return response.data
     } 
     catch (error) { return error }
@@ -18,7 +19,11 @@ export default {
   },
   
   async addOrder(payload) {
-    try { await AXIOS().post('/orders',  payload) } 
+    try { 
+      const response = await AXIOS().post('/orders',  payload)
+      console.log(response.data)
+      return response.data
+    } 
     catch (error) { return error}
   },
 

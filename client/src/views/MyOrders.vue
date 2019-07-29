@@ -39,7 +39,8 @@ export default {
         { id: 123, orderNumber: '15023859', orderDate: '2019.06.15', orderPrice: '3500', orderCity: 'Псков' },
         { id: 123, orderNumber: '15002492', orderDate: '2019.05.15', orderPrice: '3500', orderCity: 'Псков' }
       ],
-      managerID: 'a'
+      managerID: 'a',
+      alertMessages: []
     }
   },
   computed: {
@@ -50,13 +51,18 @@ export default {
       return this.tableDataOrders
       .filter(order => order.managerID == this.managerID ? true : false)
       .filter(order => order.orderDate >= this.filterDateDecoded ? true : false)
-    },
+    }/* ,
     alertMessages() {
       return this.$store.getters.getErrors
-    }
+    } */
   },
-  async created() {
-    this.tableDataOrders = await OrderService.showOrders()
+  async mounted() {
+    const response = await OrderService.showOrders()
+    this.alertMessages.push({
+      message: response.message,
+      type: 'success'
+    })
+    this.tableDataOrders = response.orders
   }
 }
 </script>

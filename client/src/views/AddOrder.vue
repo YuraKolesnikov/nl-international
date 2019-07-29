@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Alert v-for="(alert, index) in alertMessages" :key="index" :data="alert" />
     <div class="row">
       <div class="col-md-6 col-sm-12 offset-md-3">
         {{fields}}
@@ -10,10 +11,11 @@
 </template>
 <script>
 import OrderForm from '@/components/OrderForm'
-
+import Alert from '@/components/Alert'
 import OrderService from '@/services/OrderService'
 export default {
   components: {
+    Alert,
     OrderForm
   },
   data() {
@@ -26,18 +28,22 @@ export default {
         orderCity: ''
       },
       managerID: 'a',
-      fullName: 'Yura Kolesnikov'
+      fullName: 'Yura Kolesnikov',
+      alertMessages: []
     }
   },
   methods: {
     async addOrder() {
       const { orderNumber, orderDate, orderPrice, orderCity } = this.fields
-      await OrderService.addOrder({
+      const response = await OrderService.addOrder({
         orderNumber, orderDate, orderPrice, orderCity,
         managerID: this.managerID,
         fullName: this.fullName
       })
-      console.log('Success!')
+      this.alertMessages.push({
+        type: 'success',
+        message: response.message
+      })
     }
   }
 }

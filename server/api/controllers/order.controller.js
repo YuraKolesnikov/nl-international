@@ -11,17 +11,10 @@ class OrderController {
    }
 
   async showOrders(req, res, next) {
-    /* NOW IT'S RENDERING BUT SHOULD JUST SEND DATA! */
-    /* const { managerID } = req.user */
-    /* try {
-      const orders = await this.orderModel.showOrders(managerID)
-      res.render('orders/main', { orders })
-    } catch (e) {
-      res.render('orders/main', { error: 'Internal error! Orders not found!' })
-    } */
     try {
       const orders = await this.orderModel.showOrders()
-      res.status(200).send(orders)
+      console.log(orders.length)
+      res.status(200).json({ orders, message: 'Orders fetched!' })
     } catch (error) {
       res.status(400).send(error)
     }
@@ -59,6 +52,7 @@ class OrderController {
     } else {
       try {
         await this.orderModel.createOrder(data)
+        res.status(200).json({message: 'Order added!'})
         /* req.flash('success_msg', 'Order added')
         res.redirect('/orders') */
       } catch (error) {
