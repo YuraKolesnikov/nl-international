@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import vuexPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
+import ordersModule from './modules/orders/ordersModule'
+import usersModule from './modules/users/usersModule'
+
 export default new Vuex.Store({
   modules: {
-    /* orders,
-    users */
-  },
-  plugins: [vuexPersistedState()]
+    orders: ordersModule,
+    users: usersModule
+  }
 })

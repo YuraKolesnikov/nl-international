@@ -4,6 +4,7 @@ export default {
   async showOrders() {
     try { 
       const response = await AXIOS().get('/orders')
+      console.log(response.data)
       return response.data
     } 
     catch (error) { return error }

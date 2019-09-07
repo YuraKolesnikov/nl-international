@@ -38,6 +38,7 @@ export default new Router({
       name: 'addOrder',
       component: () => import('./views/AddOrder.vue')
     },
+    /* POST AXIOS request */
     {
       path: '/orders/edit/:id',
       name: 'editOrder',
@@ -53,11 +54,6 @@ export default new Router({
       path: '/users/edit/:id',
       name: 'editUser',
       component: () => import('./views/EditUser.vue')
-    },
-    {
-      path: '/users/logout',
-      name: 'logout',
-      component: () => import('./views/Logout.vue')
     }
   ]
 })

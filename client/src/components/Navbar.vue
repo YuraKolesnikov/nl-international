@@ -9,8 +9,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul 
-        class="navbar-nav"
-        v-if="isLoggedIn == false">
+        class="navbar-nav">
         <router-link
           class="nav-item"
           tag="li"
@@ -19,12 +18,11 @@
         </router-link>
       </ul>
       <ul 
-        class="navbar-nav"
-        v-else>
+        class="navbar-nav">
         <router-link
           class="nav-item"
           tag="li"
-          v-for="link in filteredLinks"
+          v-for="link in links"
           :key=" link.id"
           :to="link.path">
           <a class="nav-link">
@@ -48,6 +46,33 @@
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      links: [
+        { id: 1, path: '/my-orders', title: 'showOrders', adminOnly: false },
+        { id: 2, path: '/orders/add', title: 'createOrder', adminOnly: false },
+        { id: 5, path: '/orders', title: 'allOrders', adminOnly: false },
+        { id: 3, path: '/orders-printable', title: 'allOrdersPrintable', adminOnly: false },
+        { id: 4, path: '/users', title: 'managers', adminOnly: false }
+      ]
+    }
+  },
+  methods: {
+    changeLocale({ target }) {
+      console.log(target.id)
+    },
+    logOut() {
+      /* TODO: Implement Vuex action */
+      console.log('Logging out!')
+      this.$router.push({ path: '/' })
+    }
+  }
+}
+</script>
+
 <style lang="scss">
 .nav-item {
   cursor: pointer;

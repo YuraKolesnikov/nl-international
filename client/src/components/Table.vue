@@ -16,12 +16,12 @@
           <td>
             <button 
               class="btn btn-info mr-1"
-              @click="redirectToEditItem(item._id)">
+              @click="redirectToEditItem(item)">
               <i class="fa fa-edit"></i>
             </button>
             <button 
               class="btn btn-danger ml-1"
-              @click="deleteOrder(item._id)">
+              @click="deleteOrder(item)">
               <i class="fa fa-trash"></i>
             </button>
           </td>
@@ -31,6 +31,37 @@
     <p v-else>No orders added</p>
   </div>
 </template>
+<script>
+import tableFields from '@/services/tableFields'
+import OrderService from '@/services/OrderService'
+export default {
+  props: ['mode', 'tableData'],
+  computed: {
+    tableHeaders() {
+      return tableFields.headers[this.$props.mode]
+    },
+    tableKeys() {
+      return tableFields.keys[this.$props.mode]
+    }
+  },
+  methods: {
+    redirectToEditItem(item) {
+      if (this.mode == 'orders') {
+        return  this.$router.push({ path: `/orders/edit/${item.orderNumber}` })
+      }
+      this.$router.push({ path: `/users/edit/${item.managerID}` })
+      /* TODO: Get orderNumber and dispatch an action */
+    },
+    deleteOrder(item) {
+      if (this.mode == 'orders') {
+        return console.log('Deleting order...', item)
+      }
+      console.log('Deleting user...', item)
+      /* TODO: Get orderNumber and dispatch an action */
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 th, td {

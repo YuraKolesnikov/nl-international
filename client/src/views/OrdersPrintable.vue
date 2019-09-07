@@ -3,9 +3,13 @@
     <h1>Orders printable</h1>
     <div class="row">
       <div class="col-sm-12 col-md-3 offset-md-1 text-left">
-        <form class="form-group" @sumbit.prevent="filterData">
+        <form class="form-group">
           <label for="filterDate">Показать заказы начиная с ...</label>
-          <input type="date" class="form-control" v-model="filterDate">
+          <input 
+            type="date" 
+            class="form-control" 
+            v-model="filterDate" 
+            @change="filterOrders">
         </form>
       </div>
     </div>
@@ -40,25 +44,25 @@
   </div>
 </template>
 <script>
-/* Components */
-import Table from '@/components/Table.vue'
-
-/* Services */
-import dateEncoder from '@/services/dateEncoder'
 import OrderService from '@/services/OrderService'
+import Table from '@/components/Table'
+import { decode } from '@/services/dateEncoder'
 export default {
   data() {
     return {
-      mode: 'ordersPrintable',
       filterDate: '',
       tableDataOrders: []
     }
   },
+  methods: {
+    filterOrders() {
+      console.log('Filtering orders...')
+    }
+  },
   computed: {
     filterDateDecoded() {
-      return dateEncoder.decode(this.filterDate)
+      return decode(this.filterDate)
     },
-    
     filteredTableDateOrders() {
       return this.tableDataOrders
       .map(manager => {
@@ -72,7 +76,7 @@ export default {
       .filter(manager => manager.orders.length > 0)
     }
   },
-  async created() {
+  async mounted() {
     this.tableDataOrders = await OrderService.showOrdersPrintable()
   }
 }

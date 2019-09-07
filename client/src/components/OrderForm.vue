@@ -4,8 +4,7 @@
       <h3> {{$t(mode === 'create' ? 'createOrder' : 'editOrder')}}</h3>
     </div>
     <div class="card-body">
-      <!-- TODO: Port to axios -->
-      <form @submit.prevent="orderCallback">
+      <form @submit.prevent="orderMethod">
         <fieldset class="form-group">
           <label for="orderNumber">{{ $t('order.number') }}</label>
           <input 
@@ -13,8 +12,8 @@
             type="text" 
             name="orderNumber" 
             class="form-control"
-            required
-            v-model="fields.orderNumber">
+            v-model="fields.orderNumber"
+            required>
         </fieldset>
         <fieldset class="form-group">
           <label for="orderDate">{{ $t('order.date') }}</label>
@@ -23,8 +22,8 @@
             type="date" 
             name="orderDate" 
             class="form-control"
-            required
-            v-model="fields.orderDate">
+            v-model="fields.orderDate"
+            required>
         </fieldset>
         <fieldset class="form-group">
           <label for="orderPrice">{{ $t('order.price') }}</label>
@@ -33,8 +32,8 @@
             type="text" 
             name="orderPrice" 
             class="form-control"
-            required
-            v-model="fields.orderPrice">
+            v-model="fields.orderPrice"
+            required>
         </fieldset>
         <fieldset class="form-group">
           <label for="orderCity">{{ $t('order.city') }}</label>
@@ -42,8 +41,8 @@
             name="orderCity" 
             id="orderCity" 
             class="form-control"
-            required 
-            v-model="fields.orderCity">
+            v-model="fields.orderCity"
+            required>
             <option value disabled selected>{{ $t('order.city') }}</option>
             <option value="Псков">Псков</option>
             <option value="Санкт-Петербург">Санкт-Петербург</option>
@@ -54,3 +53,37 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  props: ['mode', 'order'],
+  data() {
+    return {
+      fields: {
+        orderNumber: '',
+        orderDate: '',
+        orderPrice: '',
+        orderCity: ''
+      }
+    }
+  },
+  created() {
+    if (this.order == undefined) return
+    else if (this.order !== undefined) {
+      [...Object.keys(this.fields)].forEach(key => {
+        this.fields[key] = this.order[key]
+      })
+    }
+  },
+  methods: {
+    orderMethod() {
+      this.mode === 'create' ? this.createOrder() : this.editOrder()
+    },
+    createOrder() {
+      console.log('Creating order...', this.fields)
+    },
+    editOrder() {
+      console.log('Editing order...', this.fields)
+    }
+  }
+}
+</script>

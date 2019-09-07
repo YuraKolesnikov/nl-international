@@ -1,0 +1,1 @@
+import vuexPersistedState from 'vuex-persistedstate'

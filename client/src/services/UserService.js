@@ -4,16 +4,14 @@ export default {
   async showManagers() {
     try { 
       const response = await AXIOS().get('/admin/showAllManagers')
-      console.log(response)
-      return response
+      return response.data
     }
     catch (error) { console.error(error) }
   },
 
-  async logIn(payload) {
+  async logIn({ managerID, password }) {
     try {
-      const response = await AXIOS().post('/users/login', payload)
-      console.log(reponse)
+      const response = await AXIOS().post('/users/login', { managerID, password })
       return response
     } catch (error) {
       console.error(error)
@@ -21,19 +19,19 @@ export default {
   },
 
   async register(payload) {
-    try {
+    console.log('[AXIOS MESSAGE]: registering', { ...payload })
+    /* try {
       const response = await AXIOS().post('/users/register', payload)
       console.log(response)
       return response
     } catch (error) {
       console.error(error)
-    }
+    } */
   },
 
   async logout() {
     try {
       const response = await AXIOS().get('/users/logout')
-      console.log(response)
       return response
     } catch (error) {
       console.error(error)
