@@ -6,25 +6,3 @@
     </div>
   </div>
 </template>
-<script>
-import Table from '@/components/Table'
-import UserService from '@/services/UserService'
-export default {
-  components: {
-    Table
-  },
-  data() {
-    return {
-      tableData: [
-        { id: 1234, fullName: 'Yura Kolesnikov', managerID: '371-20582968' }
-      ],
-      users: [],
-      mode: 'users',
-    }
-  },
-  async created() {
-    const response = await UserService.showManagers()
-    this.tableData = response
-  }
-}
-</script>

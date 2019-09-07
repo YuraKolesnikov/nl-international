@@ -54,16 +54,3 @@
     </div>
   </div>
 </template>
-<script>
-import OrderService from '@/services/OrderService'
-
-export default {
-  props: ['mode', 'orderCallback', 'order', 'fields'],
-  data() {
-    return {
-      managerID: 'a',
-      fullName: 'Yura Kolesnikov'
-    }
-  }
-}
-</script>

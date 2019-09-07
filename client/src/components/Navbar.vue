@@ -48,55 +48,6 @@
     </div>
   </nav>
 </template>
-<script>
-export default {
-  props: ['test'],
-  data() {
-    return {
-      x: this.$props.test,
-      links: [
-        { id: 1, path: '/my-orders', title: 'showOrders', adminOnly: false },
-        { id: 2, path: '/orders/add', title: 'createOrder', adminOnly: false },
-        { id: 3, path: '/orders-printable', title: 'allOrdersPrintable', adminOnly: true },
-        { id: 4, path: '/users', title: 'managers', adminOnly: true }
-      ]
-    }
-  },
-  methods: {
-    changeLocale({target}) {
-      this.$i18n.locale = target.id
-    },
-
-    logOut() {
-      this.$store.commit('logOut')
-      this.$store.commit('addError', {
-        type: 'success',
-        message:'Logged out!'
-      })
-      this.$router.push({ path: '/' })
-    }
-  },
-  computed: {
-    currentLocale() {
-      return this.$i18n.locale
-    },
-
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn
-    },
-
-    isUserAdmin() {
-      return this.$store.getters.getUser.admin
-    },
-
-    filteredLinks() {
-      return this.isUserAdmin
-      ? this.links
-      : this.links.filter(link => link.adminOnly === false)
-    }
-  }
-}
-</script>
 <style lang="scss">
 .nav-item {
   cursor: pointer;

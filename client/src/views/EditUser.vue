@@ -8,20 +8,3 @@
     </div>
   </div>
 </template>
-<script>
-import UserForm from '@/components/UserForm'
-export default {
-  components: {
-    UserForm
-  },
-  data() {
-    return {
-      id: this.$route.params.id,
-      user: {
-        fullName: 'Yura Kolesnikov',
-        managerID: 'a'
-      }
-    }
-  }
-}
-</script>

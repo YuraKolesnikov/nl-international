@@ -1,5 +1,4 @@
-export default {
-  decode: date => date.split('-').join('.'),
-  decodeForDisplay: date => date.split('-').reverse().join('.'),
-  encode: date => date.split('.').join('-')
-}
+export const decode = date => date.split('-').join('.')
+export const encode = date => date.split('.').join('-')
+export const decodeForDisplay = date => date.split('-').reverse().join('.')
+

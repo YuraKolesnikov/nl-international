@@ -31,43 +31,7 @@
     <p v-else>No orders added</p>
   </div>
 </template>
-<script>
-import tableFields from '@/services/tableFields'
-import OrderService from '@/services/OrderService'
 
-export default {
-  props: ['mode', 'tableData'],
-  data() {
-    return {
-      /* tableHeaders: tableFields.headers[this.$props.mode],
-      tableKeys: tableFields.keys[this.$props.mode] */
-    }
-  },
-  computed: {
-    tableHeaders() {
-      return tableFields.headers[this.$props.mode]
-    },
-
-    tableKeys() {
-      return tableFields.keys[this.$props.mode]
-    }
-  },
-  methods: {
-    async deleteOrder(id) {
-      await OrderService.deleteOrder(id)
-      this.$router.push({ path: '/my-orders' })
-    },
-
-    redirectToEditItem(id) {
-      let path = this.$props.mode === 'orders' ? `/orders/edit/${id}` : `users/edit/${id}`
-      return this.$router.push({path})
-    }
-  },
-  async created() {
-    console.log(this.$props)
-  }
-}
-</script>
 <style lang="scss" scoped>
 th, td {
   vertical-align: middle;

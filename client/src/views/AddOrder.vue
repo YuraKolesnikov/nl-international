@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     async addOrder() {
-      const { orderNumber, orderDate, orderPrice, orderCity } = this.fields
+      /* const { orderNumber, orderDate, orderPrice, orderCity } = this.fields
       const response = await OrderService.addOrder({
         orderNumber, orderDate, orderPrice, orderCity,
         managerID: this.managerID,
@@ -43,7 +43,7 @@ export default {
       this.alertMessages.push({
         type: 'success',
         message: response.message
-      })
+      }) */
     }
   }
 }

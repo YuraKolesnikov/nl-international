@@ -9,6 +9,7 @@
   "scripts": {
     "install-all": "yarn workspaces run install",
     "client:start": "yarn workspace client run serve",
+    "client:dev": "yarn workspace client run dev",
     "client:build": "yarn workspace client run build",
     "server:start": "yarn workspace server run start",
     "deploy": "git push && git push heroku master"

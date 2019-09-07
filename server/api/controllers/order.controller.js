@@ -32,7 +32,6 @@ class OrderController {
 
   async createOrder(req, res, next) {
     const { orderNumber, orderPrice, orderCity, managerID, fullName } = req.body
-    /* const { managerID, fullName } = req.user */
 
     let orderDate = dateEncoder.encode(req.body.orderDate)
     const data = {
@@ -43,22 +42,18 @@ class OrderController {
       managerID,
       fullName
     }
+
     const errors = validator.validateForm(data)
     
     if (errors.length > 0) {
       console.log(errors)
       return
-      /* res.render('orders/add-order', { errors }) */
     } else {
       try {
         await this.orderModel.createOrder(data)
         res.status(200).json({message: 'Order added!'})
-        /* req.flash('success_msg', 'Order added')
-        res.redirect('/orders') */
       } catch (error) {
         res.status(400).send(error)
-        /* req.flash('error_msg', error.message)
-        res.redirect('/orders/add') */
       }
     }
   }

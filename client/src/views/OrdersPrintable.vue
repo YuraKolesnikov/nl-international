@@ -51,17 +51,7 @@ export default {
     return {
       mode: 'ordersPrintable',
       filterDate: '',
-      tableDataOrders: [
-        /* Mock data */
-        /* { 
-          managerID: '371-20582968', 
-          fullName: 'Yura Kolesnikov', 
-          orders: [
-            { orderNumber: '20582968', orderDate: '2019.06.15' },
-            { orderNumber: '12345678', orderDate: '2019.06.16' }
-          ]
-        } */
-      ]
+      tableDataOrders: []
     }
   },
   computed: {

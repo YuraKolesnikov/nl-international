@@ -15,30 +15,3 @@
     </div>
   </div>
 </template>
-<script>
-import OrderForm from '@/components/OrderForm'
-import OrderService from '@/services/OrderService'
-import dateEncoder from '@/services/dateEncoder'
-export default {
-  components: {
-    OrderForm
-  },
-  data() {
-    return {
-      id: this.$route.params.id,
-      orders: [],
-      order: {}
-    }
-  },
-  async created() {
-    this.orders = await OrderService.showOrders()
-    this.order = await this.orders.find(item => item._id === this.id)
-    this.order.orderDate = dateEncoder.encode(this.order.orderDate)
-  },
-  methods: {
-    async editOrder() {
-      await OrderService.editOrder(this.id, this.order)
-    }
-  }
-}
-</script>

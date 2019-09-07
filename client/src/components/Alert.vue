@@ -6,13 +6,6 @@
     </button>
   </div>
 </template>
-<script>
-export default {
-  props: {
-    data: Object
-  }
-}
-</script>
 <style lang="scss">
 .alert {
   max-width: 540px;

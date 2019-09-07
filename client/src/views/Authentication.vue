@@ -12,21 +12,3 @@
     </div>
   </div>
 </template>
-<script>
-import Alert from '@/components/Alert'
-import AuthForm from '@/components/AuthForm'
-export default {
-  components: {
-    Alert,
-    AuthForm
-  },
-  methods: {
-
-  },
-  computed: {
-    errors() {
-      return this.$store.getters.getErrors
-    }
-  }
-}
-</script>

@@ -68,14 +68,11 @@ app.use(flash())
 }) */
 
 /* Router */
-app.get('/', (req, res) => res.render('home'))
+app.get('/', (req, res) => res.send('./public/index.html'))
 app.get('/api', (req, res, next) => {
-  res.json({msg: 'API'})
+  res.json({ msg: 'API' })
 })
 app.use('/', apiRouter)
-/* app.use('/orders', indexRouter)
-app.use('/user', userRouter)
-app.use('/admin', adminRouter) */
 
 /* Port setup */
 app.listen(config.port, () => console.log(`App started on ${config.port}`))
