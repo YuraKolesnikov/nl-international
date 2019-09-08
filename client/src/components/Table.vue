@@ -21,7 +21,7 @@
             </button>
             <button 
               class="btn btn-danger ml-1"
-              @click="deleteOrder(item)">
+              @click="deleteItem(item)">
               <i class="fa fa-trash"></i>
             </button>
           </td>
@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import tableFields from '@/services/tableFields'
+import tableFields from '@/utils/tableFields'
 import OrderService from '@/services/OrderService'
 export default {
   props: ['mode', 'tableData'],
@@ -52,7 +52,7 @@ export default {
       this.$router.push({ path: `/users/edit/${item.managerID}` })
       /* TODO: Get orderNumber and dispatch an action */
     },
-    deleteOrder(item) {
+    deleteItem(item) {
       if (this.mode == 'orders') {
         return console.log('Deleting order...', item)
       }

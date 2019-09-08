@@ -46,7 +46,7 @@
 <script>
 import OrderService from '@/services/OrderService'
 import Table from '@/components/Table'
-import { decode } from '@/services/dateEncoder'
+import { decode } from '@/utils/dateEncoder'
 export default {
   data() {
     return {

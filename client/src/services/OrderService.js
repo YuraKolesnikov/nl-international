@@ -19,8 +19,11 @@ export default {
   },
   
   async addOrder(payload) {
+    console.log('OrderService: Sending request to backend', payload)
     try { 
-      return await AXIOS().post('/orders',  payload)
+      const response = await AXIOS().post('/orders',  payload)
+      console.log(response)
+      return response
     } 
     catch (error) { return error}
   },

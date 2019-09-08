@@ -46,6 +46,7 @@ class OrderModel {
   }
 
   async deleteOrder(id) {
+    console.log(id)
     const order = await Order.findById(id)
     console.log('Order to delete')
     console.log(order)

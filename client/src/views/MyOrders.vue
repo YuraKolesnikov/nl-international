@@ -16,7 +16,7 @@
 </template>
 <script>
 import OrderService from '@/services/OrderService'
-import { decode } from '@/services/dateEncoder'
+import { decode } from '@/utils/dateEncoder'
 import Table from '@/components/Table'
 export default {
   components: { Table },
@@ -42,9 +42,12 @@ export default {
     },
     filteredTableDateOrders() {
       return this.tableDataOrders
-      .filter(order => order.managerID == this.managerID ? true : false)
       .filter(order => order.orderDate >= this.filterDateDecoded ? true : false)
     }
+  },
+  async created() {
+    const response = await OrderService.showOrders()
+    this.tableDataOrders = response.orders.filter(o => o.managerID == 'a')
   }
 }
 </script>

@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- <Alert v-for="(alert, index) in alertMessages" :key="index" :data="alert" /> -->
     <div class="row">
       <div class="col-md-6 col-sm-12 offset-md-3">
         <OrderForm :mode="'create'"/>
