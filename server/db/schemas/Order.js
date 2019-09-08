@@ -5,6 +5,7 @@ const Order = new Schema({
   orderPrice: String,
   orderCity: String,
   orderDate: String,
+  orderStatus: String,
   user: String,
   fullName: String,
   managerID: String

@@ -33,7 +33,6 @@
 </template>
 <script>
 import tableFields from '@/utils/tableFields'
-import OrderService from '@/services/OrderService'
 export default {
   props: ['mode', 'tableData'],
   computed: {
@@ -54,7 +53,7 @@ export default {
     },
     deleteItem(item) {
       if (this.mode == 'orders') {
-        return console.log('Deleting order...', item)
+        return this.$store.dispatch('deleteOrder', item._id)
       }
       console.log('Deleting user...', item)
       /* TODO: Get orderNumber and dispatch an action */

@@ -104,6 +104,7 @@ export default {
         managerID: "a",
         fullName: "Jurijs Kolesnikovs"
       });
+      this.$router.push({ path: '/my-orders' })
     },
     editOrder() {
       let payload = {
@@ -115,6 +116,7 @@ export default {
       let id = "123"; /* Mongoose id, temp solution, need to rebuild backend */
       console.log("Editing order...", { ...this.fields });
       this.$store.dispatch("editOrder", {id, payload});
+      this.$router.push({ path: '/my-orders' })
     }
   }
 };

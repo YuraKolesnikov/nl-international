@@ -5,6 +5,7 @@
   </div>
 </template>
 <script>
+import OrderService from '@/services/OrderService'
 import Navbar from '@/components/Navbar'
 export default {
   components: {
