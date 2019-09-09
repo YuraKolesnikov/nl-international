@@ -70,6 +70,18 @@ class AdminController {
     const data = await this.adminModel.showAllPrintable(filterDate)
     res.render('admin/main-print', { data })
   }
+
+  async migrate(req, res, next) {
+    console.log('Migrating db...')
+    const orders = await Order.update(
+      {}, 
+      { $set: { orderStatus: '0' } }, 
+      { multi: true }
+    )
+    console.log(orders)
+
+    console.log(await Order.find({}))
+  }
 }
 
 module.exports = {

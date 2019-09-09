@@ -5,7 +5,10 @@ const Order = new Schema({
   orderPrice: String,
   orderCity: String,
   orderDate: String,
-  orderStatus: String,
+  orderStatus: {
+    type: String,
+    default: '0'
+  },
   user: String,
   fullName: String,
   managerID: String
