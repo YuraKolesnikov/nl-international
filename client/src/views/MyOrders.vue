@@ -20,36 +20,34 @@
       </div>
     </div>
     <div class="row">
-      <Table :mode="mode" :tableData="filteredTableDateOrders"/>
+      <Table :mode="mode" :tableData="tableData"/>
     </div>
   </div>
 </template>
 <script>
-import OrderService from '@/services/OrderService'
 import { decode } from '@/utils/dateEncoder'
 import Table from '@/components/Table'
+import { mapState, mapActions } from 'vuex'
 export default {
   components: { Table },
   data() {
     return {
       filterDate: '',
       filterNumber: '',
-      mode: 'orders'
+      mode: 'orders',
+      tableData: []
     }
   },
   computed: {
     filterDateDecoded() {
       return decode(this.filterDate)
-    },
+    }/* ,
     filteredTableDateOrders() {
-      return this.$store.state.orders.orders
+      return this.orders
       .filter(o => o.managerID == 'a')
       .filter(order => order.orderNumber.match(this.filterNumber))
       .filter(order => order.orderDate >= this.filterDateDecoded ? true : false)
-    }
-  },
-  async created() {
-    await this.$store.dispatch('getOrders')
+    } */
   }
 }
 </script>

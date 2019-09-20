@@ -44,7 +44,6 @@
   </div>
 </template>
 <script>
-import OrderService from '@/services/OrderService'
 import Table from '@/components/Table'
 import { decode } from '@/utils/dateEncoder'
 export default {
@@ -59,10 +58,12 @@ export default {
       console.log('Filtering orders...')
     }
   },
-  computed: {
+  filters: {
     filterDateDecoded() {
       return decode(this.filterDate)
-    },
+    }
+  },
+  computed: {
     filteredTableDateOrders() {
       return this.tableDataOrders
       .map(manager => {
@@ -75,9 +76,9 @@ export default {
       })
       .filter(manager => manager.orders.length > 0)
     }
-  },
+  }/* ,
   async mounted() {
     this.tableDataOrders = await OrderService.showOrdersPrintable()
-  }
+  } */
 }
 </script>

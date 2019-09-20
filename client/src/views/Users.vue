@@ -43,11 +43,11 @@ export default {
       .filter(manager => manager.managerID.match(this.filterID))
       .filter(manager => manager.fullName.match(this.filterName))
     }
-  },
+  }/* ,
   async created() {
     this.tableData = await UserService.showManagers()
     console.log(this.tableData)
-  }
+  } */
 }
 </script>
 .<style lang="scss" scoped>

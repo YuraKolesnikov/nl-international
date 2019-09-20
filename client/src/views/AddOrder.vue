@@ -9,7 +9,7 @@
 </template>
 <script>
 import OrderForm from '@/components/OrderForm'
-import AXIOS from '@/services/axios'
+
 export default {
   components: {
     OrderForm

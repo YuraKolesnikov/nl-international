@@ -16,7 +16,7 @@
       <h3>{{ $t(mode) }}</h3>
     </div>
     <div class="card-body">
-      <form @submit.prevent="authenticateUser">
+      <form>
         <fieldset class="form-group">
           <label for="managerID">ID</label>
           <input
@@ -52,8 +52,7 @@
   </div>
 </template>
 <script>
-import UserService from '@/services/UserService'
-import { mapActions } from 'vuex'
+
 export default {
   data() {
     return {
@@ -74,16 +73,9 @@ export default {
       }
     }
   },
-  created() {
-    console.log(this.$store.logIn)
-  },
   methods: {
-    ...mapActions(['logIn']),
     setMode(newMode) {
       this.mode = newMode
-    },
-    async authenticateUser(e) {
-      const response = await this.logIn(this.formData)
     }
   }
 }

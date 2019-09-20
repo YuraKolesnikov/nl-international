@@ -12,7 +12,7 @@
     "client:dev": "yarn workspace client run dev",
     "client:build": "yarn workspace client run build",
     "server:start": "yarn workspace server run start",
-    "deploy": "git push && git push heroku master"
+    "push": "git push && git push heroku master"
   },
   "workspaces": [
     "client",

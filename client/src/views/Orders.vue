@@ -19,7 +19,6 @@
   </div>
 </template>
 <script>
-import OrderService from '@/services/OrderService'
 import Table from '@/components/Table'
 import { decode } from '@/utils/dateEncoder'
 export default {
@@ -50,10 +49,10 @@ export default {
       return this.tableDataOrders
       .filter(order => order.orderDate >= this.filterDateDecoded ? true : false)
     }
-  },
+  }/* ,
   async mounted() {
     const response = await OrderService.showOrders()
     this.tableDataOrders = response.orders
-  }
+  } */
 }
 </script>
