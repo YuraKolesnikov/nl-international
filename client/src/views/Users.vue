@@ -23,7 +23,6 @@
 </template>
 <script>
 import Table from '@/components/Table'
-import UserService from '@/services/UserService'
 export default {
   components: { Table },
   data() {
