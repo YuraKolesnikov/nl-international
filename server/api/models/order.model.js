@@ -1,60 +1,26 @@
-const mongoose = require('mongoose')
-
-const Order = require('../../db/schemas/Order')
-const User = require('../../db/schemas/User')
-const { mongoConnectionService } = require('../services/mongo.service')
-
 class OrderModel {
-  constructor(mongoConnectionService) {
-    this.mongoConnectionService = mongoConnectionService
-  }
-
-  async showOrders(/* managerID */) {
-    return await Order.find({ /* managerID */ })
-  }
-
-  async getOrder(id) {
-    return await Order.findOne(id)
-  }
-
-  async redirectToEditOrder(id) {
-    return await Order.findById(id)
-  }
-
-  async createOrder(data) {
-    const { orderNumber, managerID } = data
-
-    const newOrder = new Order(data)
-    await newOrder.save()
-    const user = await User.findOne({ managerID })
-    user.orders.push(orderNumber)
-    await user.save()
+  constructor() {
     
-    return newOrder
   }
 
-  async editOrder(id, data) {
-    const { orderNumber, orderPrice, orderCity, orderDate } = data
-    console.log('Backend: ')
-    console.log(`ID: ${id}`)
-    console.log('Payload: ', data)
-    return await Order.findOneAndUpdate(
-      { _id: id },
-      { $set: { orderNumber, orderPrice, orderCity, orderDate } },
-      { new: false }
-    )
+  async getOrders() {
+
+  }
+  
+  async addOrder({ city, price, id, managerID }) { 
+
   }
 
-  async deleteOrder(id) {
-    console.log(id)
-    const order = await Order.findById(id)
-    console.log('Order to delete')
-    console.log(order)
-    return await Order.findByIdAndRemove(id)
+  async editOrder() {
+
+  }
+
+  async deleteOrder(orderID) {
+
   }
 }
 
 module.exports = {
   OrderModel,
-  orderModel: new OrderModel(mongoConnectionService)
+  orderModel: new OrderModel()
 }

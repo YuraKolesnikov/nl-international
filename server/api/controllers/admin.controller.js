@@ -1,90 +1,35 @@
 const { adminModel } = require('../models/admin.model')
-const dateEncoder = require('../../utils/dateEncoder')
-const Order = require('../../db/schemas/Order')
-const User = require('../../db/schemas/User')
 
 class AdminController {
   constructor(adminModel) {
     this.adminModel = adminModel
   }
 
-  async showAll(req, res, next) {
-    const orders = await this.adminModel.showAll()
+  async getManagers(req, res, next) {
     try {
-      res.render('admin/main', { orders })
+      return await adminModel.getManagers()
     } catch (error) {
-      res.json({ error })
+      return error
     }
   }
 
-  async showAllPrintable(req, res, next) {
-    const data = await this.adminModel.showAllPrintable()
-    /* try {
-      res.render('admin/main-print', { data })
-    } catch (error) {
-      res.json({ error })
-    } */
-    /* For AXIOS */
+  async updateManager(req, res, next) {
+    const { managerID, fullName } = req.body
+
     try {
-      res.status(200).send(data)
+      return await adminModel.updateManager({ managerID, fullName })
     } catch (error) {
-      res.status(400).send(error)
+      return error
     }
   }
 
-  async showAllManagers(req, res, next) {
-    const users = await this.adminModel.showAllManagers()
-    res.send(users)
-    /* res.render('admin/users', { users }) */
+  async deleteManager(req, res, next) {
+    const { managerID } = req.body
+
+    try {
+      return await adminModel.deleteManager(managerID)
+    } catch (error) {
+      return error
+    }
   }
-
-  async editUser(req, res, next) {
-    const { id } = req.params
-    const { managerID } = req.user
-    const user = await this.adminModel.editUser(id)
-    res.json({
-      "req.params.id": id,
-      "req.user.managerID": managerID,
-      user,
-      message: "This feature is coming soon!"
-    })
-  }
-
-  async deleteUser(req, res, next) {
-    const { id } = req.params
-    const user = await this.adminModel.deleteUser(id)
-    res.json({
-      user,
-      message: "User deleted"
-    })
-  }
-
-  async filterByDate(req, res, next) {
-    const filterDate = dateEncoder.encode(req.query.filterDate)
-    const orders = await this.adminModel.filterByDate(filterDate)
-    res.render('admin/main', { orders })
-  }
-
-  async filterByDatePrintable(req, res, next) {
-    const filterDate = dateEncoder.encode(req.query.filterDate)
-    const data = await this.adminModel.showAllPrintable(filterDate)
-    res.render('admin/main-print', { data })
-  }
-
-  async migrate(req, res, next) {
-    console.log('Migrating db...')
-    const orders = await Order.update(
-      {}, 
-      { $set: { orderStatus: '0' } }, 
-      { multi: true }
-    )
-    console.log(orders)
-
-    console.log(await Order.find({}))
-  }
-}
-
-module.exports = {
-  AdminController,
-  adminController: new AdminController(adminModel)
 }

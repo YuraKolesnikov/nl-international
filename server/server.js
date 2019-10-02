@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 const i18n = require('i18n-express')
 const path = require('path')
 const methodOverride = require('method-override')
+const http = require("http")
 /* const session = require('express-session') */
 const flash = require('connect-flash')
 /* const passport = require('passport') */
@@ -22,6 +23,7 @@ passportStrategy(passport) */
 
 /* Setting up application */
 const app = express()
+const server = http.createServer(app)
 
 /* Middleware */
 const publicPath = 'public'
@@ -75,9 +77,9 @@ app.get('/api', (req, res, next) => {
 app.use('/', apiRouter)
 
 /* Port setup */
-app.listen(config.port, () => console.log(`App started on ${config.port}`))
+server.listen(config.port, () => console.log(`App started on ${config.port}`))
 
-const http = require("http")
-setInterval(function () {
+
+/* setInterval(function () {
   http.get("http://nl-delivery.herokuapp.com")
-}, 300000) // every 5 minutes
+}, 300000) */ // every 5 minutes
