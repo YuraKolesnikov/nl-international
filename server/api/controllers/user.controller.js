@@ -8,6 +8,11 @@ class UserController {
     this.userModel = userModel
   }
 
+  async getUsers(req, res, next) {
+    const users = await this.userModel.getUsers()
+    res.status(200).send(users)
+  }
+
   async login(req, res, next) {
     console.log(req.body)
     passport.authenticate('local', {

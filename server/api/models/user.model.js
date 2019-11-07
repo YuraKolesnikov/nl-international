@@ -9,6 +9,14 @@ class UserModel {
     this.mongoConnectionService = mongoConnectionService
   }
 
+  async getUsers() {
+    const users = await User
+    .find({})
+    .populate('orders')
+    .select('_id managerID fullName password')
+    return users
+  }
+
   async register({ managerID, fullName, password }) {
 
     const newUser = new User({
