@@ -1,26 +1,32 @@
 /* Dependencies */
-const dotenv = require('dotenv').config()
-const express = require('express')
-const hbs = require('express-handlebars')
-const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
-const i18n = require('i18n-express')
-const path = require('path')
-const methodOverride = require('method-override')
-const http = require("http")
-const session = require('express-session')
-const flash = require('connect-flash')
-const passport = require('passport')
-require('./auth/passport')(passport)
-const morgan = require('morgan')
-const cors = require('cors')
+const http = require("http"),
+      path = require('path'),
+      cors = require('cors'),
+      morgan = require('morgan'),
+      express = require('express'),
+      i18n = require('i18n-express'),
+      passport = require('passport'),
+      flash = require('connect-flash'),
+      dotenv = require('dotenv').config(),
+      hbs = require('express-handlebars'),
+      bodyParser = require('body-parser'),
+      session = require('express-session'),
+      cookieParser = require('cookie-parser'),
+      methodOverride = require('method-override')
+
+
+
+
+
+
+
 
 /* Modules */
-const config = require('./config/config')
-const { apiRouter } = require('./api/routes/api.router')
+const config = require('./config/config'),
+      passportStrategy = require('./auth/passport')
 
-/* const passportStrategy = require('./auth/passport')
-passportStrategy(passport) */
+const { apiRouter } = require('./api/routes/api.router')
+passportStrategy(passport)
 
 /* Setting up application */
 const app = express()
@@ -71,10 +77,7 @@ app.use(flash())
 }) */
 
 /* Router */
-app.get('/', (req, res) => res.send('./public/index.html'))
-app.get('/api', (req, res, next) => {
-  res.json({ msg: 'API' })
-})
+app.get('/', (req, res) => res.send('YEET! HOME!'))
 app.use('/', apiRouter)
 
 /* Port setup */

@@ -11,7 +11,7 @@ class UserController {
   async login(req, res, next) {
     console.log(req.body)
     passport.authenticate('local', {
-      successRedirect: '/orders',
+      successRedirect: '/',
       failureRedirect: '/users/login',
     })(req, res, next)
   }
