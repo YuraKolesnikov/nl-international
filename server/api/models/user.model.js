@@ -9,9 +9,7 @@ class UserModel {
     this.mongoConnectionService = mongoConnectionService
   }
 
-  async register(data) {
-    const { managerID, fullName, password } = data
-    console.log('Hello from UserModel!', data)
+  async register({ managerID, fullName, password }) {
 
     const newUser = new User({
       _id: mongoose.Types.ObjectId(),

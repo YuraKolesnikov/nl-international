@@ -8,6 +8,14 @@ class UserController {
     this.userModel = userModel
   }
 
+  async login(req, res, next) {
+    console.log(req.body)
+    passport.authenticate('local', {
+      successRedirect: '/orders',
+      failureRedirect: '/users/login',
+    })(req, res, next)
+  }
+
   async register(req, res, next) {
     console.log('Hello from UserController!', req.body)
     const { managerID, fullName, password, password2 } = req.body

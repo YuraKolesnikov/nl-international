@@ -8,9 +8,10 @@ const i18n = require('i18n-express')
 const path = require('path')
 const methodOverride = require('method-override')
 const http = require("http")
-/* const session = require('express-session') */
+const session = require('express-session')
 const flash = require('connect-flash')
-/* const passport = require('passport') */
+const passport = require('passport')
+require('./auth/passport')(passport)
 const morgan = require('morgan')
 const cors = require('cors')
 
@@ -53,13 +54,13 @@ app.use(cookieParser())
   cookieLangName: 'ulang'
 })); */
 app.use(methodOverride('_method'))
-/* app.use(session({
+app.use(session({
   secret: 'Godfather123#@!',
   resave: true,
   saveUninitialized: true
-})) */
-/* app.use(passport.initialize())
-app.use(passport.session()) */
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(flash())
 /* app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg')

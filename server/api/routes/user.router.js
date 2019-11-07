@@ -15,8 +15,8 @@ class UserRouter {
 	}
 
 	setupRouter() {
-		/* this.router.route('/login')
-		.post(this.userController.login.bind(this.userController)) */
+		this.router.route('/login')
+		.post(this.userController.login.bind(this.userController))
 
 		this.router.route('/register')
 		.post(this.userController.register.bind(this.userController))
