@@ -33,8 +33,11 @@ class OrderModel {
 
   }
 
-  async deleteOrder(orderID) {
-
+  async deleteOrder({ managerID, orderID }) {
+    await User.findOneAndUpdate({ managerID }, { $pull: { orders: orderID } })
+    const user = await User.findOne({ managerID })
+    console.log(user)
+    return await Order.findByIdAndRemove(orderID)
   }
 }
 
