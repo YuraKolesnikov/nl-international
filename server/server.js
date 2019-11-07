@@ -45,13 +45,13 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
 app.use(cookieParser())
-app.use(i18n({
+/* app.use(i18n({
   translationsPath: path.join(__dirname, 'i18n'), // <--- use here. Specify translations files path.
   siteLangs: ['ru', 'lv'],
   defaultLang: 'ru',
   textsVarName: 'local',
   cookieLangName: 'ulang'
-}));
+})); */
 app.use(methodOverride('_method'))
 /* app.use(session({
   secret: 'Godfather123#@!',

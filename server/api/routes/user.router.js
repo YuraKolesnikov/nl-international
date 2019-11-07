@@ -1,7 +1,7 @@
 const express = require('express')
 const { userController } = require('../controllers/user.controller')
 
-const ensureAuth = require('../../auth/ensureAuth')
+/* const ensureAuth = require('../../auth/ensureAuth') */
 
 class UserRouter {
 	constructor(router, userController) {
@@ -15,14 +15,14 @@ class UserRouter {
 	}
 
 	setupRouter() {
-		this.router.route('/login')
-		.post(this.userController.login.bind(this.userController))
+		/* this.router.route('/login')
+		.post(this.userController.login.bind(this.userController)) */
 
 		this.router.route('/register')
 		.post(this.userController.register.bind(this.userController))
 
-		this.router.route('/logout')
-		.get(this.userController.logout.bind(this.userController))
+		/* this.router.route('/logout')
+		.get(this.userController.logout.bind(this.userController)) */
 	}
 }
 

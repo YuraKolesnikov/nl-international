@@ -33,3 +33,8 @@ class AdminController {
     }
   }
 }
+
+module.exports = {
+  AdminController,
+  adminController: new AdminController(adminModel)
+}

@@ -6,7 +6,8 @@ class OrderController {
 	}
 
   async getOrders(req, res, next) {
-
+    const { managerID } = req.query
+    console.log(managerIDs)
   }
 
   async addOrder(req, res, next) {
