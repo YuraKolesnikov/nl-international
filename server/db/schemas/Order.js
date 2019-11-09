@@ -15,6 +15,7 @@ const Order = new Schema({
     type: Number,
     default: 0
   },
+  managerID: mongoose.Schema.Types.ObjectId,
   _id: mongoose.Schema.Types.ObjectId
 })
 

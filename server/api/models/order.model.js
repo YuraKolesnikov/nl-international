@@ -11,7 +11,7 @@ class OrderModel {
   }
 
   async getOrders(managerID) {
-    const orders = await Order.find({})
+    const orders = await Order.find({ managerID })
     return orders
   }
   
@@ -22,6 +22,7 @@ class OrderModel {
       number,
       status: 0,
       date: '2019-01-01',
+      managerID,
       _id: mongoose.Types.ObjectId()
     })
 
