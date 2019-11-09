@@ -13,11 +13,11 @@ class OrderController {
   }
 
   async addOrder(req, res, next) {
-    const { city, price } = req.body
+    const { city, price, number } = req.body
     const { managerID } = req.query
 
     try {
-      await this.orderModel.addOrder({ city, price, managerID })
+      await this.orderModel.addOrder({ city, price, number, managerID })
       res.status(201).send('Created new order!')
     } catch (error) {
       return error

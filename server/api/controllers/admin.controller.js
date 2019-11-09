@@ -12,7 +12,7 @@ class AdminController {
       return error
     }
   }
-
+  
   async updateManager(req, res, next) {
     const { managerID, fullName } = req.body
 

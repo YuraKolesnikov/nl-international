@@ -15,16 +15,17 @@ class OrderModel {
     return orders
   }
   
-  async addOrder({ city, price, managerID }) { 
+  async addOrder({ city, price, number, managerID }) {
     const newOrder = new Order({
       city,
       price,
+      number,
+      status: 0,
+      date: '2019-01-01',
       _id: mongoose.Types.ObjectId()
     })
 
     await User.findOneAndUpdate({ _id: managerID }, { $push: { orders: newOrder._id } })
-    /* const user = await User.findById(managerID)
-    user.orders.push(newOrder._id) */
 
     return await newOrder.save()
   }
