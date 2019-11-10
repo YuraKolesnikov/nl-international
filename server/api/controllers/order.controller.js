@@ -6,7 +6,7 @@ class OrderController {
 	}
 
   async getOrders(req, res, next) {
-    const { managerID } =  req.query /*'5dc45870edd1a279a20b423a'*/
+    const { managerID } =  req.query
     const orders = await this.orderModel.getOrders(managerID)
     res.status(200).send(orders)
   }
@@ -24,10 +24,16 @@ class OrderController {
   }
 
   async editOrder(req, res, next) {
+	  /* Order id */
+	  const { id } = req.params
+
+    const payload = req.body
+
     try {
-      return await this.orderModel.editOrder()
+      const response = await this.orderModel.editOrder(id, payload)
+      res.status(202).send(response)
     } catch (error) {
-      return error
+      res.status(400).send(error)
     }
   }
 
@@ -35,10 +41,10 @@ class OrderController {
     const { id } = req.params
     /* Not mongoose one, 371-20582968 */
     const { managerID } = req.body
-    console.log(id)
+
     try {
       await this.orderModel.deleteOrder({ managerID, orderID: id })
-      res.status(200).send('Order deleted!')
+      res.status(202).send('Order deleted!')
     } catch (error) {
       res.status(404).send('Order not found!')
     }

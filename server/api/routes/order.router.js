@@ -17,14 +17,10 @@ class OrderRouter {
   setupRouter() {
     this.router.route('/')
     .get(/* ensureAuthenticated, */ this.orderController.getOrders.bind(this.orderController))
-
-    this.router.route('/add')
     .post(/* ensureAuthenticated, */ this.orderController.addOrder.bind(this.orderController))
 
-    this.router.route('/edit/:id')
-    .put(/* ensureAuthenticated, */ this.orderController.editOrder.bind(this.orderController))
-    
     this.router.route('/:id')
+    .put(/* ensureAuthenticated, */ this.orderController.editOrder.bind(this.orderController))
     .delete(/* ensureAuthenticated, */ this.orderController.deleteOrder.bind(this.orderController))
   }
 }

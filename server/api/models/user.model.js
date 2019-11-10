@@ -13,7 +13,7 @@ class UserModel {
     const users = await User
     .find({})
     .populate('orders')
-    .select('_id managerID fullName password')
+    .select('_id managerID fullName password role')
     return users
   }
 

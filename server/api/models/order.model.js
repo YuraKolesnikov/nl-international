@@ -12,26 +12,23 @@ class OrderModel {
 
   async getOrders(managerID) {
     const user = await User.findOne({ managerID })
-    console.log(user._id)
+
     let orders
     if (user.role === 1) {
       orders = await Order.find({})
     } else {
       orders = await Order.find({ managerID: user._id })
     }
-
-    console.log(orders)
-    console.log('Hello admin!')
     return orders
   }
   
-  async addOrder({ city, price, number, managerID }) {
+  async addOrder({ city, price, number, managerID, date }) {
     const newOrder = new Order({
       city,
       price,
       number,
       status: 0,
-      date: '2019-01-01',
+      date,
       managerID,
       _id: mongoose.Types.ObjectId()
     })
@@ -42,18 +39,24 @@ class OrderModel {
       { safe: true, upsert: true}
       )
 
-    return await newOrder.save()
+    await newOrder.save()
   }
 
-  async editOrder() {
-
+  async editOrder(_id, payload) {
+    console.log(`Updating this order: ${_id}`)
+    console.log('PAYLOAD', payload)
+    return await Order.findOneAndUpdate(_id, { $set: { ...payload } }, { new: false })
   }
 
   async deleteOrder({ managerID, orderID }) {
-    await User.findOneAndUpdate({ managerID }, { $pull: { orders: orderID } })
+    await User.findOneAndUpdate(
+      managerID,
+      { $pull: { orders: orderID } },
+      { safe: true, upsert: true }
+      )
+
     const user = await User.findOne({ managerID })
-    console.log(user)
-    return await Order.findByIdAndRemove(orderID)
+    await Order.findByIdAndRemove(orderID)
   }
 }
 

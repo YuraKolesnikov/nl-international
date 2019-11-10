@@ -13,6 +13,10 @@ class UserController {
     res.status(200).send(users)
   }
 
+  async logout() {
+    req.logout()
+  }
+
   async login(req, res, next) {
     console.log(req.body)
     passport.authenticate('local', {
