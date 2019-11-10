@@ -1,8 +1,8 @@
 const express = require('express')
 
-const { userRouter } = require('./user.router')
-const { adminRouter } = require('./admin.router')
-const { orderRouter } = require('./order.router')
+const { userRouter } = require('./UserRouter')
+const { adminRouter } = require('./AdminRouter')
+const { orderRouter } = require('./OrderRouter')
 
 class ApiRouter {
 	constructor(router, routes) {

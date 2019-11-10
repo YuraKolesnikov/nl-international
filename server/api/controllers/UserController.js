@@ -1,7 +1,7 @@
 const passport = require('passport'),
       validator = require('../../utils/validator')
 
-const { userModel } = require('../models/user.model')
+const { userModel } = require('../models/UserModel')
 
 class UserController {
   constructor(userModel) {

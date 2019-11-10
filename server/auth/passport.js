@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
-const User = require('../db/schemas/User')
+const User = require('../api/schemas/UserSchema')
 
 module.exports = function (passport) {
   passport.use(new LocalStrategy({ usernameField: 'managerID' }, (managerID, password, done) => {

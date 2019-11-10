@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'),
       encrypt = require('../../utils/encrypt'),
-      Order = require('../../db/schemas/Order'),
-      User = require('../../db/schemas/User')
+      Order = require('../schemas/OrderSchema'),
+      User = require('../schemas/UserSchema')
 
 const { mongoConnectionService } = require('../services/mongo.service')
 

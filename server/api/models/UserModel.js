@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'),
       encrypt = require('../../utils/encrypt'),
-      User = require('../../db/schemas/User')
+      User = require('../schemas/UserSchema')
 
 const { mongoConnectionService } = require('../services/mongo.service')
 

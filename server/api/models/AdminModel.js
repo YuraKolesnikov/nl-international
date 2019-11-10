@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const User = require('../../db/schemas/User')
+const User = require('../schemas/UserSchema')
 const { mongoConnectionService } = require('../services/mongo.service')
 
 class AdminModel {

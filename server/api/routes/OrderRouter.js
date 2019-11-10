@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { orderController } = require('../controllers/order.controller')
+const { orderController } = require('../controllers/OrderController')
 const { ensureAuthenticated } = require('../../auth/ensureAuth')
 
 class OrderRouter {

@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { adminController } = require('../controllers/admin.controller')
+const { adminController } = require('../controllers/AdminController')
 
 const { ensureAuthenticated } = require('../../auth/ensureAuth')
 

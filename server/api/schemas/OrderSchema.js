@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const Order = new Schema({
+const OrderSchema = new Schema({
   city: String,
   price: {
     type: Number,
@@ -19,4 +19,4 @@ const Order = new Schema({
   _id: mongoose.Schema.Types.ObjectId
 })
 
-module.exports = mongoose.model('orders', Order)
+module.exports = mongoose.model('orders', OrderSchema)
