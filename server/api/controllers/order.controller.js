@@ -6,7 +6,7 @@ class OrderController {
 	}
 
   async getOrders(req, res, next) {
-    const managerID = /* req.query */'5dc45870edd1a279a20b423a'
+    const { managerID } =  req.query /*'5dc45870edd1a279a20b423a'*/
     const orders = await this.orderModel.getOrders(managerID)
     res.status(200).send(orders)
   }

@@ -11,7 +11,17 @@ class OrderModel {
   }
 
   async getOrders(managerID) {
-    const orders = await Order.find({ managerID })
+    const user = await User.findOne({ managerID })
+    console.log(user._id)
+    let orders
+    if (user.role === 1) {
+      orders = await Order.find({})
+    } else {
+      orders = await Order.find({ managerID: user._id })
+    }
+
+    console.log(orders)
+    console.log('Hello admin!')
     return orders
   }
   
@@ -26,7 +36,11 @@ class OrderModel {
       _id: mongoose.Types.ObjectId()
     })
 
-    await User.findOneAndUpdate({ _id: managerID }, { $push: { orders: newOrder._id } })
+    await User.findOneAndUpdate(
+      { _id: managerID },
+      { $push: { orders: newOrder._id }},
+      { safe: true, upsert: true}
+      )
 
     return await newOrder.save()
   }

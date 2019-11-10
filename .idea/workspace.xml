@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e97f6d32-1fff-4a8c-951f-b34347e57413" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/api/controllers/order.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/api/controllers/order.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/api/models/order.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/api/models/order.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/db/schemas/Order.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/db/schemas/Order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/db/schemas/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/db/schemas/User.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,20 +16,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="order.controller.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="order.controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/api/controllers/order.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="8" column="62" selection-start-line="8" selection-start-column="62" selection-end-line="8" selection-end-column="62" />
+            <state relative-caret-position="198">
+              <caret line="9" column="61" lean-forward="true" selection-start-line="9" selection-start-column="61" selection-end-line="9" selection-end-column="61" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="order.model.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="order.model.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/api/models/order.model.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="516">
-              <caret line="24" column="16" lean-forward="true" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+            <state relative-caret-position="460">
+              <caret line="41" column="33" lean-forward="true" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Order.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/db/schemas/Order.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="17" column="44" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -44,8 +54,9 @@
         <option value="$PROJECT_DIR$/server/api/controllers/admin.controller.js" />
         <option value="$PROJECT_DIR$/server/api/models/admin.model.js" />
         <option value="$PROJECT_DIR$/server/db/schemas/Order.js" />
-        <option value="$PROJECT_DIR$/server/api/models/order.model.js" />
         <option value="$PROJECT_DIR$/server/api/controllers/order.controller.js" />
+        <option value="$PROJECT_DIR$/server/db/schemas/User.js" />
+        <option value="$PROJECT_DIR$/server/api/models/order.model.js" />
       </list>
     </option>
   </component>
@@ -189,12 +200,12 @@
       <workItem from="1573321450423" duration="412000" />
       <workItem from="1573321877174" duration="1098000" />
       <workItem from="1573323002187" duration="10000" />
-      <workItem from="1573325982690" duration="1290000" />
+      <workItem from="1573325982690" duration="2675000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5586000" />
+    <option name="totallyTimeSpent" value="6971000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1920" y="0" width="1920" height="1080" extended-state="0" />
@@ -359,10 +370,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/db/schemas/User.js">
+    <entry file="file://$PROJECT_DIR$/server/api/controllers/order.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="25" column="2" lean-forward="true" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="2" />
+        <state relative-caret-position="198">
+          <caret line="9" column="61" lean-forward="true" selection-start-line="9" selection-start-column="61" selection-end-line="9" selection-end-column="61" />
         </state>
       </provider>
     </entry>
@@ -373,17 +384,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/api/models/order.model.js">
+    <entry file="file://$PROJECT_DIR$/server/db/schemas/User.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
-          <caret line="24" column="16" lean-forward="true" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+        <state relative-caret-position="528">
+          <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/api/controllers/order.controller.js">
+    <entry file="file://$PROJECT_DIR$/server/api/models/order.model.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="62" selection-start-line="8" selection-start-column="62" selection-end-line="8" selection-end-column="62" />
+        <state relative-caret-position="460">
+          <caret line="41" column="33" lean-forward="true" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
         </state>
       </provider>
     </entry>

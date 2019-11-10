@@ -20,6 +20,14 @@ const UserModel = mongoose.Schema({
     minlength: 6,
     trim: true
   },
+  /**
+   * 0 - user
+   * 1 - admin
+   * */
+  role: {
+    type: Number,
+    default: 0
+  },
   orders: [
     { type: mongoose.Schema.Types.ObjectId, ref: 'orders' }
   ]
