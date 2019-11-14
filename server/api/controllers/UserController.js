@@ -27,7 +27,12 @@ class UserController {
   async register(req, res, next) {
     const { managerID, fullName, password, password2 } = req.body
 
-    await this.userModel.register({ managerID, fullName, password })
+    try {
+      await this.userModel.register({ managerID, fullName, password })
+      res.status(201).send('Registered successfully')
+    } catch(e) {
+      res.status(400).send(e)
+    }
   }
 }
 

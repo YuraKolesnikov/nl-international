@@ -1,9 +1,9 @@
 import UserApi from '@/services/UserApi'
 
 export default {
-  SIGN_IN: async ({ commit, state }, payload) => {
-    console.log(payload)
+  REGISTER: async ({ commit, state }, payload) => {
     const response = await UserApi.register(payload)
-    console.log('actions.js', response)
+    console.log(response)
+    return response
   }
 }

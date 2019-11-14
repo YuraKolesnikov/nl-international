@@ -1,8 +1,6 @@
 <template>
   <div class="card">
     <div class="card-header">
-      {{formData}}
-      {{mode}}
       <div class="mb-2">
         <button 
           class="btn btn-custom" 
@@ -54,6 +52,9 @@
 <script>
 
 export default {
+  props: {
+    formData: { type: Object, default: () => {} }
+  },
   data() {
     return {
       mode: 'logIn',
@@ -64,12 +65,6 @@ export default {
           { type: "password", id: "password" },
           { type: "password", id: "password2" }
         ]
-      },
-      formData: {
-        managerID: '',
-        fullName: '',
-        password: '',
-        password2: ''
       }
     }
   },

@@ -25,7 +25,6 @@ class UserModel {
       password
     })
 
-    console.log(newUser)
 
     const salt = await encrypt.genSalt(10);
     const hash = await encrypt.genHash(newUser.password, salt);

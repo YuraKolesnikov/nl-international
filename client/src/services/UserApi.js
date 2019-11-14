@@ -8,6 +8,7 @@ export default {
     try {
       const response = await axios.post('/users/register', payload)
       console.log(response)
+      return response
     } catch(e) {
       console.error(e)
     }

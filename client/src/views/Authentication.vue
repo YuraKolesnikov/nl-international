@@ -7,7 +7,9 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-md-6">
+        {{ formData }}
         <AuthForm
+          :formData="formData"
           @fireAuthRoutine="authenticate"
         />
       </div>
@@ -21,11 +23,25 @@ export default {
   components: {
     AuthForm
   },
+  data() {
+    return {
+      formData: {
+        managerID: '',
+        fullName: '',
+        password: '',
+        password2: ''
+      }
+    }
+  },
   methods: {
-    ...mapActions('auth', ['SIGN_IN', 'SIGN_OUT']),
+    ...mapActions('auth', ['REGISTER', 'SIGN_IN', 'SIGN_OUT']),
     ...mapMutations('auth', ['LOG_IN', 'LOG_OUT']),
-    authenticate({ formData, mode }) {
-      this.SIGN_IN(formData)
+    async authenticate({ formData }) {
+      const response = await this.REGISTER(formData)
+      console.log(response)
+      if(response.status === 201) {
+        this.alert(response.data)
+      }
     }
   }
 }
