@@ -1,7 +1,6 @@
 const express = require('express')
 
 const { userRouter } = require('./UserRouter')
-const { adminRouter } = require('./AdminRouter')
 const { orderRouter } = require('./OrderRouter')
 
 class ApiRouter {
@@ -26,7 +25,6 @@ class ApiRouter {
 	}
 }
 const routes = [
-	{ url: '/admin', router: adminRouter },
 	{ url: '/orders', router: orderRouter },
 	{ url: '/users', router: userRouter }
 ]

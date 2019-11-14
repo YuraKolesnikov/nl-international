@@ -5,8 +5,7 @@ const UserSchema = mongoose.Schema({
   fullName: {
     type: String,
     required: true,
-    trim: true,
-    minlength: 5
+    trim: true
   },
   managerID: {
     type: String,
@@ -17,7 +16,6 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 6,
     trim: true
   },
   /**

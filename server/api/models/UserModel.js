@@ -18,13 +18,14 @@ class UserModel {
   }
 
   async register({ managerID, fullName, password }) {
-
     const newUser = new User({
       _id: mongoose.Types.ObjectId(),
       managerID,
       fullName,
       password
     })
+
+    console.log(newUser)
 
     const salt = await encrypt.genSalt(10);
     const hash = await encrypt.genHash(newUser.password, salt);

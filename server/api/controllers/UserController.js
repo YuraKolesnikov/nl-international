@@ -18,7 +18,6 @@ class UserController {
   }
 
   async login(req, res, next) {
-    console.log(req.body)
     passport.authenticate('local', {
       successRedirect: '/',
       failureRedirect: '/users/login',
@@ -26,15 +25,9 @@ class UserController {
   }
 
   async register(req, res, next) {
-    console.log('Hello from UserController!', req.body)
     const { managerID, fullName, password, password2 } = req.body
 
-    if (password != password2) {
-      res.status(400).json({ msg: 'Passwords do not match!' })
-    } else {
-      res.status(200).json({ userData: req.body })
-    }
-    const result = await this.userModel.register({ managerID, fullName, password })
+    await this.userModel.register({ managerID, fullName, password })
   }
 }
 

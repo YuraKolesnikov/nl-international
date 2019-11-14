@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-export default () => {
-  return axios.create({
-    baseURL: '/'
-  })
-}
+export default axios.create({
+  baseURL: '/'
+})

@@ -21,7 +21,7 @@ class UserRouter {
 		this.router.route('/register')
 		.post(this.userController.register.bind(this.userController))
 
-		this.router.route('/users')
+		this.router.route('/get-users')
 		.get(this.userController.getUsers.bind(this.userController))
 
 		/* this.router.route('/logout')

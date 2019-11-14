@@ -16,7 +16,7 @@
       <h3>{{ $t(mode) }}</h3>
     </div>
     <div class="card-body">
-      <form>
+      <form @submit.prevent="$emit('fireAuthRoutine', { formData, mode })">
         <fieldset class="form-group">
           <label for="managerID">ID</label>
           <input
