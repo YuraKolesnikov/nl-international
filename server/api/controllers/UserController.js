@@ -24,7 +24,7 @@ class UserController {
       if (!user) { return res.status(404).json({ msg: 'User not found!' }) }
       req.logIn(user, err => {
         if (err) { return res.status(403).json({ msg: 'Not authorized' }) }
-        return res.status(201).json({ msg: 'Authorized' })
+        return res.status(201).json({ msg: 'Authorized', user })
       })
     })(req, res, next)
   }

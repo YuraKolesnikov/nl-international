@@ -7,7 +7,6 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-md-6">
-        {{ formData }}
         <AuthForm
           :formData="formData"
           @fireAuthRoutine="authenticate"

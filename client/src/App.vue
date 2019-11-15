@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Navbar
+      :role="userRole"
       :isLoggedIn="isLoggedIn"
       :logOut="logOut"
     />
@@ -15,13 +16,13 @@ export default {
     Navbar
   },
   computed: {
-    ...mapState('auth', ['isLoggedIn'])
+    ...mapState('auth', ['isLoggedIn', 'userRole'])
   },
   methods: {
     ...mapActions('auth', ['LOGOUT']),
     async logOut() {
       await this.LOGOUT()
-      this.$router.push({ path: '/' })
+      this.$router.push({ path: '/users/auth' })
     }
   }
 }

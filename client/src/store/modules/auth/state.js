@@ -1,3 +1,5 @@
 export default {
-  isLoggedIn: false
+  isLoggedIn: false,
+  isAdmin: false,
+  userRole: 0
 }

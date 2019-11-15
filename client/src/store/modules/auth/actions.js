@@ -7,6 +7,7 @@ export default {
   },
   LOGIN: async ({ commit, state }, payload) => {
     const response = await UserApi.login(payload)
+    commit('RECORD_USER_ROLE', response.data.user.role)
     return response
   },
   LOGOUT: async ({ commit }) => {
