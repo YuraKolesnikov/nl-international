@@ -23,23 +23,26 @@ class OrderModel {
   }
   
   async addOrder({ city, price, number, managerID, date }) {
+    const user = await User.findOne({ managerID })
+    console.log(user)
     const newOrder = new Order({
       city,
       price,
       number,
       status: 0,
       date,
-      managerID,
+      managerID: user._id,
       _id: mongoose.Types.ObjectId()
     })
 
     await User.findOneAndUpdate(
-      { _id: managerID },
+      managerID,
       { $push: { orders: newOrder._id }},
       { safe: true, upsert: true}
       )
 
     await newOrder.save()
+    return true
   }
 
   async editOrder(_id, payload) {

@@ -3,7 +3,6 @@
     <h1>{{ $t('showOrders') }}</h1>
     <div class="row">
       <div class="col-sm-12 col-md-10 offset-md-1">
-        {{filteredTableDateOrders}}
         <form class="form-group">
           <label for="filterDate">Найти заказ</label>
           <input 
@@ -39,6 +38,7 @@ export default {
     }
   },
   computed: {
+    ...mapState('auth', ['managerID']),
     filterDateDecoded() {
       return decode(this.filterDate)
     }/* ,
@@ -48,6 +48,12 @@ export default {
       .filter(order => order.orderNumber.match(this.filterNumber))
       .filter(order => order.orderDate >= this.filterDateDecoded ? true : false)
     } */
+  },
+  methods: {
+    ...mapActions('orders', ['GET_ORDERS']),
+  },
+  async created() {
+    this.GET_ORDERS(this.managerID)
   }
 }
 </script>

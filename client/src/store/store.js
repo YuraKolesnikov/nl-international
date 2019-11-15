@@ -6,10 +6,12 @@ Vue.use(Vuex)
 
 /* Modules */
 import auth from './modules/auth/module'
+import orders from './modules/orders/module'
 
 export default new Vuex.Store({
   modules: {
-    auth
+    auth,
+    orders
   },
   plugins: [ VuexPersistedState({
     storage: window.sessionStorage

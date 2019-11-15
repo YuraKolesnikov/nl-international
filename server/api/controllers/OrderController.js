@@ -12,8 +12,7 @@ class OrderController {
   }
 
   async addOrder(req, res, next) {
-    const { city, price, number } = req.body
-    const { managerID } = req.query
+    const { city, price, number, managerID } = req.body
 
     try {
       await this.orderModel.addOrder({ city, price, number, managerID })
