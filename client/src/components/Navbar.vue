@@ -23,6 +23,7 @@
           class="nav-item"
           tag="li"
           v-for="link in links"
+          v-if="isLoggedIn"
           :key=" link.id"
           :to="link.path">
           <a class="nav-link">
@@ -33,7 +34,8 @@
           class="nav-item" 
           tag="li" 
           to="/" 
-          @click.native="logOut">
+          @click.native="logOut"
+          v-if="isLoggedIn">
           <a class="nav-link">
             {{ $t('logOut') }}
           </a>
@@ -49,6 +51,10 @@
 
 <script>
 export default {
+  props: {
+    isLoggedIn: { type: Boolean, default: false },
+    logOut: { type: Function, default: () => null }
+  },
   data() {
     return {
       links: [
@@ -63,11 +69,6 @@ export default {
   methods: {
     changeLocale({ target }) {
       console.log(target.id)
-    },
-    logOut() {
-      /* TODO: Implement Vuex action */
-      console.log('Logging out!')
-      this.$router.push({ path: '/' })
     }
   }
 }

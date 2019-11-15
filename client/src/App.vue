@@ -1,14 +1,28 @@
 <template>
   <div id="app">
-    <Navbar />
+    <Navbar
+      :isLoggedIn="isLoggedIn"
+      :logOut="logOut"
+    />
     <router-view/>
   </div>
 </template>
 <script>
 import Navbar from '@/components/Navbar'
+import { mapState, mapActions } from 'vuex'
 export default {
   components: {
     Navbar
+  },
+  computed: {
+    ...mapState('auth', ['isLoggedIn'])
+  },
+  methods: {
+    ...mapActions('auth', ['LOGOUT']),
+    async logOut() {
+      await this.LOGOUT()
+      this.$router.push({ path: '/' })
+    }
   }
 }
 </script>

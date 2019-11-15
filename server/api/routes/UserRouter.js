@@ -24,8 +24,8 @@ class UserRouter {
 		this.router.route('/get-users')
 		.get(this.userController.getUsers.bind(this.userController))
 
-		/* this.router.route('/logout')
-		.get(this.userController.logout.bind(this.userController)) */
+		 this.router.route('/logout')
+		.get(this.userController.logout.bind(this.userController))
 	}
 }
 

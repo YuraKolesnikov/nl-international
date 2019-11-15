@@ -35,16 +35,20 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['REGISTER', 'LOGIN']),
+    ...mapMutations('auth', ['LOG_IN', 'LOG_OUT']),
     async authenticate({ formData, mode }) {
       if (mode === 'register') {
         const response = await this.REGISTER(formData)
-        console.log(response)
         if(response.status === 201) {
           this.alert(response.data)
         }
       } else {
         const response = await this.LOGIN(formData)
-        console.log(response)
+        console.log('Logging in', response)
+        if (response.status === 201) {
+          this.$router.replace({ path: '/my-orders' })
+          this.LOG_IN()
+        }
       }
     }
   }

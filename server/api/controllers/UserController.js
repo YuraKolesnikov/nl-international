@@ -13,7 +13,8 @@ class UserController {
     res.status(200).send(users)
   }
 
-  async logout() {
+  async logout(req, res, next) {
+    console.log('Logging out from server')
     req.logout()
   }
 
