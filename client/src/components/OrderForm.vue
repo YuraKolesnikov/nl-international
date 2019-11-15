@@ -4,47 +4,40 @@
       <h3>{{$t(mode === 'create' ? 'createOrder' : 'editOrder')}}</h3>
     </div>
     <div class="card-body">
-      <form @submit.prevent="orderMethod">
+      {{ fields }}
+      <form @submit.prevent="submit(fields)">
         <fieldset class="form-group">
           <label for="orderNumber">{{ $t('order.number') }}</label>
           <input
-            id="orderNumber"
             type="text"
-            name="orderNumber"
             class="form-control"
-            v-model="fields.orderNumber"
+            v-model="fields.number"
             required
           />
         </fieldset>
         <fieldset class="form-group">
           <label for="orderDate">{{ $t('order.date') }}</label>
           <input
-            id="orderDate"
             type="date"
-            name="orderDate"
             class="form-control"
-            v-model="fields.orderDate"
+            v-model="fields.date"
             required
           />
         </fieldset>
         <fieldset class="form-group">
           <label for="orderPrice">{{ $t('order.price') }}</label>
           <input
-            id="orderPrice"
-            type="text"
-            name="orderPrice"
+            type="number"
             class="form-control"
-            v-model="fields.orderPrice"
+            v-model="fields.price"
             required
           />
         </fieldset>
         <fieldset class="form-group">
           <label for="orderCity">{{ $t('order.city') }}</label>
           <select
-            name="orderCity"
-            id="orderCity"
             class="form-control"
-            v-model="fields.orderCity"
+            v-model="fields.city"
             required
           >
             <option value disabled selected>{{ $t('order.city') }}</option>
@@ -52,13 +45,11 @@
             <option value="Санкт-Петербург">Санкт-Петербург</option>
           </select>
         </fieldset>
-        <fieldset class="form-group" v-if="mode === 'edit'">
+        <fieldset class="form-group" v-if="mode == 'edit'">
           <label for="orderStatus">Статус заказа</label>
           <select
-            name="orderStatus"
-            id="orderStatus"
             class="form-control"
-            v-model="fields.orderStatus"
+            v-model="fields.status"
             required
           >
             <option value="0" default>Не выдан</option>
@@ -73,51 +64,21 @@
 </template>
 <script>
 export default {
-  props: ["mode", "order"],
+  props: {
+    mode: { type: String, default: '' },
+    order: { type: Object, default: () => {} },
+    submit: { type: Function, default: () => null }
+  },
   data() {
     return {
       fields: {
-        orderNumber: "",
-        orderDate: "",
-        orderPrice: "",
-        orderCity: "",
-        orderStatus: ""
+        number: "",
+        date: "",
+        price: 0,
+        city: "",
+        status: "0"
       }
     };
-  },
-  created() {
-    if (this.order == undefined) return;
-    else if (this.order !== undefined) {
-      [...Object.keys(this.fields)].forEach(key => {
-        this.fields[key] = this.order[key];
-      });
-    }
-  },
-  methods: {
-    orderMethod() {
-      this.mode === "create" ? this.createOrder() : this.editOrder();
-    },
-    createOrder() {
-      console.log("OrderForm: Request passing to Vuex", this.fields);
-      this.$store.dispatch("createOrder", {
-        ...this.fields,
-        managerID: "a",
-        fullName: "Jurijs Kolesnikovs"
-      });
-      this.$router.push({ path: '/my-orders' })
-    },
-    editOrder() {
-      let payload = {
-        ...this.fields,
-        /* TODO: Replace with token */
-        managerID: "a",
-        fullName: "Jurijs Kolesnikovs"
-      }
-      let id = "123"; /* Mongoose id, temp solution, need to rebuild backend */
-      console.log("Editing order...", { ...this.fields });
-      this.$store.dispatch("editOrder", {id, payload});
-      this.$router.push({ path: '/my-orders' })
-    }
   }
 };
 </script>

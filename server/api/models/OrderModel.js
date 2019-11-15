@@ -24,7 +24,7 @@ class OrderModel {
   
   async addOrder({ city, price, number, managerID, date }) {
     const user = await User.findOne({ managerID })
-    console.log(user)
+
     const newOrder = new Order({
       city,
       price,
@@ -41,8 +41,7 @@ class OrderModel {
       { safe: true, upsert: true}
       )
 
-    await newOrder.save()
-    return true
+    return await newOrder.save()
   }
 
   async editOrder(_id, payload) {
