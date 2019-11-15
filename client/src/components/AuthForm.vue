@@ -92,4 +92,5 @@ export default {
     background-color: #e5f2ff;
   }
 }
+
 </style>

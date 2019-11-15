@@ -5,7 +5,7 @@ const User = require('../api/schemas/UserSchema')
 
 module.exports = function (passport) {
   passport.use(new LocalStrategy({ usernameField: 'managerID' }, (managerID, password, done) => {
-    User.findOne({managerID})
+    User.findOne({ managerID })
     .then(user => {
       if (!user) {
         return done(null, false, { message: 'No User Found' });

@@ -34,13 +34,17 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['REGISTER', 'SIGN_IN', 'SIGN_OUT']),
-    ...mapMutations('auth', ['LOG_IN', 'LOG_OUT']),
-    async authenticate({ formData }) {
-      const response = await this.REGISTER(formData)
-      console.log(response)
-      if(response.status === 201) {
-        this.alert(response.data)
+    ...mapActions('auth', ['REGISTER', 'LOGIN']),
+    async authenticate({ formData, mode }) {
+      if (mode === 'register') {
+        const response = await this.REGISTER(formData)
+        console.log(response)
+        if(response.status === 201) {
+          this.alert(response.data)
+        }
+      } else {
+        const response = await this.LOGIN(formData)
+        console.log(response)
       }
     }
   }

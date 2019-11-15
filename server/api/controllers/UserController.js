@@ -18,9 +18,12 @@ class UserController {
   }
 
   async login(req, res, next) {
-    passport.authenticate('local', {
-      successRedirect: '/',
-      failureRedirect: '/users/login',
+    passport.authenticate('local', (err, user, info) => {
+      if (!user) { return res.status(404).json({ msg: 'User not found!' }) }
+      req.logIn(user, err => {
+        if (err) { return res.status(403).json({ msg: 'Not authorized' }) }
+        return res.status(201).json({ msg: 'Authorized' })
+      })
     })(req, res, next)
   }
 
