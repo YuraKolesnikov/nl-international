@@ -25,5 +25,13 @@ export default {
     } catch (error) {
       
     }
+  },
+  async deleteOrder({ number, managerID }) {
+    try {
+      const response = await axios.delete(`/orders/?number=${number}&managerID=${managerID}`)
+      console.log(response)
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

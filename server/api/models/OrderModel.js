@@ -50,15 +50,20 @@ class OrderModel {
     return await Order.findOneAndUpdate(number, { $set: { ...payload } }, { new: false })
   }
 
-  async deleteOrder({ managerID, orderID }) {
-    await User.findOneAndUpdate(
-      managerID,
-      { $pull: { orders: orderID } },
-      { safe: true, upsert: true }
-      )
-
-    const user = await User.findOne({ managerID })
-    await Order.findByIdAndRemove(orderID)
+  async deleteOrder({ number, managerID }) {
+    try {
+      const order = await Order.findOne({ number })
+      console.log(order)
+      await User.findOneAndUpdate(
+        { managerID },
+        { $pull: { orders: order._id } },
+        { safe: true, upsert: true }
+      ) 
+      await Order.findOneAndRemove({ number })
+    } catch (error) {
+      console.log(error)
+    }
+    /*  */
   }
 }
 

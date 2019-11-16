@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="row">
-      <Table :mode="mode" :tableData="orders"/>
+      <Table :mode="mode" :tableData="orders" @deleteOrder="deleteOrder" />
     </div>
   </div>
 </template>
@@ -51,7 +51,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions('orders', ['GET_ORDERS']),
+    ...mapActions('orders', ['GET_ORDERS', 'DELETE_ORDER']),
+    async deleteOrder(number) {
+      console.log(number)
+      await this.DELETE_ORDER({ number, managerID: this.managerID })
+      await this.GET_ORDERS(this.managerID)
+    }
   },
   async created() {
     this.GET_ORDERS(this.managerID)

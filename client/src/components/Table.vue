@@ -34,7 +34,7 @@
 <script>
 import tableFields from '@/utils/tableFields'
 export default {
-  props: ['mode', 'tableData'],
+  props: ['mode', 'tableData', 'delete'],
   computed: {
     tableHeaders() {
       return tableFields.headers[this.$props.mode]
@@ -52,11 +52,7 @@ export default {
       /* TODO: Get orderNumber and dispatch an action */
     },
     deleteItem(item) {
-      if (this.mode == 'orders') {
-        return this.$store.dispatch('deleteOrder', item._id)
-      }
-      console.log('Deleting user...', item)
-      /* TODO: Get orderNumber and dispatch an action */
+      this.mode == 'orders' ? this.$emit('deleteOrder', item.number) : this.$emit('deleteUser', item.managerID)
     }
   }
 }

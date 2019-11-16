@@ -18,10 +18,10 @@ class OrderRouter {
     this.router.route('/')
     .get(/* ensureAuthenticated, */ this.orderController.getOrders.bind(this.orderController))
     .post(/* ensureAuthenticated, */ this.orderController.addOrder.bind(this.orderController))
+    .delete(/* ensureAuthenticated, */ this.orderController.deleteOrder.bind(this.orderController))
 
     this.router.route('/:number')
     .put(/* ensureAuthenticated, */ this.orderController.editOrder.bind(this.orderController))
-    .delete(/* ensureAuthenticated, */ this.orderController.deleteOrder.bind(this.orderController))
   }
 }
 

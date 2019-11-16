@@ -35,12 +35,9 @@ class OrderController {
   }
 
   async deleteOrder(req, res, next) {
-    const { id } = req.params
-    /* Not mongoose one, 371-20582968 */
-    const { managerID } = req.body
-
+    const { number, managerID } = req.query
     try {
-      await this.orderModel.deleteOrder({ managerID, orderID: id })
+      await this.orderModel.deleteOrder({ number, managerID })
       res.status(202).send('Order deleted!')
     } catch (error) {
       res.status(404).send('Order not found!')
