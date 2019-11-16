@@ -12,7 +12,15 @@
       <tbody>
         <tr v-for="(item, index) in tableData" :key="index" class="text-left">
           <td scope="row"><b>{{index + 1}}</b></td>
-          <td v-for="(field, index) in tableKeys" :key="index">{{item[field]}}</td>
+          <td v-for="(field, index) in tableKeys" :key="index">
+            <template
+              v-if="field == 'status'">
+              {{ item[field] | parseOrderStatus }}
+            </template>
+            <template v-else>
+              {{item[field]}}
+            </template>
+          </td>
           <td>
             <button 
               class="btn btn-info mr-1"
@@ -53,6 +61,23 @@ export default {
     },
     deleteItem(item) {
       this.mode == 'orders' ? this.$emit('deleteOrder', item.number) : this.$emit('deleteUser', item.managerID)
+    }
+  },
+  filters: {
+    parseOrderStatus(status) {
+      let result
+      switch (status) {
+        case 0:
+          result = 'Не выдан'
+          break
+        case 1:
+          result = 'Частично выдан'
+          break
+        case 2:
+          result = 'Выдан'
+          break
+      }
+      return result
     }
   }
 }
