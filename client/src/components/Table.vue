@@ -46,7 +46,7 @@ export default {
   methods: {
     redirectToEditItem(item) {
       if (this.mode == 'orders') {
-        return  this.$router.push({ path: `/orders/edit/${item.orderNumber}` })
+        return  this.$router.push({ path: `/orders/edit/${item.number}` })
       }
       this.$router.push({ path: `/users/edit/${item.managerID}` })
       /* TODO: Get orderNumber and dispatch an action */

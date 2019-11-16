@@ -5,6 +5,6 @@ export default {
   },
   keys: {
     users: ['fullName', 'managerID'],
-    orders: ['orderNumber', 'orderDate', 'orderPrice', 'orderCity']
+    orders: ['number', 'date', 'price', 'city']
   }
 }

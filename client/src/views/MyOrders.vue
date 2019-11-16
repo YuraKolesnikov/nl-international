@@ -2,6 +2,7 @@
   <div class="container">
     <h1>{{ $t('showOrders') }}</h1>
     <div class="row">
+      {{ filteredTableDateOrders }}
       <div class="col-sm-12 col-md-10 offset-md-1">
         <form class="form-group">
           <label for="filterDate">Найти заказ</label>
@@ -19,7 +20,7 @@
       </div>
     </div>
     <div class="row">
-      <Table :mode="mode" :tableData="tableData"/>
+      <Table :mode="mode" :tableData="orders"/>
     </div>
   </div>
 </template>
@@ -39,15 +40,15 @@ export default {
   },
   computed: {
     ...mapState('auth', ['managerID']),
+    ...mapState('orders', ['orders']),
     filterDateDecoded() {
       return decode(this.filterDate)
-    }/* ,
+    },
     filteredTableDateOrders() {
       return this.orders
-      .filter(o => o.managerID == 'a')
-      .filter(order => order.orderNumber.match(this.filterNumber))
-      .filter(order => order.orderDate >= this.filterDateDecoded ? true : false)
-    } */
+      /* .filter(order => order.number.match(this.filterNumber))
+      .filter(order => order.date >= this.filterDateDecoded ? true : false) */
+    }
   },
   methods: {
     ...mapActions('orders', ['GET_ORDERS']),

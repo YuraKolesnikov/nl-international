@@ -15,7 +15,7 @@ class OrderModel {
 
     let orders
     if (user.role === 1) {
-      orders = await Order.find({})
+      orders = await Order.find({}).select('city managerID number price status _id')
     } else {
       orders = await Order.find({ managerID: user._id })
     }
@@ -44,10 +44,10 @@ class OrderModel {
     return await newOrder.save()
   }
 
-  async editOrder(_id, payload) {
-    console.log(`Updating this order: ${_id}`)
+  async editOrder(number, payload) {
+    console.log(`Updating this order: ${number}`)
     console.log('PAYLOAD', payload)
-    return await Order.findOneAndUpdate(_id, { $set: { ...payload } }, { new: false })
+    return await Order.findOneAndUpdate(number, { $set: { ...payload } }, { new: false })
   }
 
   async deleteOrder({ managerID, orderID }) {

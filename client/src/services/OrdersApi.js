@@ -4,7 +4,7 @@ export default {
   async getOrders(managerID) {
     try {
       const response = await axios.get(`/orders?managerID=${managerID}`)
-      console.log(response)
+      return response
     } catch (error) {
       console.error(error)
     }
@@ -16,6 +16,14 @@ export default {
       return response
     } catch (error) {
       console.error(error)
+    }
+  },
+  async editOrder(payload) {
+    try {
+      const response = await axios.put(`/orders/${payload.number}`, payload)
+      console.log(response)
+    } catch (error) {
+      
     }
   }
 }

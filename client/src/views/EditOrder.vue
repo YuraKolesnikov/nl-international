@@ -4,7 +4,10 @@
       <div class="row">
         <div class="col-md-6 col-sm-12 offset-md-3">
           <OrderForm 
-            :mode="'edit'" :order="order" />
+            :mode="'edit'" 
+            :order="order" 
+            :submit="EDIT_ORDER"
+          />
         </div>
       </div>
     </div>
@@ -12,6 +15,7 @@
 </template>
 <script>
 import OrderForm from '@/components/OrderForm'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     OrderForm
@@ -19,14 +23,17 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      order: {
-        orderNumber: '20582968',
-        orderCity: 'Псков',
-        orderDate: '2019-08-15',
-        orderPrice: '1680',
-        orderStatus: '1'
-      }
+      order: {}
     }
+  },
+  computed: {
+    ...mapGetters('orders', ['GET_ORDER'])
+  },
+  methods: {
+    ...mapActions('orders', ['EDIT_ORDER'])
+  },
+  created() {
+    this.order = { ...this.GET_ORDER(this.id) }
   }
 }
 </script>

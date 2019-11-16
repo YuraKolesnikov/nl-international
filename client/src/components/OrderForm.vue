@@ -4,7 +4,6 @@
       <h3>{{$t(mode === 'create' ? 'createOrder' : 'editOrder')}}</h3>
     </div>
     <div class="card-body">
-      {{ fields }}
       <form @submit.prevent="submit(fields)">
         <fieldset class="form-group">
           <label for="orderNumber">{{ $t('order.number') }}</label>
@@ -79,6 +78,9 @@ export default {
         status: "0"
       }
     };
+  },
+  created() {
+    this.fields = { ...this.order }
   }
 };
 </script>

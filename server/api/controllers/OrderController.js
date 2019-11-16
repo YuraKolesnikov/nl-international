@@ -12,10 +12,10 @@ class OrderController {
   }
 
   async addOrder(req, res, next) {
-    const { city, price, number, managerID } = req.body
-    console.log(req.body)
+    const { city, price, number, managerID, date } = req.body
+    
     try {
-      const response = await this.orderModel.addOrder({ city, price, number, managerID })
+      const response = await this.orderModel.addOrder({ city, price, number, managerID, date })
       res.status(201).send(response)
     } catch (error) {
       return error
@@ -23,14 +23,12 @@ class OrderController {
   }
 
   async editOrder(req, res, next) {
-	  /* Order id */
-	  const { id } = req.params
-
+    const { number } = req.params
     const payload = req.body
 
     try {
-      const response = await this.orderModel.editOrder(id, payload)
-      res.status(202).send(response)
+      const response = await this.orderModel.editOrder(number, payload)
+      res.status(202).send({ msg: 'Order updated successfully' })
     } catch (error) {
       res.status(400).send(error)
     }
