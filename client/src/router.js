@@ -11,49 +11,45 @@ export default new Router({
       name: 'home',
       component: Home
     },
-    /* Login/Signup window */
     {
       path: '/users/auth',
       name: 'auth',
-      component: () => import('./views/Authentication.vue')
+      component: () => import(/* webpackChunkName: 'auth' */'./views/Authentication.vue')
     },
     {
       path: '/orders',
       name: 'orders',
-      component: () => import('./views/Orders.vue')
+      component: () => import(/* webpackChunkName: 'orders' */'./views/Orders.vue')
     },
     {
       path: '/my-orders',
       name: 'my-orders',
-      component: () => import('./views/MyOrders.vue')
+      component: () => import(/* webpackChunkName: 'my-orders' */'./views/MyOrders.vue')
     },
     {
       path: '/orders-printable',
       name: 'orders-printable',
-      component: () => import('./views/OrdersPrintable.vue')
+      component: () => import(/* webpackChunkName: 'orders-printable' */'./views/OrdersPrintable.vue')
     },
-    /* POST AXIOS request */
     {
       path: '/orders/add',
       name: 'addOrder',
-      component: () => import('./views/AddOrder.vue')
+      component: () => import(/* webpackChunkName: 'add-order' */'./views/AddOrder.vue')
     },
-    /* POST AXIOS request */
     {
       path: '/orders/edit/:id',
       name: 'editOrder',
-      component: () => import('./views/EditOrder.vue')
+      component: () => import(/* webpackChunkName: 'edit-order' */'./views/EditOrder.vue')
     },
     {
       path: '/users',
       name: 'users',
-      component: () => import('./views/Users.vue')
+      component: () => import(/* webpackChunkName: 'users' */'./views/Users.vue')
     },
-    /* POST AXIOS request */
     {
       path: '/users/edit/:id',
       name: 'editUser',
-      component: () => import('./views/EditUser.vue')
+      component: () => import(/* webpackChunkName: 'edit-order' */'./views/EditUser.vue')
     }
   ]
 })
