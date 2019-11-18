@@ -56,3 +56,16 @@ export default {
   } */
 }
 </script>
+<style lang="scss" scoped>
+.form-group {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+
+  & label { margin: 0; }
+  & input { flex-basis: 40%; }
+}
+</style>

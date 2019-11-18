@@ -59,12 +59,10 @@ export default {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
+  align-items: center;
   text-align: left;
-  & label {
-    flex-basis: 10%;
-  }
-  & input {
-    flex-basis: 40%;
-  }
+
+  & label { margin: 0; }
+  & input { flex-basis: 40%; }
 }
 </style>
