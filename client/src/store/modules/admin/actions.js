@@ -5,5 +5,9 @@ export default {
     const response = await AdminApi.getManagers()
     const { data: managers } = response
     commit('RECORD_MANAGERS', managers)
+  },
+  GET_ORDERS_PRINTABLE: async ({ commit }, dateFrom) => {
+    const response = await AdminApi.getOrdersPrintable(dateFrom)
+    commit('RECORD_PRINTABLE', response.data)
   }
 }

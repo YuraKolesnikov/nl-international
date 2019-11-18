@@ -13,6 +13,17 @@ class AdminController {
       res.status(400).send(error)
     }
   }
+
+  async getOrdersPrintable(req, res, next) {
+    const { dateFrom } = req.query
+    console.log(dateFrom)
+    try {
+      const response = await adminModel.getOrdersPrintable(dateFrom)
+      res.status(200).send(response)
+    } catch(e) {
+      res.status(400).send(e)
+    }
+  }
   
   async updateManager(req, res, next) {
     const { managerID, fullName } = req.body

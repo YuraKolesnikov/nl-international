@@ -38,7 +38,7 @@ export default {
     console.log(this.tableData)
   },
   computed: {
-    ...mapState('admin', ['managers']),
+    ...mapState('admin', ['managers', 'data']),
     filteredManagers() {
       return this.managers
       .filter(manager => manager.managerID.match(this.filterID))

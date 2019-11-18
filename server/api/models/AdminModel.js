@@ -15,6 +15,27 @@ class AdminModel {
     return users
   }
 
+  async getOrdersPrintable(dateFrom) {
+    let response
+    if (!dateFrom) {
+      response = await User
+      .find({})
+      .populate('orders')
+      .select('managerID fullName')
+    } else {
+      response = await User
+      .find({})
+      .populate('orders')
+      .select('managerID fullName')
+
+      response.forEach(manager => {
+        manager.orders = manager.orders.filter(order => order.date >= dateFrom || order.status == 0)
+      })
+    }
+    console.log(response)
+    return response
+  }
+
   async updateManager({ managerID, fullName }) {
     return await User.findById(id)
   }

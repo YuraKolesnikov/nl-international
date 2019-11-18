@@ -25,15 +25,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr scope="row" v-for="(manager, index) in filteredTableDateOrders" :key="index" class="text-left">
+            <tr scope="row" v-for="(manager, index) in data" :key="index" class="text-left">
               <td><b>{{index + 1}}</b></td>
               <td>{{manager.managerID}}</td>
               <td>{{manager.fullName}}</td>
               <td>
-                <p 
+                <p
                   v-for="order in manager.orders" 
-                  :key="order.orderNumber">
-                  {{order.orderNumber}} ({{order.orderDate}})
+                  :key="order.number">
+                  {{order.number}} ({{order.date}})
                 </p>
               </td>
             </tr>
@@ -46,6 +46,7 @@
 <script>
 import Table from '@/components/Table'
 import { decode } from '@/utils/dateEncoder'
+import { mapActions, mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -54,9 +55,11 @@ export default {
     }
   },
   methods: {
-    filterOrders() {
+    async filterOrders() {
       console.log('Filtering orders...')
-    }
+      await this.GET_ORDERS_PRINTABLE(this.filterDate)
+    },
+    ...mapActions('admin', ['GET_ORDERS_PRINTABLE'])
   },
   filters: {
     filterDateDecoded() {
@@ -64,8 +67,9 @@ export default {
     }
   },
   computed: {
+    ...mapState('admin', ['data']),
     filteredTableDateOrders() {
-      return this.tableDataOrders
+      return this.data
       .map(manager => {
         const { managerID, fullName, orders } = manager
         return {
@@ -76,6 +80,9 @@ export default {
       })
       .filter(manager => manager.orders.length > 0)
     }
+  },
+  async created() {
+    await this.GET_ORDERS_PRINTABLE()
   }/* ,
   async mounted() {
     this.tableDataOrders = await OrderService.showOrdersPrintable()
