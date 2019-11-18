@@ -7,9 +7,10 @@ class AdminController {
 
   async getManagers(req, res, next) {
     try {
-      return await adminModel.getManagers()
+      const response = await adminModel.getManagers()
+      res.status(200).send(response)
     } catch (error) {
-      return error
+      res.status(400).send(error)
     }
   }
   

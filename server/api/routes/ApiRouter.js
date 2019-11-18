@@ -1,5 +1,6 @@
 const express = require('express')
 
+const { adminRouter } = require('./AdminRouter')
 const { userRouter } = require('./UserRouter')
 const { orderRouter } = require('./OrderRouter')
 
@@ -25,6 +26,7 @@ class ApiRouter {
 	}
 }
 const routes = [
+  { url: '/admin', router: adminRouter },
 	{ url: '/orders', router: orderRouter },
 	{ url: '/users', router: userRouter }
 ]

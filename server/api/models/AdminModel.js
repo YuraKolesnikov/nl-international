@@ -6,9 +6,13 @@ class AdminModel {
   constructor(mongoConnectionService) {
     this.mongoConnectionService = mongoConnectionService
   }
-  
+
   async getManagers() {
-    return await User.find({})
+    const users = await User
+    .find({})
+    .populate('orders')
+    .select('_id managerID fullName password role')
+    return users
   }
 
   async updateManager({ managerID, fullName }) {

@@ -22,6 +22,7 @@
   </div>
 </template>
 <script>
+  import { mapActions, mapState } from 'vuex'
 import Table from '@/components/Table'
 export default {
   components: { Table },
@@ -37,16 +38,19 @@ export default {
     console.log(this.tableData)
   },
   computed: {
+    ...mapState('admin', ['managers']),
     filteredManagers() {
-      return this.tableData
+      return this.managers
       .filter(manager => manager.managerID.match(this.filterID))
       .filter(manager => manager.fullName.match(this.filterName))
     }
-  }/* ,
+  },
+  methods: {
+    ...mapActions('admin', ['GET_MANAGERS'])
+  },
   async created() {
-    this.tableData = await UserService.showManagers()
-    console.log(this.tableData)
-  } */
+    await this.GET_MANAGERS()
+  }
 }
 </script>
 .<style lang="scss" scoped>
