@@ -37,7 +37,12 @@ class AdminModel {
   }
 
   async updateManager({ managerID, fullName }) {
-    return await User.findById(id)
+    console.log({ managerID, fullName })
+    await User.findOneAndUpdate(
+      { managerID },
+      { $set: { ...{ managerID, fullName } } },
+      { new: false }
+    )
   }
 
   async deleteManager(managerID) {

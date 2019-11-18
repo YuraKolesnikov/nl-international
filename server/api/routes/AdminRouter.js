@@ -18,13 +18,11 @@ class AdminRouter {
   setupRouter() {
     this.router.route('/managers')
     .get(/* ensureAuthenticated, */this.adminController.getManagers.bind(this.adminController))
+    .put(/* ensureAuthenticated, */this.adminController.updateManager.bind(this.adminController))
+    .delete(/* ensureAuthenticated, */this.adminController.deleteManager.bind(this.adminController))
 
     this.router.route('/orders-printable')
     .get(this.adminController.getOrdersPrintable.bind(this.adminController))
-
-    this.router.route('/managers/:id')
-    .put(/* ensureAuthenticated, */this.adminController.updateManager.bind(this.adminController))
-    .delete(/* ensureAuthenticated, */this.adminController.deleteManager.bind(this.adminController))
   }
 }
 

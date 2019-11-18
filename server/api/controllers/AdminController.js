@@ -27,11 +27,11 @@ class AdminController {
   
   async updateManager(req, res, next) {
     const { managerID, fullName } = req.body
-
     try {
-      return await adminModel.updateManager({ managerID, fullName })
+      const response = await adminModel.updateManager({ managerID, fullName })
+      res.status(200).send(response)
     } catch (error) {
-      return error
+      res.status(400).send(error)
     }
   }
 

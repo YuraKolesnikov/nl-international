@@ -9,5 +9,8 @@ export default {
   GET_ORDERS_PRINTABLE: async ({ commit }, dateFrom) => {
     const response = await AdminApi.getOrdersPrintable(dateFrom)
     commit('RECORD_PRINTABLE', response.data)
+  },
+  UPDATE_MANAGER: async ({ commit }, payload) => {
+    const response = await AdminApi.updateManager(payload)
   }
 }

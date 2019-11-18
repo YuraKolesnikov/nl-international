@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
       <!-- TODO: Port to axios -->
-      <form method="POST" @submit.prevent="updateUser">
+      <form method="POST" @submit.prevent="updateManager({...fields})">
         <fieldset class="form-group">
           <label for="fullName">Full name</label>
           <input 
@@ -13,7 +13,7 @@
             type="text" 
             name="fullName" 
             class="form-control"
-            v-model="fullName">
+            v-model="fields.fullName">
         </fieldset>
         <fieldset class="form-group">
           <label for="managerID">Manager ID</label>
@@ -22,7 +22,7 @@
             type="text" 
             name="managerID" 
             class="form-control"
-            v-model="managerID">
+            v-model="fields.managerID">
         </fieldset>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -30,18 +30,21 @@
   </div>
 </template>
 <script>
-export default {
-  props: ['user'],
-  data() {
-    return {
-      fullName: 'Jurijs Kolesnikovs',
-      managerID: '371-20582968'
-    }
-  },
-  methods: {
-    updateUser() {
-      /* TODO: Dispath Vuex method */
+  export default {
+    props: {
+      user: { type: Object, default: () => {} },
+      updateManager: { type: Function, default: () => null }
+    },
+    data() {
+      return {
+        fields: {
+          fullName: '',
+          managerID: ''
+        }
+      }
+    },
+    created() {
+      this.fields = { ...this.user }
     }
   }
-}
 </script>
