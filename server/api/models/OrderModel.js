@@ -1,5 +1,4 @@
 const mongoose = require('mongoose'),
-      encrypt = require('../../utils/encrypt'),
       Order = require('../schemas/OrderSchema'),
       User = require('../schemas/UserSchema')
 
@@ -15,7 +14,7 @@ class OrderModel {
 
     let orders
     if (user.role === 1) {
-      orders = await Order.find({}).select('city managerID number price status _id')
+      orders = await Order.find({}).select('city managerID number price status _id date')
     } else {
       orders = await Order.find({ managerID: user._id })
     }

@@ -2,12 +2,11 @@
   <div class="container">
     <h1>{{ $t('showOrders') }}</h1>
     <div class="row">
-      {{ filteredTableDateOrders }}
       <div class="col-sm-12 col-md-10 offset-md-1">
         <form class="form-group">
           <label for="filterDate">Найти заказ</label>
           <input 
-            type="text" 
+            type="date"
             class="form-control" 
             placeholder="По дате"
             v-model="filterDate">
@@ -20,7 +19,7 @@
       </div>
     </div>
     <div class="row">
-      <Table :mode="mode" :tableData="orders" @deleteOrder="deleteOrder" />
+      <Table :mode="mode" :tableData="filteredTableDateOrders" @deleteOrder="deleteOrder" />
     </div>
   </div>
 </template>
@@ -46,8 +45,8 @@ export default {
     },
     filteredTableDateOrders() {
       return this.orders
-      /* .filter(order => order.number.match(this.filterNumber))
-      .filter(order => order.date >= this.filterDateDecoded ? true : false) */
+      .filter(order => order.number.match(this.filterNumber))
+      .filter(order => order.date >= this.filterDate ? true : false)
     }
   },
   methods: {

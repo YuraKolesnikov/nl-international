@@ -6,7 +6,7 @@
           <OrderForm 
             :mode="'edit'" 
             :order="order" 
-            :submit="EDIT_ORDER"
+            :submit="editOrder"
           />
         </div>
       </div>
@@ -30,7 +30,11 @@ export default {
     ...mapGetters('orders', ['GET_ORDER'])
   },
   methods: {
-    ...mapActions('orders', ['EDIT_ORDER'])
+    ...mapActions('orders', ['EDIT_ORDER']),
+    async editOrder(payload) {
+      await this.EDIT_ORDER(payload)
+      this.$router.replace({ path: '/my-orders' })
+    }
   },
   created() {
     this.order = { ...this.GET_ORDER(this.id) }
