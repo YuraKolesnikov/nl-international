@@ -31,7 +31,7 @@ class AdminModel {
     if (!dateFrom) {
       response = await User
       .find({})
-      .populate('orders')
+      .populate('orders', 'city date number status price')
       .select('managerID fullName')
     } else {
       response = await User
