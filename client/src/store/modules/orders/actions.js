@@ -19,7 +19,6 @@ export default {
     const response = await OrdersApi.editOrder(payload)
   },
   DELETE_ORDER: async ({ commit }, payload) => {
-    console.log(payload)
     const response = await OrdersApi.deleteOrder(payload)
   }
 }

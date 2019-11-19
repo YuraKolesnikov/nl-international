@@ -56,7 +56,6 @@ export default {
   },
   methods: {
     async filterOrders() {
-      console.log('Filtering orders...')
       await this.GET_ORDERS_PRINTABLE(this.filterDate)
     },
     ...mapActions('admin', ['GET_ORDERS_PRINTABLE'])

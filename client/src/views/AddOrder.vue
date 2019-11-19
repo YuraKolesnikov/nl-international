@@ -26,7 +26,6 @@ export default {
     async addOrder(payload) {
       payload.managerID = this.managerID
       payload.price = parseInt(payload.price)
-      console.log(payload)
       await this.ADD_ORDER(payload)
       this.$router.replace({ path: '/my-orders' })
     }

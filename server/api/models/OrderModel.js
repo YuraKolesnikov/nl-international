@@ -44,15 +44,12 @@ class OrderModel {
   }
 
   async editOrder(number, payload) {
-    console.log(`Updating this order: ${number}`)
-    console.log('PAYLOAD', payload)
     return await Order.findOneAndUpdate(number, { $set: { ...payload } }, { new: false })
   }
 
   async deleteOrder({ number, managerID }) {
     try {
       const order = await Order.findOne({ number })
-      console.log(order)
       await User.findOneAndUpdate(
         { managerID },
         { $pull: { orders: order._id } },

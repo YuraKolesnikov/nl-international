@@ -2,7 +2,6 @@ import axios from './axios'
 
 export default {
   async login(payload) {
-    console.log(payload)
     try {
       const response = await axios.post('/users/login', payload)
       return response
@@ -21,7 +20,6 @@ export default {
   async logout() {
     try {
       const response = await axios.get('/users/logout')
-      console.log(response)
       return response
     } catch (e) {
       console.error(e)

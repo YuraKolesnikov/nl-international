@@ -43,7 +43,6 @@ export default {
         }
       } else {
         const response = await this.LOGIN(formData)
-        console.log('Logging in', response)
         if (response.status === 201) {
           this.$router.replace({ path: '/my-orders' })
           this.LOG_IN()

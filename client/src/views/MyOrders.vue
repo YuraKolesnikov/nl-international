@@ -52,7 +52,6 @@ export default {
   methods: {
     ...mapActions('orders', ['GET_ORDERS', 'DELETE_ORDER']),
     async deleteOrder(number) {
-      console.log(number)
       await this.DELETE_ORDER({ number, managerID: this.managerID })
       await this.GET_ORDERS(this.managerID)
     }

@@ -14,7 +14,6 @@ class UserController {
   }
 
   async logout(req, res, next) {
-    console.log('Logging out from server')
     req.logout()
     res.status(200).json({ msg: 'Logged out' })
   }
