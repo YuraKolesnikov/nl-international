@@ -49,11 +49,7 @@ export default {
       return this.tableDataOrders
       .filter(order => order.orderDate >= this.filterDateDecoded ? true : false)
     }
-  }/* ,
-  async mounted() {
-    const response = await OrderService.showOrders()
-    this.tableDataOrders = response.orders
-  } */
+  }
 }
 </script>
 <style lang="scss" scoped>
