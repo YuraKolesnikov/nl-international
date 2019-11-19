@@ -16,7 +16,6 @@ class AdminController {
 
   async getOrdersPrintable(req, res, next) {
     const { dateFrom } = req.query
-    console.log(dateFrom)
     try {
       const response = await adminModel.getOrdersPrintable(dateFrom)
       res.status(200).send(response)

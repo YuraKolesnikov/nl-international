@@ -28,11 +28,12 @@ class AdminModel {
       .populate('orders')
       .select('managerID fullName')
 
-      response.forEach(manager => {
+      response
+      .forEach(manager => {
         manager.orders = manager.orders.filter(order => order.date >= dateFrom || order.status == 0)
       })
     }
-    console.log(response)
+    response = response.filter(manager => manager.orders.length > 0)
     return response
   }
 

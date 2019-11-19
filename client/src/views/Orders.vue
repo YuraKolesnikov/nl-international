@@ -2,14 +2,18 @@
   <div class="container">
     <h1>{{ $t('allOrders') }}</h1>
     <div class="row">
-      <div class="col-sm-12 col-md-3 offset-md-1 text-left">
+      <div class="col-sm-12 col-md-10 offset-md-1">
         <form class="form-group">
-          <label for="filterDate">Показать заказы начиная с ...</label>
-          <input 
-            type="date" 
-            class="form-control" 
-            v-model="filterDate"
-            @change="filterOrders">
+          <label for="filterDate">Найти заказы</label>
+          <input
+            type="date"
+            class="form-control"
+            v-model="filterDate">
+          <input
+            type="text"
+            class="form-control"
+            v-model="filterNumber"
+            placeholder="По номеру">
         </form>
       </div>
     </div>
@@ -21,19 +25,16 @@
 <script>
 import Table from '@/components/Table'
 import { decode } from '@/utils/dateEncoder'
+import { mapState, mapActions } from 'vuex'
 export default {
   components: {
     Table
   },
   data() {
     return {
-      mode: 'orders',
       filterDate: '',
-      tableDataOrders: [
-        { id: 123, orderNumber: '15003969', orderDate: '2019.06.15', orderPrice: '3500', orderCity: 'Псков' },
-        { id: 123, orderNumber: '15023859', orderDate: '2019.06.15', orderPrice: '3500', orderCity: 'Псков' },
-        { id: 123, orderNumber: '15002492', orderDate: '2019.05.15', orderPrice: '3500', orderCity: 'Псков' }
-      ]
+      filterNumber: '',
+      mode: 'orders'
     }
   },
   methods: {
@@ -42,12 +43,15 @@ export default {
     }
   },
   computed: {
+    ...mapState('auth', ['managerID']),
+    ...mapState('orders', ['orders']),
     filterDateDecoded() {
       return decode(this.filterDate)
     },
     filteredTableDateOrders() {
-      return this.tableDataOrders
-      .filter(order => order.orderDate >= this.filterDateDecoded ? true : false)
+      return this.orders
+      .filter(order => order.number.match(this.filterNumber))
+      .filter(order => order.date >= this.filterDate ? true : false)
     }
   }
 }
