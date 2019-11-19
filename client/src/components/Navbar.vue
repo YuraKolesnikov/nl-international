@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     changeLocale({ target }) {
-      console.log(target.id)
+      this.$i18n.locale = target.id
     }
   },
   computed: {

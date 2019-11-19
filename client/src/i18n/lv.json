@@ -4,6 +4,8 @@
 	"showOrders": "Mani pasūtījumi",
 	"createOrder": "Pievenot pasūtījumu",
 	"editOrder": "Izmainīt pasūtījumu",
+	"findOrder": "Atrast pasūtījumu",
+	"findByNumber": "Pec numura",
 	"register": "Reģistrēties",
 	"logIn": "Ieiet",
 	"logOut": "Iziet",

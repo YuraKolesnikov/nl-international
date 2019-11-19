@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-sm-12 col-md-10 offset-md-1">
         <form class="form-group">
-          <label for="filterDate">Найти заказ</label>
+          <label for="filterDate">{{ $t('findOrder') }}</label>
           <input 
             type="date"
             class="form-control" 
@@ -14,7 +14,7 @@
             type="text" 
             class="form-control" 
             v-model="filterNumber"
-            placeholder="По номеру">
+            :placeholder="`${$t('findByNumber')}`">
         </form>
       </div>
     </div>
