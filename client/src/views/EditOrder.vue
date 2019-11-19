@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-sm-12 offset-md-3">
-          <OrderForm 
-            :mode="'edit'" 
-            :order="order" 
-            :submit="editOrder"
-          />
-        </div>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 col-sm-12 offset-md-3">
+        <OrderForm 
+          :mode="'edit'" 
+          :order="order" 
+          :submit="editOrder"
+        />
       </div>
     </div>
   </div>

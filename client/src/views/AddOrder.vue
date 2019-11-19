@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-5">
     <div class="row">
       <div class="col-md-6 col-sm-12 offset-md-3">
         <OrderForm 

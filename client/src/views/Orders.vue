@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-5">
     <h1>{{ $t('allOrders') }}</h1>
     <div class="row">
       <div class="col-sm-12 col-md-10 offset-md-1">
