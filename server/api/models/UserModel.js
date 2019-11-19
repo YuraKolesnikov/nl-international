@@ -9,6 +9,13 @@ class UserModel {
     this.mongoConnectionService = mongoConnectionService
   }
 
+  /** 
+  * register
+  *
+  * @param { String } managerID
+  * @param { String } fullName
+  * @param { String } password
+  */
   async register({ managerID, fullName, password }) {
     const newUser = new User({
       _id: mongoose.Types.ObjectId(),

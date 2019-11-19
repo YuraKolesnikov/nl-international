@@ -9,6 +9,11 @@ class OrderModel {
     this.mongoConnectionService = mongoConnectionService
   }
 
+  /** 
+  * getOrders
+  *
+  * @param { String } managerID
+  */
   async getOrders(managerID) {
     const user = await User.findOne({ managerID })
 
@@ -21,6 +26,15 @@ class OrderModel {
     return orders
   }
   
+  /** 
+  * addOrder
+  *
+  * @param { String } city
+  * @param { Number } price
+  * @param { String } number
+  * @param { String } managerID
+  * @param { String } date
+  */
   async addOrder({ city, price, number, managerID, date }) {
     const user = await User.findOne({ managerID })
 
@@ -43,10 +57,22 @@ class OrderModel {
     return await newOrder.save()
   }
 
+  /** 
+  * editOrder
+  *
+  * @param { String } number
+  * @param { Object } payload
+  */
   async editOrder(number, payload) {
-    return await Order.findOneAndUpdate(number, { $set: { ...payload } }, { new: false })
+    await Order.findOneAndUpdate(number, { $set: { ...payload } }, { new: false })
   }
 
+  /** 
+  * deleteOrder
+  *
+  * @param { String } number
+  * @param { String } managerID
+  */
   async deleteOrder({ number, managerID }) {
     try {
       const order = await Order.findOne({ number })
@@ -59,7 +85,6 @@ class OrderModel {
     } catch (error) {
       console.log(error)
     }
-    /*  */
   }
 }
 

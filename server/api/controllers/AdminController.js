@@ -5,6 +5,11 @@ class AdminController {
     this.adminModel = adminModel
   }
 
+  /** 
+  * getManagers
+  *
+  * @response { Array } / [{ fullName: String, managerID: String, role: Number }]
+  */
   async getManagers(req, res, next) {
     try {
       const response = await adminModel.getManagers()
@@ -14,6 +19,19 @@ class AdminController {
     }
   }
 
+  /** 
+  * getOrdersPrintable
+  *
+  * @response { Array } / [
+  *   { 
+  *     fullName: String, 
+  *     managerID: String, 
+  *     orders: [
+  *       { city: String, date: String, managerID: mongoose.Types.ObjectId, number: String, price: Number }
+  *     ] 
+  *   }
+  * ]
+  */
   async getOrdersPrintable(req, res, next) {
     const { dateFrom } = req.query
     try {
@@ -24,6 +42,11 @@ class AdminController {
     }
   }
   
+  /** 
+  * updateManager
+  *
+  * @response
+  */
   async updateManager(req, res, next) {
     const { managerID, fullName } = req.body
     try {
@@ -34,6 +57,11 @@ class AdminController {
     }
   }
 
+  /** 
+  * deleteManager
+  *
+  * @response
+  */
   async deleteManager(req, res, next) {
     const { managerID } = req.body
 

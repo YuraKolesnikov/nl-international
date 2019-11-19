@@ -7,14 +7,25 @@ class AdminModel {
     this.mongoConnectionService = mongoConnectionService
   }
 
+  /** 
+  * getManagers
+  *
+  * @returns { Array } users / array of users for Users view
+  */
   async getManagers() {
     const users = await User
     .find({})
-    .populate('orders')
-    .select('_id managerID fullName password role')
+    .select('managerID fullName role')
     return users
   }
 
+  /** 
+  * getOrdersPrintable
+  *
+  * @param { String } dateFrom
+  *
+  * @returns { Array } / array of users populated with orders trough relations between Users and Orders collections
+  */
   async getOrdersPrintable(dateFrom) {
     let response
     if (!dateFrom) {
@@ -37,6 +48,12 @@ class AdminModel {
     return response
   }
 
+  /** 
+  * updateManager
+  *
+  * @param { String } managerID
+  * @param { String } fullName
+  */
   async updateManager({ managerID, fullName }) {
     await User.findOneAndUpdate(
       { managerID },
@@ -45,8 +62,13 @@ class AdminModel {
     )
   }
 
+  /** 
+  * deleteManager
+  *
+  * @param { String } managerID
+  */
   async deleteManager(managerID) {
-    return await User.findByIdAndRemove(managerID)
+    await User.findByIdAndRemove(managerID)
   }
 }
 
